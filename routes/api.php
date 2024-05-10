@@ -5,12 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\FollowerController;
-use App\Http\Controllers\LikeController;
+use App\Http\Controllers\BibliothequeController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\OuvrageController;
 
 
 /*
@@ -56,11 +53,12 @@ Route::middleware("auth:api")->group(function(){
     Route::post('post/{post_id}/like/user/{user_id}', [PostController::class,'postLike']);
     Route::post('post/{post_id}/comment/user/{user_id}', [PostController::class,'postComment']);
     Route::delete('comment/{comment_id}', [PostController::class, 'deleteComment']);
+    Route::apiResource('bibliotheques',BibliothequeController::class);
+    Route::get('bibliotheques/user/{id}',[BibliothequeController::class, 'getBibliothequesUser']);
 });
 
 
-
-Route::resource('comments', CommentController::class);
+// Route::resource('comments', CommentController::class);
             // Route::post('like-unlike-post', [LikeController::class,'store']);
             // Route::post('follow-unfollow-user', [FollowerController::class,'store']);
             // Route::get('feeds', [PostController::class,'index']);
@@ -68,6 +66,6 @@ Route::resource('comments', CommentController::class);
 
 
 // Ouvrages
-Route::resource('ouvrages', OuvrageController::class);
+// Route::resource('ouvrages', OuvrageController::class);
 // Route::resource('comments', CommentController::class);
 // Route::get('feeds', [PostController::class, 'index']);

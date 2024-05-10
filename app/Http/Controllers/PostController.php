@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Likepost;
+use App\Traits\ImageTrait;
 use App\Models\Commentpost;
 use Illuminate\Http\Request;
 use App\Traits\ResponseTrait;
@@ -21,26 +22,26 @@ use App\Http\Resources\Posts\PostNumberLikesCommentsResource;
 
 class PostController extends Controller
 {
-    use ResponseTrait;
+    use ResponseTrait, ImageTrait;
 
     public function PostByUser(Request $request){
-        return DB::transaction(function () use ($request) {
-            try {
+        try {
+            return DB::transaction(function () use ($request) {
                 if(Auth::id() == User::where("id", $request->id)->first()->id){
                     $posts = Post::where('user_id', $request->id)->get();
                     return $this->responseData('Affichages de tout les posts', true, Response::HTTP_OK, PostNumberLikesCommentsResource::collection($posts));
                 } else {
                     return $this->responseData('Demandeur non connecter...', false, Response::HTTP_BAD_REQUEST, null);
                 }
-            } catch (\Throwable $th) {
-                return $this->responseData($th->getMessage(), false, Response::HTTP_INTERNAL_SERVER_ERROR, null);
-            }
-        });
+            });
+        } catch (\Throwable $th) {
+            return $this->responseData($th->getMessage(), false, Response::HTTP_INTERNAL_SERVER_ERROR, null);
+        }
     }
 
     public function DeletePost(Request $request){
-        return DB::transaction(function () use ($request) {
-            try {
+        try {
+            return DB::transaction(function () use ($request) {
                 $post = Post::where('id', $request->id)->first();
                 if ($post) {
                     if(Auth::id() == $post->user_id){
@@ -52,10 +53,10 @@ class PostController extends Controller
                     }
                 }
                 return $this->responseData('Ressource inexistant...', false, Response::HTTP_BAD_REQUEST, null);
-            } catch (\Throwable $th) {
-                return $this->responseData($th->getMessage(), false, Response::HTTP_INTERNAL_SERVER_ERROR, null);
-            }
-        });
+            });
+        } catch (\Throwable $th) {
+            return $this->responseData($th->getMessage(), false, Response::HTTP_INTERNAL_SERVER_ERROR, null);
+        }
     }
 
     /**
@@ -63,13 +64,13 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        return DB::transaction(function () use ($request) {
-            try {
+        try {
+            return DB::transaction(function () use ($request) {
                 return $this->responseData('Affichages de tout les posts', true, Response::HTTP_OK, PostNumberLikesCommentsResource::collection(Post::all()));
-            } catch (\Throwable $th) {
-                return $this->responseData($th->getMessage(), false, Response::HTTP_INTERNAL_SERVER_ERROR, null);
-            }
-        });
+            });
+        } catch (\Throwable $th) {
+            return $this->responseData($th->getMessage(), false, Response::HTTP_INTERNAL_SERVER_ERROR, null);
+        }
     }
     /**
      * Show the form for creating a new resource.
@@ -84,37 +85,32 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        return DB::transaction(function () use ($request) {
-            try {
-                $post = new Post();
-                $post->user_id = $request->user()->id;
-                $post->title = $request->input('title');
-                $post->media_type = $request->input('media_type');
-                $post->media_link = $request->file('media_link')->store('media_link');
-
-                if ($request->hasFile('media_thumbnail')) {
-                    $post->media_thumbnail = $request->file('media_thumbnail')->store('media_link');
+        try {
+            return DB::transaction(function () use ($request) {
+                if ($request->hasFile("media_link")) {
+                    $image = $this->load($request);
                 }
+                $post = Post::create([
+                    "user_id" => Auth::id(),
+                    "title" => $request->title,
+                    "media_link" => $image,
+                    "description" => $request->description,
+                    "visibility" => $request->visibility
+                ]);
 
-                $post->visibility = $request->input('visibility');
-                $post->description = $request->input('description');
+                return $this->responseData('Vous avez enregistré avec succée...', true, Response::HTTP_OK, PostResource::make($post));
 
-                if ($post->save()) {
-                    return $this->responseData('Vous avez enregistré avec succée...', true, Response::HTTP_OK, PostResource::make($post));
-                } else {
-                    return $this->responseData('Enregistrement non effectuée...', false, Response::HTTP_BAD_REQUEST, null);
-                }
-            } catch (\Throwable $th) {
-                return $this->responseData($th->getMessage(), false, Response::HTTP_INTERNAL_SERVER_ERROR, null);
-            }
-        });
+            });
+        } catch (\Throwable $th) {
+            return $this->responseData($th->getMessage(), false, Response::HTTP_INTERNAL_SERVER_ERROR, null);
+        }
 
     }
 
     public function postLike(Request $request, $post_id, $user_id)
     {
-        return DB::transaction(function () use ($request, $post_id, $user_id) {
-            try {
+        try {
+            return DB::transaction(function () use ($request, $post_id, $user_id) {
                 $post = Post::find($post_id);
                 $user = User::find($user_id);
                 if ($user->id == auth::user()->id) {
@@ -138,17 +134,17 @@ class PostController extends Controller
                     ]);
                     return $this->responseData('Vous avez liké ce post avec succès.', true, Response::HTTP_OK, LikePostResource::make($Likepost));
                 }
-            } catch (\Throwable $th) {
-                return $this->responseData($th->getMessage(), false, Response::HTTP_INTERNAL_SERVER_ERROR, null);
-            }
-        });
+            });
+        } catch (\Throwable $th) {
+            return $this->responseData($th->getMessage(), false, Response::HTTP_INTERNAL_SERVER_ERROR, null);
+        }
     }
 
 
     public function postComment(CommentPostRequest $request, $post_id, $user_id)
     {
-        return DB::transaction(function () use ($request, $post_id, $user_id) {
-            try {
+        try {
+            return DB::transaction(function () use ($request, $post_id, $user_id) {
                 $post = Post::find($post_id);
                 $user = User::find($user_id);
 
@@ -159,24 +155,23 @@ class PostController extends Controller
                 if (!$post || !$user) {
                     return $this->responseData('Ressource introuvable.', false, Response::HTTP_NOT_FOUND, null);
                 }
-
                 $comment = Commentpost::create([
                     "post_id" => $post_id,
                     "user_id" => $user_id,
                     "content" => $request->content
                 ]);
                 return $this->responseData('Commentaire ajouté avec succès.', true, Response::HTTP_OK, CommentPostResource::make($comment));
-            } catch (\Throwable $th) {
-                return $this->responseData($th->getMessage(), false, Response::HTTP_INTERNAL_SERVER_ERROR, null);
-            }
-        });
+            });
+        } catch (\Throwable $th) {
+            return $this->responseData($th->getMessage(), false, Response::HTTP_INTERNAL_SERVER_ERROR, null);
+        }
     }
 
 
     public function deleteComment(Request $request, $comment_id)
     {
-        return DB::transaction(function () use ($request, $post_id, $user_id) {
-            try {
+        try {
+            return DB::transaction(function () use ($request, $comment_id) {
                 $comment = Commentpost::find($comment_id);
                 if (!$comment) {
                     return $this->responseData('Commentaire introuvable.', false, Response::HTTP_NOT_FOUND, null);
@@ -186,10 +181,10 @@ class PostController extends Controller
                 }
                 $comment->delete();
                 return $this->responseData('Commentaire supprimé avec succès.', true, Response::HTTP_OK, CommentPostResource::make($comment));
-            } catch (\Throwable $th) {
-                return $this->responseData($th->getMessage(), false, Response::HTTP_INTERNAL_SERVER_ERROR, null);
-            }
-        });
+            });
+        } catch (\Throwable $th) {
+            return $this->responseData($th->getMessage(), false, Response::HTTP_INTERNAL_SERVER_ERROR, null);
+        }
     }
     /**
      * Display the specified resource.
@@ -212,37 +207,32 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        return DB::transaction(function () use ($request) {
-            try {
+        try {
+            return DB::transaction(function () use ($request) {
                 $post = Post::where('id', $request->id)->first();
                 if (!$post) {
                     return $this->responseData('Resource inexistant...', false, Response::HTTP_NOT_FOUND, null);
                 }
                 if(Auth::id() == $post->user_id){
 
-
-                    $post->user_id =  Auth::id();
-                    $post->media_type = $request->input('media_type');
-                    $post->media_link = $request->file('media_link')->store('media_link');
-
-                    if ($request->hasFile('media_thumbnail')) {
-                        $post->media_thumbnail = $request->file('media_thumbnail')->store('media_link');
+                    if ($request->hasFile("media_link")) {
+                        $image = $this->load($request);
                     }
-
-                    $post->visibility = $request->input('visibility');
-                    $post->description = $request->input('description');
-                    $post->title = $request->input('title');
+                    $post->user_id =  Auth::id();
+                    $post->media_link = $image;
+                    $post->visibility = $request->visibility;
+                    $post->description = $request->description;
+                    $post->title = $request->title;
                     $post->save();
-
                     return $this->responseData('Modifications effetuées avec succès', true, Response::HTTP_OK, PostResource::make($post));
                 }
                 return $this->responseData('Impossible d\'effectué cette modification...', false, Response::HTTP_NOT_FOUND, null);
+            });
 
-            } catch (\Throwable $th) {
-                //throw $th;
-                return $this->responseData($th->getMessage(), false, Response::HTTP_INTERNAL_SERVER_ERROR, null);
-            }
-        });
+        } catch (\Throwable $th) {
+            //throw $th;
+            return $this->responseData($th->getMessage(), false, Response::HTTP_INTERNAL_SERVER_ERROR, null);
+        }
     }
 
     /**

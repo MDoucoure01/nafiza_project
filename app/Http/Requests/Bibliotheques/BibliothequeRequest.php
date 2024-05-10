@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Post;
+namespace App\Http\Requests\Bibliotheques;
 
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Response;
@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class PostRequest extends FormRequest
+class BibliothequeRequest extends FormRequest
 {
     use ResponseTrait;
     /**
@@ -27,9 +27,24 @@ class PostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'media_link' => 'required',
-            'visibility' => 'required|in:public,followers',
-            'description' => 'nullable|string',
+            'author' => 'required|string',
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'file' => 'required|file|mimes:pdf',
+            'source' => 'nullable|string',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'author.required' => 'Le champ auteur est requis',
+            'title.required' => 'Le champ titre est requis',
+            'description.required' => 'Le champ description est requis',
+            'file.required' => 'Le champ fichier est requis',
+            'file.file' => 'Le champ fichier doit être un fichier',
+            'file.mimes' => 'Le fichier doit être au format PDF',
+            'source.string' => 'Le champ source doit être une chaîne de caractères',
         ];
     }
 
@@ -40,14 +55,5 @@ class PostRequest extends FormRequest
         throw new HttpResponseException(
             $this->responseData($message, false, Response::HTTP_BAD_REQUEST, [])
         );
-    }
-
-    public function messages()
-    {
-        return [
-            'media_link.required' => 'Le champ media_link est requis.',
-            'visibility.required' => 'Le champ visibility est requis.',
-            'visibility.in' => 'Le champ visibility doit être soit "public" soit "followers".',
-        ];
     }
 }
