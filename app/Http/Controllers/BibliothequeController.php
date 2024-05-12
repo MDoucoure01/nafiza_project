@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Bibliotheques\BibliothequeRequest;
 use App\Http\Resources\Bibliotheques\BibliothequeResource;
+use Illuminate\Support\Facades\Storage;
 
 class BibliothequeController extends Controller
 {
@@ -75,7 +76,13 @@ class BibliothequeController extends Controller
      */
     public function show(Bibliotheque $bibliotheque)
     {
-        //
+        try {
+            return DB::transaction(function () use ($bibliotheque) {
+                return $this->responseData('biblioteque...', true, Response::HTTP_OK, BibliothequeResource::make($bibliotheque));
+            });
+        } catch (\Throwable $th) {
+            return $this->responseData($th->getMessage(), false, Response::HTTP_INTERNAL_SERVER_ERROR, null);
+        }
     }
 
     /**
@@ -83,7 +90,35 @@ class BibliothequeController extends Controller
      */
     public function update(Request $request, Bibliotheque $bibliotheque)
     {
-        //
+        
+    }
+
+    public function updateBibliotheques(Request $request)
+    {
+        try {
+            return DB::transaction(function () use ($request) {
+                $bibliotheque = Bibliotheque::where("id", $request->id)->first();
+                if ($bibliotheque->user_id != Auth::id()) {
+                    return $this->responseData('Vous n\'êtes pas autorisé à modifier cette bibliothèque.', false, Response::HTTP_FORBIDDEN, null);
+                }
+                if ($request->hasFile("file")) {
+                    $file = $this->loadPdf($request);
+                    if ($bibliotheque->file) {
+                        Storage::delete($bibliotheque->file);
+                    }
+                    $bibliotheque->file = $file;
+                }
+                $bibliotheque->author = $request->author;
+                $bibliotheque->title = $request->title;
+                $bibliotheque->Description = $request->description;
+                $bibliotheque->Source = $request->source ?? $bibliotheque->source;
+                $bibliotheque->save();
+
+                return $this->responseData('Bibliothèque mise à jour avec succès.', true, Response::HTTP_OK, BibliothequeResource::make($bibliotheque));
+            });
+        } catch (\Throwable $th) {
+            return $this->responseData($th->getMessage(), false, Response::HTTP_INTERNAL_SERVER_ERROR, null);
+        }
     }
 
     /**
@@ -91,6 +126,13 @@ class BibliothequeController extends Controller
      */
     public function destroy(Bibliotheque $bibliotheque)
     {
-        //
+        try {
+            return DB::transaction(function () use ($bibliotheque) {
+                $bibliotheque->delete();
+                return $this->responseData('biblioteque supprime ...', true, Response::HTTP_OK, BibliothequeResource::make($bibliotheque));
+            });
+        } catch (\Throwable $th) {
+            return $this->responseData($th->getMessage(), false, Response::HTTP_INTERNAL_SERVER_ERROR, null);
+        }
     }
 }

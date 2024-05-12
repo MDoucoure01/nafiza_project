@@ -54,6 +54,7 @@ Route::middleware("auth:api")->group(function(){
     Route::post('post/{post_id}/comment/user/{user_id}', [PostController::class,'postComment']);
     Route::delete('comment/{comment_id}', [PostController::class, 'deleteComment']);
     Route::apiResource('bibliotheques',BibliothequeController::class);
+    Route::post('bibliotheques/{id}/update', [BibliothequeController::class, 'updateBibliotheques']);
     Route::get('bibliotheques/user/{id}',[BibliothequeController::class, 'getBibliothequesUser']);
 });
 
