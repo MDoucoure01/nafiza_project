@@ -75,5 +75,15 @@ class User extends Authenticatable
         return $this->belongsToMany(Post::class,"commentposts")
         ->withPivot("content");
     }
-    
+
+    public function bibliothequeLike(): BelongsToMany
+    {
+        return $this->belongsToMany(Bibliotheque::class,"likebibliotheques");
+    }
+
+    public function bibliothequeComment(): BelongsToMany
+    {
+        return $this->belongsToMany(Bibliotheque::class,"commentbibliotheques")
+        ->withPivot("content");
+    }
 }

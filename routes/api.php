@@ -56,9 +56,10 @@ Route::middleware("auth:api")->group(function(){
     Route::apiResource('bibliotheques',BibliothequeController::class);
     Route::post('bibliotheques/{id}/update', [BibliothequeController::class, 'updateBibliotheques']);
     Route::get('bibliotheques/user/{id}',[BibliothequeController::class, 'getBibliothequesUser']);
+    Route::post("delete/biblioteque/{bibliotheque_id}",[BibliothequeController::class, 'deleteBibliotheque']);
 });
-
-
+Route::post('bibliotheques/{bibliotheque_id}/comment/user/{user_id}',[BibliothequeController::class, 'bibliothequesComment']);
+Route::post('bibliotheques/{bibliotheque_id}/like/user/{user_id}',[BibliothequeController::class, 'bibliothequesLike']);
 // Route::resource('comments', CommentController::class);
             // Route::post('like-unlike-post', [LikeController::class,'store']);
             // Route::post('follow-unfollow-user', [FollowerController::class,'store']);
