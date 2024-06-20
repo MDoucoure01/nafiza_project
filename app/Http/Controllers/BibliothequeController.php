@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Bibliotheques\BibliothequeCommentRequest;
+use App\Models\User;
 use App\Traits\PdfTrait;
+use App\Traits\ImageTrait;
 use App\Models\Bibliotheque;
 use Illuminate\Http\Request;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Response;
+use App\Models\Likebibliotheques;
 use Illuminate\Support\Facades\DB;
+use App\Models\Commentbibliotheques;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Bibliotheques\BibliothequeRequest;
 use App\Http\Resources\Bibliotheques\BibliothequeResource;
-use App\Http\Resources\Bibliotheques\CommentBibliothequeResource;
 use App\Http\Resources\Bibliotheques\LikeBibliothequeResource;
-use App\Models\Commentbibliotheques;
-use App\Models\Likebibliotheques;
-use App\Models\User;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Bibliotheques\BibliothequeCommentRequest;
+use App\Http\Resources\Bibliotheques\CommentBibliothequeResource;
 
 class BibliothequeController extends Controller
 {
-    use ResponseTrait, PdfTrait;
+    use ResponseTrait, PdfTrait, ImageTrait;
     /**
      * Display a listing of the resource.
      */
@@ -61,6 +62,9 @@ class BibliothequeController extends Controller
                 if ($request->hasFile("file")) {
                     $file = $this->loadPdf($request);
                 }
+                if ($request->hasFile("covered")) {
+                    $covered = $this->loadCovered($request);
+                }
                 $biblio = Bibliotheque::create([
                     "user_id" => Auth::id(),
                     "author" => $request->author,
@@ -68,7 +72,8 @@ class BibliothequeController extends Controller
                     "Description" => $request->description,
                     "file" => $file,
                     "date" => now(),
-                    "Source" => $request->source ?? ""
+                    "Source" => $request->source ?? "",
+                    "covered" => $covered,
                 ]);
                 return $this->responseData('Vous avez enregistré avec succée...', true, Response::HTTP_OK, $biblio);
             });
@@ -112,6 +117,13 @@ class BibliothequeController extends Controller
                         Storage::delete($bibliotheque->file);
                     }
                     $bibliotheque->file = $file;
+                }
+                if ($request->hasFile("covered")) {
+                    $covered = $this->loadCovered($request);
+                    if ($bibliotheque->covered) {
+                        Storage::delete($bibliotheque->covered);
+                    }
+                    $bibliotheque->covered = $covered;
                 }
                 $bibliotheque->author = $request->author;
                 $bibliotheque->title = $request->title;
