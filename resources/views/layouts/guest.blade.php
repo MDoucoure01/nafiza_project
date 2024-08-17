@@ -1,27 +1,31 @@
+
+
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html>
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <title>:: {{ env('APP_NAME') }} ::</title>
+        <!-- Favicon-->
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="{{ asset('backoffice/assets/plugins/bootstrap/css/bootstrap.min.css') }}" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <!-- Custom Css -->
+        <link rel="stylesheet" href="{{ asset('backoffice/assets/css/main.css') }}">
+        <link href="{{ asset('backoffice/assets/css/login.css') }}" rel="stylesheet">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
-
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-        <!-- Styles -->
-        @livewireStyles
+        <link rel="stylesheet" href="{{ asset('backoffice/assets/css/themes/all-themes.css') }}"/>
     </head>
-    <body>
-        <div class="font-sans text-gray-900 antialiased">
-            {{ $slot }}
-        </div>
+    <body class="login-page authentication">
 
-        @livewireScripts
+        {{ $slot }}
+
+        <div class="theme-bg"></div>
+
+        <!-- Jquery Core Js -->
+        <script src="{{ asset('backoffice/assets/bundles/libscripts.bundle.js') }}"></script> <!-- Lib Scripts Plugin Js -->
+        <script src="{{ asset('backoffice/assets/bundles/vendorscripts.bundle.js') }}"></script> <!-- Lib Scripts Plugin Js -->
+        <script src="{{ asset('backoffice/assets/bundles/mainscripts.bundle.js') }}"></script><!-- Custom Js -->
     </body>
 </html>

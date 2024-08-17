@@ -1,48 +1,34 @@
 <x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
-
-        <x-validation-errors class="mb-4" />
-
-        @if (session('status'))
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ session('status') }}
+    <div class="container">
+        <div class="card-top"></div>
+        <div class="card">
+            <h1 class="title"><span>{{ env('APP_NAME') }}</span>Connexion <span class="msg">Register a new membership</span>
+            </h1>
+            <div class="col-sm-12">
+                <x-jet-validation-errors class="mb-4 text-danger" />
+                <form id="sign_in" method="POST">
+                    @csrf
+                    <div class="input-group"> <span class="input-group-addon"> <i class="zmdi zmdi-account"></i> </span>
+                        <div class="form-line">
+                            <input type="email" class="form-control" name="email" placeholder="Adresse email" :value="old('email')" required autofocus>
+                        </div>
+                    </div>
+                    <div class="input-group"> <span class="input-group-addon"> <i class="zmdi zmdi-lock"></i> </span>
+                        <div class="form-line">
+                            <input type="password" class="form-control" name="password" placeholder="Mot de passe" utocomplete="current-password" required>
+                        </div>
+                    </div>
+                    <div class="">
+                        <input type="checkbox" name="remember" id="rememberme" class="filled-in chk-col-pink">
+                        <label for="rememberme">Se souvenir de moi</label>
+                    </div>
+                    <div class="text-center">
+                        <button style="width: 100%" class="btn btn-raised waves-effect g-bg-blue" >Se connecter</button>
+                        <a href="{{ route('register') }}" style="width: 100%" class="btn btn-raised waves-effect" >Ouvrir un compte</a>
+                    </div>
+                    <div class="text-center"> <a href="{{ route('password.request') }}">Mot de passe oublié ?</a></div>
+                </form>
             </div>
-        @endif
-
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-
-            <div>
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
-            </div>
-
-            <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <x-checkbox id="remember_me" name="remember" />
-                    <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <x-button class="ms-4">
-                    {{ __('Log in') }}
-                </x-button>
-            </div>
-        </form>
-    </x-authentication-card>
+        </div>
+    </div>
 </x-guest-layout>
