@@ -16,7 +16,6 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Conseil::class)->constrained()->cascadeOnDelete();
             $table->string('matricule');
