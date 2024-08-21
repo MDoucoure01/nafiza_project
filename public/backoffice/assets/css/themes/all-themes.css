@@ -39,7 +39,7 @@
 .theme-purple .nav-tabs .nav-link.active { border-bottom: 2px solid #c48bb4 !important; }
 /**/
 .theme-blue .color-bg, .theme-blue .morphsearch.open, .theme-blue .wizard .steps .current a, .theme-blue .dropdown-menu li a:hover, .theme-blue .profile-page .profile-sub-header .box-list ul li a:hover, .theme-blue .fc .fc-toolbar, .theme-blue .blog-page .single-blog-post .img-holder .date-box {
-    background:linear-gradient(45deg, #2193b0, #6dd5ed); }
+    background:linear-gradient(145deg, #f9b634, #30373e); }
 .theme-blue .navbar-brand { color: #fff; }
 .theme-blue .navbar-brand:hover { color: #fff; }
 .theme-blue .navbar-brand:active { color: #fff; }
@@ -52,11 +52,11 @@
 .theme-blue .nav .open > a:focus { background-color: transparent; }
 .theme-blue .bars { color: #fff; }
 .theme-blue .sidebar .menu .list li.active { background-color: transparent; }
-.theme-blue .sidebar .menu .list li.active >:first-child i, .theme-blue .sidebar .menu .list li.active >:first-child span, .theme-blue .morphsearch .dummy-column h2 { color: #2193b0; }
+.theme-blue .sidebar .menu .list li.active >:first-child i, .theme-blue .sidebar .menu .list li.active >:first-child span, .theme-blue .morphsearch .dummy-column h2 { color: #f9b634; }
 .theme-blue .sidebar .menu .list .toggled { background-color: transparent; }
 .theme-blue .sidebar .menu .list .ml-menu { background-color: transparent; }
-.theme-blue .sidebar .legal .copyright a { color: #2193b0 !important; }
-.theme-blue .nav-tabs .nav-link.active { border-bottom: 2px solid #2193b0 !important; }
+.theme-blue .sidebar .legal .copyright a { color: #f9b634 !important; }
+.theme-blue .nav-tabs .nav-link.active { border-bottom: 2px solid #f9b634 !important; }
 /**/
 .theme-cyan .color-bg, .theme-cyan .morphsearch.open, .theme-cyan .wizard .steps .current a, .theme-cyan .dropdown-menu li a:hover, .theme-cyan .profile-page .profile-sub-header .box-list ul li a:hover, .theme-cyan .fc .fc-toolbar, .theme-cyan .blog-page .single-blog-post .img-holder .date-box { background:linear-gradient(60deg, #50c6bb, #39a9ab); }
 .theme-cyan .navbar-brand { color: #fff; }

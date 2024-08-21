@@ -5,7 +5,7 @@
             <h1 class="title"><span>{{ env('APP_NAME') }}</span>Connexion <span class="msg">Register a new membership</span>
             </h1>
             <div class="col-sm-12">
-                <x-jet-validation-errors class="mb-4 text-danger" />
+                <x-validation-errors class="mb-4 text-danger" />
                 <form id="sign_in" method="POST">
                     @csrf
                     <div class="input-group"> <span class="input-group-addon"> <i class="zmdi zmdi-account"></i> </span>
@@ -24,7 +24,6 @@
                     </div>
                     <div class="text-center">
                         <button style="width: 100%" class="btn btn-raised waves-effect g-bg-blue" >Se connecter</button>
-                        <a href="{{ route('register') }}" style="width: 100%" class="btn btn-raised waves-effect" >Ouvrir un compte</a>
                     </div>
                     <div class="text-center"> <a href="{{ route('password.request') }}">Mot de passe oublié ?</a></div>
                 </form>

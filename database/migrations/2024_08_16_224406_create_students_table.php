@@ -18,8 +18,8 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Conseil::class)->constrained()->cascadeOnDelete();
-            $table->string('matricule');
-            $table->date('born_date');
+            $table->string('matricule')->nullable();
+            $table->date('born_date')->nullable();
             $table->text('specific_desease')->nullable();
             $table->text('allergies')->nullable();
             $table->softDeletes();

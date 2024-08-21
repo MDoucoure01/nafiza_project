@@ -131,10 +131,10 @@
 <!-- Top Bar -->
 <nav class="navbar clearHeader">
     <div class="col-12">
-        <div class="navbar-header"> <a href="javascript:void(0);" class="bars"></a> <a class="navbar-brand" href="{{ route('home') }}">{{ env('APP_NAME') }}</a> </div>
+        <div class="navbar-header"> <a href="javascript:void(0);" class="bars"></a> <a class="navbar-brand" href="">{{ env('APP_NAME') }}</a> </div>
         <ul class="nav navbar-nav navbar-right">
             <!-- Notifications -->
-            <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-notifications"></i> <span class="label-count">7</span> </a>
+            <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"><i class="zmdi zmdi-notifications"></i> <span class="label-count bg-warning" style="color: black">7</span> </a>
                 <ul class="dropdown-menu">
                     <li class="header">NOTIFICATIONS</li>
                     <li class="body">
