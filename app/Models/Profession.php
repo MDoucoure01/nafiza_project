@@ -10,4 +10,8 @@ class Profession extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable =[
+        "name"
+    ];
+
 }
