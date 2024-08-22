@@ -9,4 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Subscription extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $guarded = [
+        "id"
+    ];
 }
