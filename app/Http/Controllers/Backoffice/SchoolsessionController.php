@@ -44,16 +44,27 @@ class SchoolsessionController extends Controller
             'name' => 'required|string',
             'start_date' => 'required',
             'end_date' => 'required',
+            'description' => 'string|max:225',
         ]);
 
-        $schoolsession = School_session::findOrFail($request->id);
-        $schoolsession->name = $request->name;
-        $schoolsession->slug = Str::slug($request->name);
-        $schoolsession->start_date = $request->start_date;
-        $schoolsession->end_date = $request->end_date;
-        $schoolsession->description = $request->description;
-        $schoolsession->save();
-        toastr()->success('Session créée avec succès !');
+        $isSessionActive = School_session::where('id', '!=', $request->id)->where('status', 1)->count();
+        if($isSessionActive > 0 && $request->status > 0){
+            session()->flash('message', 'Une session est déjà en activité. Vous ne pouvez pas avoir deux sessions actives en même temps. <br>
+            Veuillez désactiver la session en cours pour poursuivre.');
+            toastr()->error('Une erreur lors du traitement !');
+        }
+        else{
+            $schoolsession = School_session::findOrFail($request->id);
+
+            $schoolsession->name = $request->name;
+            $schoolsession->slug = Str::slug($request->name);
+            $schoolsession->start_date = $request->start_date;
+            $schoolsession->end_date = $request->end_date;
+            $schoolsession->status = $request->status;
+            $schoolsession->description = $request->description;
+            $schoolsession->save();
+            toastr()->success('Session modifiée avec succès !');
+        }
         return back();
     }
 

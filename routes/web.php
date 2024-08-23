@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backoffice\SchoolsessionController;
 use App\Livewire\Backoffice\HomeComponent;
 use App\Livewire\Backoffice\Schoolsessions\Cohorts;
+use App\Livewire\Backoffice\Schoolsessions\EditSession;
 use App\Livewire\Backoffice\Schoolsessions\GroupeTD;
 use App\Livewire\Backoffice\Students\AddStudent;
 use App\Livewire\Backoffice\Students\ListStudent;
@@ -30,6 +31,7 @@ Route::middleware([
     Route::get('/pensionnaire/nouveau', AddStudent::class)->name('student.add');
     Route::get('/pensionnaires', ListStudent::class)->name('students.list');
     Route::get('/sessions', ListSessions::class)->name('sessions.list');
+    Route::get('/session/edit/{id}', EditSession::class)->name('session.edit');
     Route::put('/create-session', [SchoolsessionController::class, 'create'])->name('session.create');
     Route::put('/sessions/update', [SchoolsessionController::class, 'update'])->name('session.update');
     Route::put('/delete-session', [SchoolsessionController::class, 'delete'])->name('session.delete');
