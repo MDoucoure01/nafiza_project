@@ -13,6 +13,7 @@ class CohortsController extends Controller
     public function create(Request $request){
         $request->validate([
             'name' => 'required|string',
+            'description' => 'string|max:225',
         ]);
 
         $cohort = new Cohort();
@@ -21,25 +22,23 @@ class CohortsController extends Controller
         $cohort->description = $request->description;
         $cohort->save();
 
-        if ($cohort) {
-            $cohort = new Session_Cohort();
-            $cohort->cohort_id = $cohort->id;
-            $cohort->school_session_id = $request->school_session_id;
-            $cohort->save();
-        }
-        // toastr()->success('Cohorte créé avec succès !');
+        toastr()->success('Cohorte créée avec succès !');
         return back();
     }
 
     public function update(Request $request){
         $request->validate([
             'name' => 'required|string',
+            'description' => 'string|max:225',
         ]);
 
         $cohort = Cohort::findOrFail($request->id);
         $cohort->name = $request->name;
+        $cohort->slug = Str::slug($request->name);
+        $cohort->description = $request->description;
         $cohort->save();
-        // toastr()->success('Cohorte modifié avec succès !');
+
+        toastr()->success('Cohorte modifiée avec succès !');
         return back();
     }
 

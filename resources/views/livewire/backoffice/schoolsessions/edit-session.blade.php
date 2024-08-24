@@ -10,7 +10,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="header">
-                        <h2> Créer une nouvelle session </h2>
+                        <h2> Modifier la session {{ $session->name }}</h2>
                     </div>
                     <div class="body">
                         @if (Session::has('message'))
@@ -105,7 +105,7 @@
                             </div>
                             <div class="row clearfix text-right">
                                 <div class="offset-lg-2 col-lg-10">
-                                    <button type="submit" class="btn btn-raised btn-warning m-t-15 waves-effect">Modifier
+                                    <button type="submit" class="btn btn-raised btn-primary m-t-15 waves-effect">Modifier
                                         session</button>
                                 </div>
                             </div>
