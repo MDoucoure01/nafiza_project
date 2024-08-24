@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Backoffice;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cohort;
 use App\Models\School_session;
+use App\Models\Session_Cohort;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -76,4 +78,50 @@ class SchoolsessionController extends Controller
         toastr()->success('Session supprimée avec succès !');
         return back();
     }
+
+    public function addCohort(Request $request)
+    {
+        $session = School_session::findOrFail($request->session_id);
+        $addCohortsNumber = $request->cohorts_number;
+
+        if($session->cohorts->count() > 0){
+            $sessionCohortsNumber = $session->cohorts->count();
+            for ($i = $sessionCohortsNumber; $i <= $addCohortsNumber; $i++) {
+                $session = Session_Cohort::where('cohort_id', $i)
+                                        ->where('school_session_id', $request->session_id)
+                                        ->first();
+                if (!$session) {
+                    $sessionCohort = new Session_Cohort();
+                    $sessionCohort->cohort_id = $i;
+                    $sessionCohort->school_session_id = $request->session_id;
+                    $sessionCohort->save();
+                }
+            }
+        }
+        else{
+            for ($i=1; $i <= $addCohortsNumber; $i++) {
+                $sessionCohort = new Session_Cohort();
+                $sessionCohort->cohort_id = $i;
+                $sessionCohort->school_session_id = $request->session_id;
+                $sessionCohort->save();
+            }
+        }
+
+        toastr()->success('Cohortes ajoutées avec succès !');
+        return back();
+    }
+
+    public function removeCohort(Request $request)
+    {
+        // $cohort = Cohort::findOrFail($request->id);
+        // Supprimer la relation de la table pivot
+        // $cohort->schoolsessions()->detach($cohort->id);
+        
+        Session_Cohort::where('cohort_id', $request->id)->delete();
+
+        // Envoyer un message de confirmation (facultatif)
+        toastr()->error('Cohorte enlevée avec succès !');
+        return back();
+    }
+
 }

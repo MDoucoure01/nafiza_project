@@ -146,7 +146,7 @@
                                                     @csrf
                                                     @method("PUT")
 
-                                                    <a href="#" class="text-white btn btn-xs btn-success"><i class="zmdi zmdi-eye"></i></a>
+                                                    <a href="{{ route('session.show', ['slug' =>$item->slug ]) }}" class="text-white btn btn-xs btn-success"><i class="zmdi zmdi-eye"></i></a>
                                                     <a href="{{ route('session.edit', ['id' => $item->id]) }}" class="text-white btn btn-xs btn-primary"><i class="zmdi zmdi-edit"></i></a>
                                                     <button class="text-white btn btn-xs btn-danger" onclick="if(!confirm('Vous êtes sur le point de supprimer cette session. Voulez-vous continuer ?')) { event.preventDefault(); return false; }"><i class="zmdi zmdi-delete"></i></button>
                                                 </form>
