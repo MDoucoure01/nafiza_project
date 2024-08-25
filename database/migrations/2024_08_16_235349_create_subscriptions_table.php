@@ -20,7 +20,7 @@ return new class extends Migration
             // $table->foreignIdFor(School_session::class)->constrained()->cascadeOnDelete();
             $table->boolean("is_active")->default(false);
             $table->softDeletes();
-            $table->timestamps();   
+            $table->timestamps();
         });
     }
 

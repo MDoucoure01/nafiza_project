@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Observers\StudentObserve;
 use App\Observers\UserObserver;
 use Illuminate\Support\ServiceProvider;
+use View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,9 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // User::observe(UserObserver::class);
+        User::observe(UserObserver::class);
         Student::observe(StudentObserve::class);
-        
+
     }
 
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Cohort;
 use App\Models\School_session;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,6 +16,9 @@ return new class extends Migration
         Schema::create('td_groups', function (Blueprint $table) {
             $table->id();
             $table->string("name");
+            $table->string("slug")->unique();
+            $table->text("description")->nullable();
+            $table->foreignIdFor(Cohort::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(School_session::class)->constrained()->cascadeOnDelete();
             $table->softDeletes();
             $table->timestamps();
