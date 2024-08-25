@@ -16,7 +16,7 @@ class ConseilsTableSeeder extends Seeder
         $comites = DB::table('comites')->pluck('id')->toArray();
         if (count($comites) > 0) {
             $conseils = [];
-            for ($i = 1; $i <= 10; $i++) {
+            for ($i = 1; $i <= 3; $i++) {
                 $conseils[] = [
                     'name' => 'Conseil ' . $i,
                     'comite_id' => $comites[array_rand($comites)],

@@ -14,16 +14,17 @@ class ComitesTableSeeder extends Seeder
     public function run(): void
     {
         $comites = [
-            ['name' => 'Comité Afrique'],
-            ['name' => 'Comité Belgique'],
-            ['name' => 'Comité Cameroun'],
             ['name' => 'Comité Dakar'],
-            ['name' => 'Comité Anglend'],
-            ['name' => 'Comité France'],
-            ['name' => 'Comité Germany'],
-            ['name' => 'Comité Helsinki'],
-            ['name' => 'Comité Italie'],
-            ['name' => 'Comité Japon'],
+            ['name' => 'Comité Guédiawaye'],
+            ['name' => 'Comité Pikine'],
+            ['name' => 'Comité Rufisque'],
+            ['name' => 'Comité Keur Massar'],
+            ['name' => 'Comité Mbour'],
+            ['name' => 'Comité Thiès'],
+            ['name' => 'Comité Tivaouane'],
+            ['name' => 'Comité Saint Louis'],
+            ['name' => 'Comité Louga'],
+            ['name' => 'Comité Kaolack'],
         ];
         DB::table('comites')->insert($comites);
     }

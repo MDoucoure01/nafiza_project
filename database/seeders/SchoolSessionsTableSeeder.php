@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class SchoolSessionsTableSeeder extends Seeder
 {
@@ -15,32 +16,22 @@ class SchoolSessionsTableSeeder extends Seeder
     {
         $schoolSessions = [
             [
+                'name' => 'Session 2023',
+                'slug' => Str::slug('Session 2023'),
+                'start_date' => '2023-02-19',
+                'end_date' => '2023-11-11',
+                'status' => 0,
+                'description' => 'Session expirée...',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
                 'name' => 'Session 2024-2025',
-                'year' => '2024-2025',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Session 2023-2024',
-                'year' => '2023-2024',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Session 2022-2023',
-                'year' => '2022-2023',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Session 2021-2022',
-                'year' => '2021-2022',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Session 2020-2021',
-                'year' => '2020-2021',
+                'slug' => Str::slug('Session 2024-2025'),
+                'start_date' => '2024-10-22',
+                'end_date' => '2025-05-01',
+                'status' => 1,
+                'description' => 'Session actuelle...',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

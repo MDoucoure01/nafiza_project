@@ -39,10 +39,10 @@ class UserController extends Controller
     {
         try {
             return DB::transaction(function () use ($request) {
-                $roleExiste = Role::find($request->role_id);
-                if (!$roleExiste) {
-                    return $this->responseData("Oops donnée incohérent", false, Response::HTTP_NOT_FOUND, null);
-                }
+                // $roleExiste = Role::find($request->role_id);
+                // if (!$roleExiste) {
+                //     return $this->responseData("Oops donnée incohérent", false, Response::HTTP_NOT_FOUND, null);
+                // }
                 $conseilExiste = Conseil::find($request->conseil_id);
                 if (!$conseilExiste) {
                     return $this->responseData("Oops donnée incohérent", false, Response::HTTP_NOT_FOUND, null);
@@ -70,7 +70,7 @@ class UserController extends Controller
                     return $this->responseData("Oops Vous devez avoir au moins 2 ans.", false, Response::HTTP_NOT_FOUND, null);
                 }
                 $user = User::create([
-                    "role_id" => $roleExiste->id,
+                    // "role_id" => $roleExiste->id,Jj
                     "firstname" => $request->firstname,
                     "lastname" => $request->lastname,
                     "email" => $request->email,
@@ -80,6 +80,7 @@ class UserController extends Controller
                     "specific_skills" => $request->specific_skills ?? null,
                     "password" => $request->password ?? "N@Fiz@2024",
                 ]);
+                $user->assignRole('student');
                 $insertStudent = new UserService($user->id);
 
                 $studentExist = $insertStudent->InsertUserStudent($request);

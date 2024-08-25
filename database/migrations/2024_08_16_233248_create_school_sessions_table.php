@@ -14,7 +14,11 @@ return new class extends Migration
         Schema::create('school_sessions', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->string("year")->unique();
+            $table->string("slug")->unique();
+            $table->string("start_date")->nullable();
+            $table->string("end_date")->nullable();
+            $table->boolean("status")->nullable();
+            $table->text("description")->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
