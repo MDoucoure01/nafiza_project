@@ -180,9 +180,9 @@
             </div>
         </div>
         <!-- #END# Basic Examples -->
-        {{-- <div class="row clearfix">
-            @foreach ($session->cohorts as $item)
-                <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="row clearfix">
+            @foreach ($cohort->groups as $item)
+                <div class="col-lg-3 col-md-6 col-sm-12">
                     <div class="info-box-3 bg-blue-grey">
                         <div class="icon">
                             <div class="">
@@ -191,7 +191,7 @@
                             </div>
                         </div>
                         <div class="content">
-                            <div class="text" style="font-size: 1.3em">{{ $item->name }}</div>
+                            <div class="text">{{ $item->name }}</div>
                             <div class="number">063 <i class="zmdi zmdi-accounts-outline"></i></div>
                         </div>
                     </div>
@@ -202,7 +202,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="header">
-                        <h2>Autres sessions</h2>
+                        <h2>Autres Cohortes</h2>
                     </div>
                     <div class="body">
                         <div class="table-responsive">
@@ -210,35 +210,25 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Session</th>
-                                        <th>Début</th>
-                                        <th>Fin</th>
-                                        <th>Status</th>
+                                        <th>Cohortes</th>
+                                        <th>Créé le</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($schoolSessions as $item)
+                                    @foreach ($otherCohorts as $item)
                                         <tr>
                                             <td>{{ $item->id }}</td>
                                             <td>{{ $item->name }}</td>
-                                            <td>{{ $item->start_date }}</td>
-                                            <td>{{ $item->end_date }}</td>
-                                            <td>
-                                                @if ($item->status == 1)
-                                                    <span class="label bg-green">en cours</span>
-                                                @else
-                                                    <span class="label bg-red">expirée</span>
-                                                @endif
-                                            </td>
+                                            <td>{{ $item->created_at }}</td>
                                             <td class="text-right">
-                                                <form action="{{ route("session.delete", ['id' => $item->id]) }}" method="POST">
+                                                <form action="{{ route("cohort.delete", ['id' => $item->id]) }}" method="POST">
                                                     @csrf
                                                     @method("PUT")
 
-                                                    <a href="{{ route('session.show', ['slug' =>$item->slug ]) }}" class="text-white btn btn-xs btn-success"><i class="zmdi zmdi-eye"></i></a>
-                                                    <a href="{{ route('session.edit', ['id' => $item->id]) }}" class="text-white btn btn-xs btn-primary"><i class="zmdi zmdi-edit"></i></a>
-                                                    <button class="text-white btn btn-xs btn-danger" onclick="if(!confirm('Vous êtes sur le point de supprimer cette session. Voulez-vous continuer ?')) { event.preventDefault(); return false; }"><i class="zmdi zmdi-delete"></i></button>
+                                                    <a href="{{ route('cohort.show', ['slug' => $item->slug]) }}" class="text-white btn btn-xs btn-success"><i class="zmdi zmdi-eye"></i></a>
+                                                    <a href="{{ route('cohort.edit', ['id' => $item->id]) }}" class="text-white btn btn-xs btn-primary"><i class="zmdi zmdi-edit"></i></a>
+                                                    <button class="text-white btn btn-xs btn-danger" onclick="if(!confirm('Vous êtes sur le point de supprimer cette cohorte. Voulez-vous continuer ?')) { event.preventDefault(); return false; }"><i class="zmdi zmdi-delete"></i></button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -249,7 +239,7 @@
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
     </div>
 </section>
 <!-- main content -->

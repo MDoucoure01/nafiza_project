@@ -8,9 +8,11 @@ use Livewire\Component;
 class ShowCohort extends Component
 {
     public $cohort;
+    public $otherCohorts;
 
     public function mount(){
         $this->cohort = Cohort::where('slug', request()->slug)->first();
+        $this->otherCohorts = request()->appActuSession->cohorts->where('id', '!=', $this->cohort->id);
     }
 
     public function removeGroup($groupId)

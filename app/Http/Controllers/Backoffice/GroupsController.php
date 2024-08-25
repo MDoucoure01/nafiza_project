@@ -12,16 +12,19 @@ class GroupsController extends Controller
     public function create(Request $request){
         $request->validate([
             'name' => 'required|string',
+            'cohort_id' => 'required',
+            'description' => 'max:225|string',
         ]);
 
         $groupTD = new TdGroup();
         $groupTD->cohort_id = $request->cohort_id;
-        $groupTD->school_session_id = $request->school_session_id;
+        $groupTD->school_session_id = $request->appActuSession->id;
         $groupTD->name = $request->name;
         $groupTD->slug = Str::slug($request->name);
         $groupTD->description = $request->description;
         $groupTD->save();
-        // toastr()->success('Session créée avec succès !');
+        
+        toastr()->success('Groupe créée avec succès !');
         return back();
     }
 

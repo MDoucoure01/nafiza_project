@@ -14,15 +14,40 @@
                         <h2> Créer une nouvelle session </h2>
                     </div>
                     <div class="body">
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" method="POST" action="{{ route('group.create') }}">
+                            @csrf
+                            @method('PUT')
                             <div class="row clearfix">
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                    <label for="email_address_2">Nom du groupe</label>
+                                    <label>Nom du groupe</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group mt-0 mb-4">
                                         <div class="form-line">
-                                            <input type="text" id="email_address_2" class="form-control" placeholder="Entrer le nom du groupe TD">
+                                            <input required name="name" value="{{ old('name') }}" type="text"
+                                                class="form-control" placeholder="Entrer le nom de la session">
+                                            @error('name')
+                                                <span class="text-danger" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label for="email_address_2">Cohort</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <div class="form-group mt-0 mb-4">
+                                        <div class="form-line">
+                                            <select name="cohort_id" class="form-control" required>
+                                                <option value="">Selectionner une cohorte</option>
+                                                @foreach (request()->appActuSession->cohorts as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -34,20 +59,19 @@
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group mt-0 mb-4">
                                         <div class="form-line">
-                                            <textarea name="" class="form-control" id="" cols="30" rows="10"></textarea>
+                                            <textarea name="description" class="form-control" cols="30" rows="10">{{ old('description') }}</textarea>
+                                            @error('description')
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row clearfix">
-                                <div class="offset-lg-2 col-lg-10">
-                                    <input checked type="checkbox" id="remember_me_3" class="filled-in">
-                                    <label for="remember_me_3">Définir comme session active</label>
-                                </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="offset-lg-2 col-lg-10">
-                                    <button type="button" class="btn btn-raised btn-warning m-t-15 waves-effect">Créer groupe</button>
+                                <div class="offset-lg-2 col-lg-10 text-right">
+                                    <button type="submit" class="btn btn-raised btn-warning m-t-15 waves-effect">Créer groupe</button>
                                 </div>
                             </div>
                         </form>
@@ -61,16 +85,7 @@
             <div class="col-sm-12 col-md-12">
                 <div class="card">
                     <div class="header">
-                        <h2>TASK INFOS</h2>
-                        <ul class="header-dropdown">
-                            <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="zmdi zmdi-more-vert"></i></a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="javascript:void(0);">Action</a></li>
-                                    <li><a href="javascript:void(0);">Another action</a></li>
-                                    <li><a href="javascript:void(0);">Something else here</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+                        <h2>Liste des groupes</h2>
                     </div>
                     <div class="body">
                         <div class="table-responsive">
@@ -78,63 +93,26 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Task</th>
-                                        <th>Status</th>
-                                        <th>Professors</th>
-                                        <th>Progress</th>
+                                        <th>Groupe</th>
+                                        <th>Cohorte</th>
+                                        <th>Créé le</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Task A</td>
-                                        <td><span class="label bg-green">Doing</span></td>
-                                        <td>John Doe</td>
-                                        <td><div class="progress m-b-0">
-                                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" style="width: 62%"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Task B</td>
-                                        <td><span class="label bg-blue">To Do</span></td>
-                                        <td>John Doe</td>
-                                        <td><div class="progress m-b-0">
-                                                <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Task C</td>
-                                        <td><span class="label bg-light-blue">On Hold</span></td>
-                                        <td>John Doe</td>
-                                        <td><div class="progress m-b-0">
-                                                <div class="progress-bar bg-light-blue" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style="width: 72%"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Task D</td>
-                                        <td><span class="label bg-orange">Wait Approvel</span></td>
-                                        <td>John Doe</td>
-                                        <td><div class="progress m-b-0">
-                                                <div class="progress-bar bg-orange" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" style="width: 95%"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Task E</td>
-                                        <td><span class="label bg-red">Suspended</span></td>
-                                        <td>John Doe</td>
-                                        <td><div class="progress m-b-0">
-                                                <div class="progress-bar bg-red" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100" style="width: 87%"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @foreach (request()->appActuSession->groups as $item)
+                                        <tr>
+                                            <td>{{ $item->id }}</td>
+                                            <td>{{ $item->name }}</td>
+                                            <td><a href="{{ route('cohort.show', ['slug' => $item->cohort->slug]) }}"><span class="label bg-gray">{{ $item->cohort->name }}</span></a></td>
+                                            <td>{{ $item->created_at }}</td>
+                                            <td class="text-right">
+                                                <a href="{{ route('group.show', ['slug' =>$item->slug ]) }}" class="text-white btn btn-xs btn-success"><i class="zmdi zmdi-eye"></i></a>
+                                                <a href="{{ route('group.edit', ['id' => $item->id]) }}" class="text-white btn btn-xs btn-primary"><i class="zmdi zmdi-edit"></i></a>
+                                                <a class="text-white btn btn-xs btn-danger" onclick="if(!confirm('Vous êtes sur le point de supprimer cette session. Voulez-vous continuer ?')) { event.preventDefault(); return false; }"><i class="zmdi zmdi-delete"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

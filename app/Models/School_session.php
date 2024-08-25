@@ -14,4 +14,9 @@ class School_session extends Model
     {
         return $this->belongsToMany(Cohort::class, 'session__cohorts', 'school_session_id', 'cohort_id');
     }
+
+    public function groups()
+    {
+        return $this->hasMany(TdGroup::class);
+    }
 }

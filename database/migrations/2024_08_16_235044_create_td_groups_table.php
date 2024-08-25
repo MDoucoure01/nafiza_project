@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->string("slug")->unique();
+            $table->text("description")->nullable();
             $table->foreignIdFor(Cohort::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(School_session::class)->constrained()->cascadeOnDelete();
             $table->softDeletes();

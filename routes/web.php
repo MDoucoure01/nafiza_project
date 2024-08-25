@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backoffice\CohortsController;
+use App\Http\Controllers\Backoffice\GroupsController;
 use App\Http\Controllers\Backoffice\SchoolsessionController;
 use App\Livewire\Backoffice\HomeComponent;
 use App\Livewire\Backoffice\Schoolsessions\Cohorts;
@@ -51,5 +52,10 @@ Route::middleware([
     Route::put('/cohort/update', [CohortsController::class, 'update'])->name('cohort.update');
     Route::put('/delete-cohort', [CohortsController::class, 'delete'])->name('cohort.delete');
 
+    Route::get('/group/{slug}', ShowCohort::class)->name('group.show');
     Route::get('/groupes-td', GroupeTD::class)->name('groupes.td');
+    Route::put('/create-group', [GroupsController::class, 'create'])->name('group.create');
+    Route::get('/group/edit/{id}', EditCohort::class)->name('group.edit');
+    Route::put('/group/update', [GroupsController::class, 'update'])->name('group.update');
+    Route::put('/delete-group', [GroupsController::class, 'delete'])->name('group.delete');
 });
