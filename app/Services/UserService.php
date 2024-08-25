@@ -24,7 +24,6 @@ class UserService
 
     public function InsertUserStudent(object $request){
         $userExist = $this->user;
-
         try {
             return DB::transaction( function () use ($userExist, $request){
 
@@ -41,12 +40,9 @@ class UserService
                     "allergies" => $request->allergies
                 ]);
 
-
-
                 if ($student) {
                    return true;
                 }
-
                 return false;
 
             });
