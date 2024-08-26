@@ -11,10 +11,10 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="header">
-                        <h2> Créer une nouvelle session </h2>
+                        <h2> Modifier le groupe "{{ $group->name }}" </h2>
                     </div>
                     <div class="body">
-                        <form class="form-horizontal" method="POST" action="{{ route('group.create') }}">
+                        <form class="form-horizontal" method="POST" action="{{ route('group.update', ['id' => $group->id]) }}">
                             @csrf
                             @method('PUT')
                             <div class="row clearfix">
@@ -24,7 +24,7 @@
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group mt-0 mb-4">
                                         <div class="form-line">
-                                            <input required name="name" value="{{ old('name') }}" type="text"
+                                            <input required name="name" value="{{ $group->name }}" type="text"
                                                 class="form-control" placeholder="Entrer le nom de la session">
                                             @error('name')
                                                 <span class="text-danger" role="alert">
@@ -43,7 +43,7 @@
                                     <div class="form-group mt-0 mb-4">
                                         <div class="form-line">
                                             <select name="cohort_id" class="form-control" required>
-                                                <option value="">Selectionner une cohorte</option>
+                                                <option value="{{ $group->cohort_id }}">Selectionner une cohorte</option>
                                                 @foreach (request()->appActuSession->cohorts as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
@@ -59,7 +59,7 @@
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group mt-0 mb-4">
                                         <div class="form-line">
-                                            <textarea name="description" class="form-control" cols="30" rows="10">{{ old('description') }}</textarea>
+                                            <textarea name="description" class="form-control" cols="30" rows="10">{{ $group->description }}</textarea>
                                             @error('description')
                                             <span class="text-danger" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -71,7 +71,7 @@
                             </div>
                             <div class="row clearfix">
                                 <div class="offset-lg-2 col-lg-10 text-right">
-                                    <button type="submit" class="btn btn-raised btn-warning m-t-15 waves-effect">Créer groupe</button>
+                                    <button type="submit" class="btn btn-raised btn-warning m-t-15 waves-effect">Enregistrer modifications</button>
                                 </div>
                             </div>
                         </form>

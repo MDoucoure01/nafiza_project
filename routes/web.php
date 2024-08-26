@@ -6,9 +6,11 @@ use App\Http\Controllers\Backoffice\SchoolsessionController;
 use App\Livewire\Backoffice\HomeComponent;
 use App\Livewire\Backoffice\Schoolsessions\Cohorts;
 use App\Livewire\Backoffice\Schoolsessions\EditCohort;
+use App\Livewire\Backoffice\Schoolsessions\EditGroup;
 use App\Livewire\Backoffice\Schoolsessions\EditSession;
 use App\Livewire\Backoffice\Schoolsessions\GroupeTD;
 use App\Livewire\Backoffice\Schoolsessions\ShowCohort;
+use App\Livewire\Backoffice\Schoolsessions\ShowGroup;
 use App\Livewire\Backoffice\Schoolsessions\ShowSession;
 use App\Livewire\Backoffice\Students\AddStudent;
 use App\Livewire\Backoffice\Students\ListStudent;
@@ -52,10 +54,10 @@ Route::middleware([
     Route::put('/cohort/update', [CohortsController::class, 'update'])->name('cohort.update');
     Route::put('/delete-cohort', [CohortsController::class, 'delete'])->name('cohort.delete');
 
-    Route::get('/group/{slug}', ShowCohort::class)->name('group.show');
+    Route::get('/group/{slug}', ShowGroup::class)->name('group.show');
     Route::get('/groupes-td', GroupeTD::class)->name('groupes.td');
     Route::put('/create-group', [GroupsController::class, 'create'])->name('group.create');
-    Route::get('/group/edit/{id}', EditCohort::class)->name('group.edit');
-    Route::put('/group/update', [GroupsController::class, 'update'])->name('group.update');
+    Route::get('/group/edit/{id}', EditGroup::class)->name('group.edit');
+    Route::put('/group-update', [GroupsController::class, 'update'])->name('group.update');
     Route::put('/delete-group', [GroupsController::class, 'delete'])->name('group.delete');
 });
