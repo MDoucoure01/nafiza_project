@@ -35,11 +35,6 @@ class CohortsTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            [
-                'name' => 'Cohorte E',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
         ];
 
         DB::table('cohorts')->insert($cohorts);
