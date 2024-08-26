@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Subscription::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Cohort::class)->constrained()->cascadeOnDelete();
-            $table->boolean("is_actuel")->default(false);
+            $table->boolean("is_actual")->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

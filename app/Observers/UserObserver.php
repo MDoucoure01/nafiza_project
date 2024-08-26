@@ -13,7 +13,7 @@ class UserObserver
      */
     public function created(User $user): void
     {
-        dd($user);
+        //dd($user);
         // $data = session()->get('extra_data');
 
         // Student::create([

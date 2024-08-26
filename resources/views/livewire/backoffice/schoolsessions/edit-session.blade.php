@@ -10,14 +10,14 @@
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="header">
-                        <h2> Créer une nouvelle session </h2>
+                        <h2> Modifier la session {{ $session->name }}</h2>
                     </div>
                     <div class="body">
                         @if (Session::has('message'))
                             <p class="alert alert-danger text-center" role="alert"><i class="zmdi zmdi-info"></i>
                                 {!! Session::get('message') !!}</p>
                         @endif
-                        <form class="form-horizontal" action="{{ route('session.create') }}" method="POST">
+                        <form class="form-horizontal" action="{{ route('session.update', ['id' => $session->id]) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="row clearfix">
@@ -27,7 +27,7 @@
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group mt-0 mb-4">
                                         <div class="form-line">
-                                            <input required name="name" value="{{ old('name') }}" type="text"
+                                            <input required name="name" value="{{ $session->name }}" type="text"
                                                 class="form-control" placeholder="Entrer le nom de la session">
                                             @error('name')
                                                 <span class="text-danger" role="alert">
@@ -46,7 +46,7 @@
                                     <div class="col-lg-6 col-md-6 col-sm-8 col-xs-7">
                                         <div class="form-group mt-0 mb-4">
                                             <div class="form-line">
-                                                du: <input required name="start_date" value="{{ old('start_date') }}"
+                                                du: <input required name="start_date" value="{{ $session->start_date }}"
                                                     type="date" class="form-control">
                                                 @error('start_date')
                                                     <span class="text-danger" role="alert">
@@ -59,7 +59,7 @@
                                     <div class="col-lg-6 col-md-6 col-sm-8 col-xs-7">
                                         <div class="form-group mt-0 mb-4">
                                             <div class="form-line">
-                                                au: <input required name="end_date" value="{{ old('end_date') }}"
+                                                au: <input required name="end_date" value="{{ $session->end_date }}"
                                                     type="date" class="form-control">
                                                 @error('end_date')
                                                     <span class="text-danger" role="alert">
@@ -78,7 +78,7 @@
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <div class="form-group mt-0 mb-4">
                                         <div class="form-line">
-                                            <textarea name="description" class="form-control" cols="30" rows="10">{{ old('description') }}</textarea>
+                                            <textarea name="description" class="form-control" cols="30" rows="10">{{ $session->description }}</textarea>
                                             @error('description')
                                                 <span class="text-danger" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -89,15 +89,23 @@
                                 </div>
                             </div>
                             <div class="row clearfix">
-                                <div class="offset-lg-2 col-lg-10">
-                                    <input name="status" value="1" checked type="checkbox" id="remember_me"
-                                        class="filled-in">
-                                    <label for="remember_me">Définir comme session active</label>
-                                </div>
+                                @if ($session->status == 1)
+                                    <div class="offset-lg-2 col-lg-10">
+                                        <input name="status" checked value="1" type="checkbox" id="remember_me"
+                                            class="filled-in">
+                                        <label for="remember_me">Décocher pour désactiver la session</label>
+                                    </div>
+                                @else
+                                    <div class="offset-lg-2 col-lg-10">
+                                        <input name="status" value="1" type="checkbox" id="remember_me"
+                                            class="filled-in">
+                                            <label for="remember_me">Cocher pour désactiver la session</label>
+                                        </div>
+                                @endif
                             </div>
                             <div class="row clearfix text-right">
                                 <div class="offset-lg-2 col-lg-10">
-                                    <button type="submit" class="btn btn-raised btn-warning m-t-15 waves-effect">Créer
+                                    <button type="submit" class="btn btn-raised btn-primary m-t-15 waves-effect">Modifier
                                         session</button>
                                 </div>
                             </div>
@@ -113,6 +121,17 @@
                 <div class="card">
                     <div class="header">
                         <h2>Liste des sessions</h2>
+                        <ul class="header-dropdown">
+                            <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle"
+                                    data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i
+                                        class="zmdi zmdi-more-vert"></i></a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="javascript:void(0);">Action</a></li>
+                                    <li><a href="javascript:void(0);">Another action</a></li>
+                                    <li><a href="javascript:void(0);">Something else here</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                     <div class="body">
                         <div class="table-responsive">
@@ -146,7 +165,7 @@
                                                     @csrf
                                                     @method("PUT")
 
-                                                    <a href="{{ route('session.show', ['slug' =>$item->slug ]) }}" class="text-white btn btn-xs btn-success"><i class="zmdi zmdi-eye"></i></a>
+                                                    <a href="#" class="text-white btn btn-xs btn-success"><i class="zmdi zmdi-eye"></i></a>
                                                     <a href="{{ route('session.edit', ['id' => $item->id]) }}" class="text-white btn btn-xs btn-primary"><i class="zmdi zmdi-edit"></i></a>
                                                     <button class="text-white btn btn-xs btn-danger" onclick="if(!confirm('Vous êtes sur le point de supprimer cette session. Voulez-vous continuer ?')) { event.preventDefault(); return false; }"><i class="zmdi zmdi-delete"></i></button>
                                                 </form>

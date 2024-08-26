@@ -39,8 +39,8 @@
                 </li>
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-accounts-outline"></i><span>Pensionnaires</span> </a>
                     <ul class="ml-menu">
-                        <li><a href="add-students.html">Ajouter pensionnaire</a></li>
-                        <li><a href="students-profile.html">Liste pensionnaires</a></li>
+                        <li><a href="{{ route('student.add') }}">Ajouter pensionnaire</a></li>
+                        <li><a href="{{ route('students.list') }}">Liste pensionnaires</a></li>
                     </ul>
                 </li>
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-graduation-cap"></i><span>Cours</span> </a>

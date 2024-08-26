@@ -2,15 +2,18 @@
 
 namespace App\Livewire\Backoffice\Schoolsessions;
 
+use App\Models\Cohort;
 use App\Models\TdGroup;
 use Livewire\Component;
 
-class GroupeTD extends Component
+class ShowCohort extends Component
 {
-    public $groupsTD;
+    public $cohort;
+    public $otherCohorts;
 
     public function mount(){
-        $this->groupsTD = TdGroup::orderByDesc('id')->get();
+        $this->cohort = Cohort::where('slug', request()->slug)->first();
+        $this->otherCohorts = request()->appActuSession->cohorts->where('id', '!=', $this->cohort->id);
     }
 
     public function removeGroup($groupId)
@@ -20,13 +23,12 @@ class GroupeTD extends Component
 
         // Envoyer un message de confirmation (facultatif)
         toastr()->error('Groupe supprimé avec succès !');
-        return redirect()->route('groupes.td');
+        return redirect()->route('cohort.show', ['slug' => $this->cohort->slug ]);
         // return redirect()->back();
     }
 
-
     public function render()
     {
-        return view('livewire.backoffice.schoolsessions.groupe-t-d')->layout('layouts.app');
+        return view('livewire.backoffice.schoolsessions.show-cohort')->layout('layouts.app');
     }
 }
