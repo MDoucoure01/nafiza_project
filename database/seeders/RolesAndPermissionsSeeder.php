@@ -16,7 +16,7 @@ class RolesAndPermissionsSeeder extends Seeder
     public function run(): void
     {
         // Rôles assignés au guard web pour le backoffice
-        $webRoles = ['root', 'admin', 'secretary'];
+        $webRoles = ['root', 'admin', 'secretary', 'professor', 'student'];
 
         // Rôles assignés au guard api pour le frontend
         $apiRoles = ['professor', 'student'];

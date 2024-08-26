@@ -24,6 +24,13 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+     public function student()
+     {
+         return $this->hasOne(Student::class);
+     }
+
+
     protected $fillable = [
         'firstname',
         'lastname',

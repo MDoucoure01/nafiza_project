@@ -13,4 +13,19 @@ class Student extends Model
     protected $guarded = [
         'id'
     ];
+
+    public function schoolsessions()
+    {
+        return $this->belongsToMany(School_session::class, 'subscriptions');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function conseil()
+    {
+        return $this->belongsTo(Conseil::class);
+    }
 }

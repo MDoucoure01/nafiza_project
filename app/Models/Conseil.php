@@ -9,4 +9,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Conseil extends Model
 {
     use HasFactory, SoftDeletes;
+
+    public function comite()
+    {
+        return $this->belongsTo(Comite::class);
+    }
+
+    public function student()
+    {
+        return $this->hasOne(Student::class);
+    }
 }

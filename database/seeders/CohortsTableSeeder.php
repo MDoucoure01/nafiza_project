@@ -36,10 +36,7 @@ class CohortsTableSeeder extends Seeder
             ],
             [
                 'name' => 'Cohorte D',
-<<<<<<< HEAD
-=======
                 'slug' => Str::slug('Cohorte D'),
->>>>>>> StudentsManagement
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
