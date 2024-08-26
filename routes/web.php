@@ -32,9 +32,10 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-    'role:admin|secretary'
+    'role:root|admin|secretary'
 ])->group(function () {
     Route::get('/', HomeComponent::class)->name('home');
+    
     Route::get('/pensionnaire/nouveau', AddStudent::class)->name('student.add');
     Route::get('/pensionnaires', ListStudent::class)->name('students.list');
 
