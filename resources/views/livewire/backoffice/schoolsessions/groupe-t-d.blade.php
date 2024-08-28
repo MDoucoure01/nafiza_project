@@ -6,6 +6,7 @@
             <h2>Gestion des groupes TD</h2>
             <small class="text-muted">Welcome to Nafiza application</small>
         </div>
+        @hasanyrole('admin|root')
         <!-- Horizontal Layout -->
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
@@ -79,6 +80,7 @@
                 </div>
             </div>
         </div>
+        @endhasanyrole
         <!-- #END# Horizontal Layout -->
         <div class="row clearfix">
             <!-- Task Info -->
@@ -108,8 +110,10 @@
                                             <td>{{ $item->created_at }}</td>
                                             <td class="text-right">
                                                 <a href="{{ route('group.show', ['slug' =>$item->slug ]) }}" class="text-white btn btn-xs btn-success"><i class="zmdi zmdi-eye"></i></a>
-                                                <a href="{{ route('group.edit', ['id' => $item->id]) }}" class="text-white btn btn-xs btn-primary"><i class="zmdi zmdi-edit"></i></a>
-                                                <a href="#" class="btn btn-xs btn-danger" onclick="if (!confirm('Es-tu sûr de vouloir supprimer ce groupe ?')) { event.preventDefault(); event.stopImmediatePropagation(); } else { @this.call('removeGroup', {{ $item->id }}) }"><i class="zmdi zmdi-delete text-white"></i></a>
+                                                @hasanyrole('admin|root')
+                                                    <a href="{{ route('group.edit', ['id' => $item->id]) }}" class="text-white btn btn-xs btn-primary"><i class="zmdi zmdi-edit"></i></a>
+                                                    <a href="#" class="btn btn-xs btn-danger" onclick="if (!confirm('Es-tu sûr de vouloir supprimer ce groupe ?')) { event.preventDefault(); event.stopImmediatePropagation(); } else { @this.call('removeGroup', {{ $item->id }}) }"><i class="zmdi zmdi-delete text-white"></i></a>
+                                                @endhasanyrole
                                             </td>
                                         </tr>
                                     @endforeach

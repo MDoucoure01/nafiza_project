@@ -22,7 +22,7 @@
                         <div class="row">
                             <div class="col-lg-4 col-md-12 m-b-0">
                                 <a href="#" class="p-profile-pix"><img src="{{ asset('backoffice/assets/images/logo.png') }}" alt="user" class="img-thumbnail img-fluid"></a>
-                                <a href="#" class="edit m-r-10"><i class="zmdi zmdi-edit"></i></a>
+                                <a href="#" class="edit m-r-10"><i class="zmdi zmdi-account"></i></a>
                                 <a href="#" class="edit text-danger"><i class="zmdi zmdi-delete"></i></a>
                             </div>
                             <div class="col-lg-8 col-md-12 m-b-0">

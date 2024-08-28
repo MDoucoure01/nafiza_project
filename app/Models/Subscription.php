@@ -13,4 +13,14 @@ class Subscription extends Model
     protected $guarded = [
         "id"
     ];
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
+
+    public function cohort()
+    {
+        return $this->belongsTo(Cohort::class, 'cohort_subscriptions');
+    }
 }

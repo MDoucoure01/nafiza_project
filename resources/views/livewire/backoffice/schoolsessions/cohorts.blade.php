@@ -7,6 +7,7 @@
             <small class="text-muted">Welcome to Nafiza application</small>
         </div>
         <!-- Horizontal Layout -->
+        @hasanyrole('admin|root')
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
@@ -62,6 +63,7 @@
                 </div>
             </div>
         </div>
+        @endhasanyrole
         <!-- #END# Horizontal Layout -->
         <div class="row clearfix">
             <!-- Task Info -->
@@ -93,8 +95,10 @@
                                                     @method("PUT")
 
                                                     <a href="{{ route('cohort.show', ['slug' => $item->slug]) }}" class="text-white btn btn-xs btn-success"><i class="zmdi zmdi-eye"></i></a>
-                                                    <a href="{{ route('cohort.edit', ['id' => $item->id]) }}" class="text-white btn btn-xs btn-primary"><i class="zmdi zmdi-edit"></i></a>
-                                                    <button class="text-white btn btn-xs btn-danger" onclick="if(!confirm('Vous êtes sur le point de supprimer cette cohorte. Voulez-vous continuer ?')) { event.preventDefault(); return false; }"><i class="zmdi zmdi-delete"></i></button>
+                                                    @hasanyrole('admin|root')
+                                                        <a href="{{ route('cohort.edit', ['id' => $item->id]) }}" class="text-white btn btn-xs btn-primary"><i class="zmdi zmdi-edit"></i></a>
+                                                        <button class="text-white btn btn-xs btn-danger" onclick="if(!confirm('Vous êtes sur le point de supprimer cette cohorte. Voulez-vous continuer ?')) { event.preventDefault(); return false; }"><i class="zmdi zmdi-delete"></i></button>
+                                                    @endhasanyrole
                                                 </form>
                                             </td>
                                         </tr>
