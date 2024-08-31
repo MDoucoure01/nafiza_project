@@ -24,12 +24,12 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'firstname',
-        'lastname',
-        'email',
-        'password',
-    ];
+    // protected $fillable = [
+    //     'firstname',
+    //     'lastname',
+    //     'email',
+    //     'password',
+    // ];
 
     protected $guarded = [
         'id'
@@ -59,8 +59,12 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    // ];
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'password' => 'hashed',
     ];
 
     /**
@@ -71,4 +75,5 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
 }

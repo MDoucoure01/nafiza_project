@@ -35,8 +35,8 @@ Route::apiResource("user",UserController::class);
 // Route::apiResource("promo",PromoController::class);
 // Route::post("update/user/{user}",[UserController::class,"updateUser"]);
 
-// Route::group(['middleware' => 'auth:sanctum'], function () {
+Route::post('auth/login', [AuthController::class, 'login']);
+Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('auth/register', [AuthController::class, 'register']);
-    Route::post('auth/login', [AuthController::class, 'login']);
     Route::delete('auth/logout', [AuthController::class, 'logout']);
-// });
+});
