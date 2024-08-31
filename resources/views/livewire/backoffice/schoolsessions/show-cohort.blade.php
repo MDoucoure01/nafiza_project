@@ -183,16 +183,18 @@
         <div class="row clearfix">
             @foreach ($cohort->groups as $item)
                 <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="info-box-3 bg-blue-grey">
+                    <div class="info-box-3 bg-blue">
                         <div class="icon">
                             <div class="">
-                                <a href="{{ route('cohort.show', ['slug' => $item->slug]) }}" class="btn btn-xs btn-success"><i class="zmdi zmdi-eye text-white"></i></a>
-                                <a href="#" class="btn btn-xs btn-danger" onclick="if (!confirm('Es-tu sûr de vouloir supprimer cette cohorte de la session ?')) { event.preventDefault(); event.stopImmediatePropagation(); } else { @this.call('removeCohort', {{ $item->id }}) }"><i class="zmdi zmdi-delete text-white"></i></a>
+                                <a href="{{ route('group.show', ['slug' => $item->slug]) }}" class="btn btn-xs btn-success"><i class="zmdi zmdi-eye text-white"></i></a>
+                                @hasanyrole('admin|root')
+                                    <a href="#" class="btn btn-xs btn-danger" onclick="if (!confirm('Es-tu sûr de vouloir supprimer ce groupe ?')) { event.preventDefault(); event.stopImmediatePropagation(); } else { @this.call('removeGroup', {{ $item->id }}) }"><i class="zmdi zmdi-delete text-white"></i></a>
+                                @endhasanyrole
                             </div>
                         </div>
                         <div class="content">
                             <div class="text">{{ $item->name }}</div>
-                            <div class="number">063 <i class="zmdi zmdi-accounts-outline"></i></div>
+                            <div class="number">63 <i class="zmdi zmdi-accounts-outline"></i></div>
                         </div>
                     </div>
                 </div>
@@ -227,8 +229,10 @@
                                                     @method("PUT")
 
                                                     <a href="{{ route('cohort.show', ['slug' => $item->slug]) }}" class="text-white btn btn-xs btn-success"><i class="zmdi zmdi-eye"></i></a>
-                                                    <a href="{{ route('cohort.edit', ['id' => $item->id]) }}" class="text-white btn btn-xs btn-primary"><i class="zmdi zmdi-edit"></i></a>
-                                                    <button class="text-white btn btn-xs btn-danger" onclick="if(!confirm('Vous êtes sur le point de supprimer cette cohorte. Voulez-vous continuer ?')) { event.preventDefault(); return false; }"><i class="zmdi zmdi-delete"></i></button>
+                                                    @hasanyrole('admin|root')
+                                                        <a href="{{ route('cohort.edit', ['id' => $item->id]) }}" class="text-white btn btn-xs btn-primary"><i class="zmdi zmdi-edit"></i></a>
+                                                        <button class="text-white btn btn-xs btn-danger" onclick="if(!confirm('Vous êtes sur le point de supprimer cette cohorte. Voulez-vous continuer ?')) { event.preventDefault(); return false; }"><i class="zmdi zmdi-delete"></i></button>
+                                                    @endhasanyrole
                                                 </form>
                                             </td>
                                         </tr>

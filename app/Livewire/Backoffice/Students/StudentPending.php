@@ -6,7 +6,7 @@ use App\Models\Student;
 use App\Models\Subscription;
 use Livewire\Component;
 
-class ListStudent extends Component
+class StudentPending extends Component
 {
     public $students;
 
@@ -15,7 +15,7 @@ class ListStudent extends Component
         $sessionId = request()->appActuSession->id;
         $this->students = Student::whereHas('schoolsessions', function($query) use ($sessionId) {
             $query->where('school_session_id', $sessionId)
-                  ->where('is_active', 1);
+                  ->where('is_active', 0);
         })->get();
     }
 
@@ -27,21 +27,21 @@ class ListStudent extends Component
         session()->flash('message', 'Vous venez de supprimer ce pensionnaire.');
 
         toastr()->error('Pensionnaire supprimé avec succès !');
-        return redirect()->route('students.list')->with('student_id', $studentId);
+        return redirect()->route('students.pending.list')->with('student_id', $studentId);
         // return redirect()->back();
     }
 
-    public function disableStudent($studentId)
+    public function unableStudent($studentId)
     {
         // Supprimer la relation de la table pivot
         $subscription = Subscription::where('student_id', $studentId)->where('school_session_id', request()->appActuSession->id)->first();
-        $subscription->is_active = 0;
+        $subscription->is_active = 1;
         $subscription->save();
 
-        session()->flash('disable_msg', 'Vous venez de désactiver ce pensionnaire.');
+        session()->flash('disable_msg', 'Vous venez de réactiver ce pensionnaire.');
 
-        toastr()->error('Pensionnaire désactivé avec succès !');
-        return redirect()->route('students.list')->with('student_id', $studentId);
+        toastr()->success('Pensionnaire réactivé avec succès !');
+        return redirect()->route('students.pending.list')->with('student_id', $studentId);
         // return redirect()->back();
     }
 
@@ -54,11 +54,11 @@ class ListStudent extends Component
         $student->restore();
 
         toastr()->success('Pensionnaire restauré avec succès !');
-        return redirect()->route('students.list');
+        return redirect()->route('students.pending.list');
     }
 
     public function render()
     {
-        return view('livewire.backoffice.students.list-student')->layout('layouts.app');
+        return view('livewire.backoffice.students.student-pending')->layout('layouts.app');
     }
 }

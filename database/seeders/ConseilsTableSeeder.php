@@ -16,13 +16,15 @@ class ConseilsTableSeeder extends Seeder
         $comites = DB::table('comites')->pluck('id')->toArray();
         if (count($comites) > 0) {
             $conseils = [];
-            for ($i = 1; $i <= 3; $i++) {
-                $conseils[] = [
-                    'name' => 'Conseil ' . $i,
-                    'comite_id' => $comites[array_rand($comites)],
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ];
+            foreach ($comites as $comite) {
+                for ($i = 1; $i <= 3; $i++) {
+                    $conseils[] = [
+                        'name' => 'Conseil ' . $i,
+                        'comite_id' => $comite,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }
             }
 
             DB::table('conseils')->insert($conseils);

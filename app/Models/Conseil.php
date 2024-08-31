@@ -10,7 +10,19 @@ class Conseil extends Model
 {
     use HasFactory, SoftDeletes;
 
+
     protected $guarded = [
         'id'
     ];
+
+    public function comite()
+    {
+        return $this->belongsTo(Comite::class);
+    }
+
+    public function student()
+    {
+        return $this->hasOne(Student::class);
+    }
+
 }
