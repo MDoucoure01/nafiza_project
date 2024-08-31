@@ -13,4 +13,9 @@ class Comite extends Model
     protected $guarded = [
         'id'
     ];
+
+    public function conseils()
+    {
+        return $this->hasMany(Conseil::class);
+    }
 }

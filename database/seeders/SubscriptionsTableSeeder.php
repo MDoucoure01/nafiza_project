@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\School_session;
 use App\Models\Student;
+use App\Models\Subscription;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -19,12 +20,12 @@ class SubscriptionsTableSeeder extends Seeder
         $subscriptions = [];
 
         foreach ($students as $student) {
-            $subscriptions[] = [
+            Subscription::create([
                 'student_id' => $student->id,
-                'school_session_id' => $schoolSessionIds[array_rand($schoolSessionIds)],
-                'is_active' => rand(0, 1) == 1,
+                'school_session_id' => 1,
+                'is_active' => rand(0, 1),
                 'updated_at' => now(),
-            ];
+            ]);
         }
     }
 }

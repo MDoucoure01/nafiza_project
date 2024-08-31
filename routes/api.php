@@ -3,6 +3,8 @@
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ProfessionController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ProfessorController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +41,16 @@ Route::post('auth/register', [AuthController::class, 'register']);
 Route::post('auth/login', [AuthController::class, 'login']);
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::delete('auth/logout', [AuthController::class, 'logout']);
+// });
+
+
+
+
+Route::get('/professor/profile', [ProfessorController::class, 'showProfile']);
+Route::put('/professor/profile', [ProfessorController::class, 'updateProfile']);
+
+Route::get('/student/profile', [StudentController::class, 'showProfile']);
+Route::put('/student/profile', [StudentController::class, 'updateProfile']);
     Route::get('auth/profile', [AuthController::class, 'profile']);
     Route::put('auth/edit-profile', [UserController::class, 'edit']);
 

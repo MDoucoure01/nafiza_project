@@ -13,6 +13,17 @@ class GroupeTD extends Component
         $this->groupsTD = TdGroup::orderByDesc('id')->get();
     }
 
+    public function removeGroup($groupId)
+    {
+        // Supprimer la relation de la table pivot
+        TdGroup::findOrFail($groupId)->delete();
+
+        // Envoyer un message de confirmation (facultatif)
+        toastr()->error('Groupe supprimé avec succès !');
+        return redirect()->route('groupes.td');
+        // return redirect()->back();
+    }
+
 
     public function render()
     {

@@ -3,6 +3,7 @@
 namespace App\Livewire\Backoffice\Schoolsessions;
 
 use App\Models\Cohort;
+use App\Models\TdGroup;
 use Livewire\Component;
 
 class ShowCohort extends Component
@@ -18,7 +19,7 @@ class ShowCohort extends Component
     public function removeGroup($groupId)
     {
         // Supprimer la relation de la table pivot
-        $this->cohort->groups()->detach($groupId);
+        TdGroup::findOrFail($groupId)->delete();
 
         // Envoyer un message de confirmation (facultatif)
         toastr()->error('Groupe supprimé avec succès !');
