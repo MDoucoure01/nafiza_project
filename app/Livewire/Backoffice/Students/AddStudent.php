@@ -8,6 +8,6 @@ class AddStudent extends Component
 {
     public function render()
     {
-        return view('livewire.backoffice.students.add-student');
+        return view('livewire.backoffice.students.add-student')->layout('layouts.app');
     }
 }

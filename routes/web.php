@@ -15,6 +15,7 @@ use App\Livewire\Backoffice\Schoolsessions\ShowSession;
 use App\Livewire\Backoffice\Students\AddStudent;
 use App\Livewire\Backoffice\Students\ListStudent;
 use App\Livewire\Backoffice\Schoolsessions\ListSessions;
+use App\Livewire\Backoffice\Students\StudentPending;
 use App\Livewire\Backoffice\Students\StudentProfile;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,7 @@ Route::middleware([
 
     Route::get('/pensionnaire/nouveau', AddStudent::class)->name('student.add');
     Route::get('/pensionnaires', ListStudent::class)->name('students.list');
+    Route::get('/pensionnaires/en-attente', StudentPending::class)->name('students.pending.list');
     Route::get('/pensionnaire/profile/{id}', StudentProfile::class)->name('student.profile');
 
     Route::get('/session/{slug}', ShowSession::class)->name('session.show');

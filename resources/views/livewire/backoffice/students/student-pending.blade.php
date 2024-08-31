@@ -6,11 +6,11 @@
             <div class="d-sm-flex justify-content-between">
                 <div>
                     <h2>Pensionnaires</h2>
-                    <small class="text-muted">Welcome to {{ env('APP_NAME') }} application</small>
+                    <small class="text-muted">Welcome to Swift application</small>
                 </div>
                 <div>
                     <a href="{{ route('student.add') }}" class="btn btn-raised btn-xs btn-primary"><i class="zmdi zmdi-plus"></i> Pensionnaire</a>
-                    <a href="{{ route('students.pending.list') }}" class="btn btn-raised btn-xs btn-warning"><i class="zmdi zmdi-accounts"></i></i> En attente</a>
+                    <a href="{{ route('students.list') }}" class="btn btn-raised btn-xs btn-success"><i class="zmdi zmdi-accounts"></i></i> Pensionnaires</a>
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="col-lg-4 col-md-12 m-b-0 text-center">
                                 <a href="{{ route('student.profile', ['id' => $item->id]) }}" class="p-profile-pix"><img src="{{ asset('backoffice/assets/images/logo.png') }}" alt="user" class="img-thumbnail img-fluid"></a>
-                                <a href="#"  onclick="if (!confirm('En poursuivant cette action, vous allez désactiver le compte de ce pensionnaire. Voulez-vous continuer ?')) { event.preventDefault(); event.stopImmediatePropagation(); } else { @this.call('disableStudent', {{ $item->id }}) }" class="edit m-r-10 text-success"><i class="material-icons">check_circle</i></a>
+                                <a href="#"  onclick="if (!confirm('En poursuivant cette action, vous allez réactiver le compte de ce pensionnaire. Voulez-vous continuer ?')) { event.preventDefault(); event.stopImmediatePropagation(); } else { @this.call('unableStudent', {{ $item->id }}) }" class="m-r-10"><i class="material-icons" style="color: black">block</i></a>
                                 @hasanyrole('admin|root')
                                     <a href="#" onclick="if (!confirm('Es-tu sûr de vouloir supprimer ce pensionnaire ?')) { event.preventDefault(); event.stopImmediatePropagation(); } else { @this.call('removeStudent', {{ $item->id }}) }" class="edit text-danger"><i class="material-icons">delete</i></a>
                                 @endhasanyrole
