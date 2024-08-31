@@ -59,10 +59,8 @@ class AuthController extends Controller
         }
     }
 
-    public function login(LoginRequest $request)
+    public function login(Request $request)
     {
-
-
         try {
             //code...
             $input = $request->all();
@@ -101,19 +99,6 @@ class AuthController extends Controller
                 "message" => $th->getMessage(),
             ], 500);
         }
-
-        // $field = filter_var($request->input('username'), FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
-        // $credentials = [
-        //     $field => $request->input('username'),
-        //     'password' => $request->input('password')
-        // ];
-
-        // if (Auth::attempt($credentials)) {
-        //     $user = Auth::user();
-        //     $token = $user->createToken('token')->accessToken;
-        //     return $this->responseData('Connection réussie ...', true, Response::HTTP_OK, [UserResource::make($user), "Token"=>$token]);
-        // }
-        // return response(['message' => 'le login ou le mot de passe est erroné'], 401);
     }
 
     public function logout(Request $request){
@@ -126,6 +111,14 @@ class AuthController extends Controller
         return response()->json([
             "status" => true,
             "message" => "Déconnecté avec succès ...",
+        ]);
+    }
+
+    public function profile(Request $request){
+        return response()->json([
+            "status" => true,
+            "message" => "Profile utilisateur ...",
+            "data" => $request->user(),
         ]);
     }
     

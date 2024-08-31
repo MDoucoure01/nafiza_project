@@ -12,6 +12,7 @@ use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+Use Illuminate\Support\Facades\Validator;
 
 
 class UserController extends Controller
@@ -95,6 +96,40 @@ class UserController extends Controller
             return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST, null);
         }
     }
+
+    public function edit(Request $request)
+    {
+        try {
+            $input = $request->all();
+            $validator = Validator::make($input, [
+                'email' => "email|unique:users,email",
+                'firstname' => "required",
+                'lastname' => "required",
+                'phone' => "required",
+                'address' => "required",
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    "status" => false,
+                    "message" => "Erreur de validation",
+                    "errors" => $validator->errors(),
+                ], 422);
+            }
+            $request->user()->update($input);
+            return response()->json([
+                "status" => true,
+                "message" => "Utilisateur mis à jour avec success",
+                "data" => $request->user(),
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json([
+                "status" => false,
+                "message" => $th->getMessage(),
+            ], 500);
+        }
+    }
+
 
     /**
      * Display the specified resource.
