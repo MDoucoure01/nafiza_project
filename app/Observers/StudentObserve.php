@@ -33,7 +33,16 @@ class StudentObserve
      */
     public function deleted(Student $student): void
     {
-        //
+        // Vérifie si c'est un soft delete
+        if ($student->isForceDeleting()) {
+            // Si c'est une suppression définitive, on supprime aussi les relations de manière définitive
+            $student->subscriptions()->forceDelete();
+            $student->user()->forceDelete();
+        } else {
+            // Si c'est un soft delete, on soft delete aussi les relations
+            $student->subscriptions()->delete();
+            $student->user()->delete();
+        }
     }
 
     /**
@@ -41,7 +50,9 @@ class StudentObserve
      */
     public function restored(Student $student): void
     {
-        //
+        // Lorsque l'étudiant est restauré, on restaure aussi ses relations
+        $student->subscriptions()->withTrashed()->restore();
+        $student->user()->withTrashed()->restore();
     }
 
     /**

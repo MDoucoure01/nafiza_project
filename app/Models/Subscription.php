@@ -21,6 +21,6 @@ class Subscription extends Model
 
     public function cohort()
     {
-        return $this->belongsTo(Cohort::class, 'cohort_subscriptions');
+        return $this->belongsTo(Cohort::class);
     }
 }
