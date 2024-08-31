@@ -25,7 +25,7 @@ class RolesAndPermissionsSeeder extends Seeder
         foreach ($webRoles as $roleName) {
             $role = Role::create([
                 'name' => $roleName,
-                'guard_name' => 'web',
+                'guard_name' => 'api',
             ]);
 
             // Création d'un utilisateur pour chaque rôle (pour le guard web)
