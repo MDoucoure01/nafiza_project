@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Users\UserRequest;
 use App\Http\Resources\Users\UserResource;
 use App\Models\Conseil;
-use App\Models\Role;
 use App\Models\User;
 use App\Services\ExistUser;
 use App\Services\UserService;
@@ -80,7 +79,8 @@ class UserController extends Controller
                     "specific_skills" => $request->specific_skills ?? null,
                     "password" => $request->password ?? "N@Fiz@2024",
                 ]);
-                $user->assignRole('student');
+                $thisUser = User::findOrfail($user->id);
+                $thisUser->assignRole('student');
                 $insertStudent = new UserService($user->id);
 
                 $studentExist = $insertStudent->InsertUserStudent($request);
