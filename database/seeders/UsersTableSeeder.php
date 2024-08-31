@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UsersTableSeeder extends Seeder
 {
@@ -14,6 +16,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run(): void
     {
+
         // Créer le Super Admin
         DB::table('users')->insert([ 
             'firstname' => 'Super',
@@ -24,6 +27,7 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('password123'), // Remplacez par un mot de passe fort
         ]);
 
+
         // Créer 3 Professeurs
         $professors = [
             ['firstname' => 'John', 'lastname' => 'Doe', 'email' => 'john.doe@example.com', 'phone' => '0123456780'],
@@ -32,8 +36,7 @@ class UsersTableSeeder extends Seeder
         ];
 
         foreach ($professors as $professor) {
-            DB::table('users')->insert([
-                'role_id' => 5, // Assuming 'Professeur' has role_id = 5
+            $userId = DB::table('users')->insertGetId([
                 'firstname' => $professor['firstname'],
                 'lastname' => $professor['lastname'],
                 'email' => $professor['email'],
@@ -41,23 +44,17 @@ class UsersTableSeeder extends Seeder
                 'address' => null,
                 'password' => Hash::make('password123'), // Remplacez par un mot de passe fort
             ]);
-        }
 
-        // Créer 1 Secrétaire
-        DB::table('users')->insert([
-            'role_id' => 3, // Assuming 'Secretaire' has role_id = 3
-            'firstname' => 'Alice',
-            'lastname' => 'Johnson',
-            'email' => 'alice.johnson@example.com',
-            'phone' => '0123456783',
-            'address' => null,
-            'password' => Hash::make('password123'), // Remplacez par un mot de passe fort
-        ]);
+            // Récupérer l'utilisateur inséré
+            $userProf = User::find($userId);
+
+            // Assigner le rôle
+            $userProf->assignRole('professor');
+        }
 
         // Créer 15 Pensionnaires
         for ($i = 1; $i <= 15; $i++) {
-            DB::table('users')->insert([
-                'role_id' => 4, // Assuming 'Pensionnaire' has role_id = 4
+            $userId = DB::table('users')->insertGetId([
                 'firstname' => 'Pensionnaire',
                 'lastname' => 'User ' . $i,
                 'email' => 'pensionnaire' . $i . '@example.com',
@@ -65,6 +62,13 @@ class UsersTableSeeder extends Seeder
                 'address' => null,
                 'password' => Hash::make('password123'), // Remplacez par un mot de passe fort
             ]);
+
+            // Récupérer l'utilisateur inséré
+            $userStudent = User::find($userId);
+
+            // Assigner le rôle
+            $userStudent->assignRole('student');
+
         }
     }
 }

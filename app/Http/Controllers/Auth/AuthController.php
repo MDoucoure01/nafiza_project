@@ -61,7 +61,7 @@ class AuthController extends Controller
         }
     }
 
-    public function login(LoginRequest $request)
+    public function login(Request $request)
     {
         try {
             return DB::transaction(function () use ($request){
@@ -98,4 +98,13 @@ class AuthController extends Controller
             return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST);
         }
     }
+
+    public function profile(Request $request){
+        return response()->json([
+            "status" => true,
+            "message" => "Profile utilisateur ...",
+            "data" => $request->user(),
+        ]);
+    }
+    
 }
