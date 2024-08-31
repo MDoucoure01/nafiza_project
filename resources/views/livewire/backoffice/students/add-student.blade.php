@@ -17,55 +17,90 @@
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" placeholder="Prénoms">
+                                        <input name="firstname" type="text" value="{{ old('firstname') }}" class="form-control" placeholder="Prénoms">
                                     </div>
                                 </div>
+                                @error('firstname')
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" placeholder="Nom">
+                                        <input name="lastname" type="text" value="{{ old('lastname') }}" class="form-control" placeholder="Nom">
                                     </div>
                                 </div>
+                                @error('lastname')
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="row clearfix">
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" placeholder="No. Téléphone">
+                                        <input name="phone" type="text" value="{{ old('phone') }}" class="form-control" placeholder="No. Téléphone">
                                     </div>
                                 </div>
+                                @error('phone')
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="text" class="datepicker form-control" placeholder="Date de naissance">
+                                        <input type="text" name="born_date" value="{{ old('born_date') }}" class="datepicker form-control" placeholder="Date de naissance">
                                     </div>
                                 </div>
+                                @error('born_date')
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="email" class="form-control" placeholder="Email">
+                                        <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Email">
                                     </div>
                                 </div>
+                                @error('email')
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="form-group drop-custum">
-                                    <select class="form-control show-tick">
+                                    <select class="form-control show-tick" name="sexe">
                                         <option value="">__ Comité - Conseil __</option>
                                         <option value="10">Male</option>
                                         <option value="20">Female</option>
                                     </select>
                                 </div>
+                                @error('sexe')
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" placeholder="Adresse complète">
+                                        <input type="text" name="sex" class="form-control" placeholder="Adresse complète">
                                     </div>
                                 </div>
+                                @error('sex')
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="form-group drop-custum">
