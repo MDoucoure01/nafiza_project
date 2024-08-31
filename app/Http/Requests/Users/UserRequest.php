@@ -36,7 +36,7 @@ class UserRequest extends FormRequest
             'specific_skills' => 'nullable|string|max:500',
             'password' => 'nullable|string|min:8',
             // 'profile_photo_path' => 'nullable|string|max:255',
-            'role_id' => 'required|exists:roles,id',
+            // 'role_id' => 'required|exists:roles,id',
         ];
     }
 

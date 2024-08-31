@@ -9,4 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Comite extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $guarded = [
+        'id'
+    ];
 }

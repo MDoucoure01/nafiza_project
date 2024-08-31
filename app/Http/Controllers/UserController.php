@@ -69,7 +69,6 @@ class UserController extends Controller
                     return $this->responseData("Oops Vous devez avoir au moins 2 ans.", false, Response::HTTP_NOT_FOUND, null);
                 }
                 $user = User::create([
-                    // "role_id" => $roleExiste->id,Jj
                     "firstname" => $request->firstname,
                     "lastname" => $request->lastname,
                     "email" => $request->email,
@@ -78,6 +77,7 @@ class UserController extends Controller
                     "status" => $request->status ?? null,
                     "specific_skills" => $request->specific_skills ?? null,
                     "password" => $request->password ?? "N@Fiz@2024",
+                    "sexe" => $request->sexe
                 ]);
                 $thisUser = User::findOrfail($user->id);
                 $thisUser->assignRole('student');

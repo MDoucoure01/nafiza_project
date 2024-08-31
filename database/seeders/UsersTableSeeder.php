@@ -15,8 +15,7 @@ class UsersTableSeeder extends Seeder
     public function run(): void
     {
         // Créer le Super Admin
-        DB::table('users')->insert([
-            'role_id' => 1, // Assuming 'Super Admin' has role_id = 1
+        DB::table('users')->insert([ 
             'firstname' => 'Super',
             'lastname' => 'Admin',
             'email' => 'superadmin@example.com',

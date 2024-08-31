@@ -9,4 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Conseil extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $guarded = [
+        'id'
+    ];
 }
