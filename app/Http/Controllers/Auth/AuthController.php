@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Resources\Users\UserResource;
 use Illuminate\Http\Response;
 use App\Traits\ResponseTrait;
-Use Illuminate\Support\Facades\Validator;
-Use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\PersonalAccessToken;
 
 
@@ -18,8 +20,9 @@ class AuthController extends Controller
 {
     use ResponseTrait;
 
-    public function register(Request $request){
-         try {
+    public function register(Request $request)
+    {
+        try {
             //code...
             $input = $request->all();
             $validator = Validator::make($input, [
@@ -36,7 +39,6 @@ class AuthController extends Controller
                     "message" => "Erreur de validation",
                     "errors" => $validator->errors()
                 ], 422);
-
             }
             $input['password'] = Hash::make($request->password);
             $user = User::create($input);
@@ -62,56 +64,39 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
-            //code...
-            $input = $request->all();
-            $validator = Validator::make($input, [
-                'email' => "required|email",
-                'password' => 'required',
-            ]);
-            if ($validator->fails()) {
-                return response()->json([
-                    "status" => false,
-                    "message" => "Erreur de validation",
-                    "errors" => $validator->errors(),
-                ], 422);
-            }
-            if(!Auth::attempt($request->only(['email', 'password']))) {
-                return response()->json([
-                    "status" => false,
-                    "message" => "Login ou mot de passe incorrect",
-                    "errors" => $validator->errors(),
-                ], 401);
-            }
+            return DB::transaction(function () use ($request){
+                $field = filter_var($request->input('username'), FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
+                $credentials = [
+                    $field => $request->input('username'),
+                    'password' => $request->input('password')
+                ];
 
-            $user = User::where('email', $request->email)->first();
-            return response()->json([
-                "status" => true,
-                "message" => "Connection spécie ...",
-                "data" => [
-                    "token" => $user->createToken('auth_user')->plainTextToken,
-                    "token_type" => "Bearer",
-                ],
-            ], 200);
+                if (Auth::attempt($credentials)) {
+                    /**@var User $user */
+                    $user = Auth::user();
+                    $token = $user->createToken('token')->plainTextToken;
+                    return $this->responseData('Connection réussie ...', true, Response::HTTP_OK, ["user" => UserResource::make($user), "Token" => $token]);
+                }
+                return response(['message' => 'le login ou le mot de passe est erroné'], 401);
+            });
         } catch (\Throwable $th) {
-            //throw $th;
-            return response()->json([
-                "status" => false,
-                "message" => $th->getMessage(),
-            ], 500);
+            return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST);
         }
     }
 
-    public function logout(Request $request){
-        $accessToken = $request->bearerToken();
-        $token = PersonalAccessToken::findToken($accessToken);
-        $token->delete();
 
-        // $token = $request->user()->currentAccessToken();
-        // $request->user()->tokens()->where('id', $token->id)->delete();
-        return response()->json([
-            "status" => true,
-            "message" => "Déconnecté avec succès ...",
-        ]);
+    public function logout()
+    {
+        try {
+            return DB::transaction(function (){
+                /**@var User $user */
+                $user = Auth::user();
+                $user->tokens()->delete();
+                return $this->responseData("Deconnexion réussie", true, Response::HTTP_ACCEPTED);
+            });
+        } catch (\Throwable $th) {
+            return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST);
+        }
     }
 
     public function profile(Request $request){

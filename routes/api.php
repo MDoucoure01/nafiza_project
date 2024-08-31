@@ -37,6 +37,11 @@ Route::apiResource("user",UserController::class);
 // Route::apiResource("promo",PromoController::class);
 // Route::post("update/user/{user}",[UserController::class,"updateUser"]);
 
+Route::post('auth/login', [AuthController::class, 'login']);
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('auth/register', [AuthController::class, 'register']);
+    Route::delete('auth/logout', [AuthController::class, 'logout']);
+
 Route::post('auth/register', [AuthController::class, 'register']);
 Route::post('auth/login', [AuthController::class, 'login']);
 Route::group(['middleware' => 'auth:sanctum'], function () {
@@ -53,6 +58,5 @@ Route::get('/student/profile', [StudentController::class, 'showProfile']);
 Route::put('/student/profile', [StudentController::class, 'updateProfile']);
     Route::get('auth/profile', [AuthController::class, 'profile']);
     Route::put('auth/edit-profile', [UserController::class, 'edit']);
-
 
 });
