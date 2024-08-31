@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+<<<<<<< HEAD
         $this->call(RolesAndPermissionsSeeder::class);
 
         // $this->call(RolesTableSeeder::class);
@@ -22,5 +23,13 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(StudentsTableSeeder::class);
         $this->call(SubscriptionsTableSeeder::class);
+=======
+        \App\Models\User::factory(10)->create();
+
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+>>>>>>> bcc3e1df25726a20f9ea9081bc5085bd70630e9d
     }
 }

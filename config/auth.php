@@ -40,10 +40,16 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+<<<<<<< HEAD
 
         'api' => [
             'driver' => 'passport',
             'provider' => 'users',
+=======
+        'api' => [
+            'driver' => 'passport',
+            'provider' =>'users',
+>>>>>>> bcc3e1df25726a20f9ea9081bc5085bd70630e9d
         ],
     ],
 

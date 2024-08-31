@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.2",
+<<<<<<< HEAD
         "laravel/fortify": "^1.23",
         "laravel/framework": "^10.10",
         "laravel/jetstream": "^4.3",
@@ -16,6 +17,13 @@
         "livewire/livewire": "^3.0",
         "spatie/laravel-permission": "^6.9",
         "yoeunes/toastr": "^2.3"
+=======
+        "laravel/framework": "^10.10",
+        "laravel/passport": "^11.10",
+        "laravel/sanctum": "^3.3",
+        "laravel/tinker": "^2.8",
+        "spatie/laravel-permission": "^6.3"
+>>>>>>> bcc3e1df25726a20f9ea9081bc5085bd70630e9d
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

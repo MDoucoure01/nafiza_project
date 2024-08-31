@@ -168,8 +168,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+<<<<<<< HEAD
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
+=======
+>>>>>>> bcc3e1df25726a20f9ea9081bc5085bd70630e9d
         Spatie\Permission\PermissionServiceProvider::class,
     ])->toArray(),
 

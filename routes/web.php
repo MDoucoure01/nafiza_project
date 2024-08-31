@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
 use App\Http\Controllers\Backoffice\CohortsController;
 use App\Http\Controllers\Backoffice\GroupsController;
 use App\Http\Controllers\Backoffice\SchoolsessionController;
@@ -17,6 +18,8 @@ use App\Livewire\Backoffice\Students\ListStudent;
 use App\Livewire\Backoffice\Schoolsessions\ListSessions;
 use App\Livewire\Backoffice\Students\StudentPending;
 use App\Livewire\Backoffice\Students\StudentProfile;
+=======
+>>>>>>> bcc3e1df25726a20f9ea9081bc5085bd70630e9d
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +33,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+<<<<<<< HEAD
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -76,4 +80,8 @@ Route::middleware([
     Route::get('/group/edit/{id}', EditGroup::class)->name('group.edit');
     Route::put('/group-update', [GroupsController::class, 'update'])->name('group.update');
     Route::put('/delete-group', [GroupsController::class, 'delete'])->name('group.delete');
+=======
+Route::get('/', function () {
+    return view('welcome');
+>>>>>>> bcc3e1df25726a20f9ea9081bc5085bd70630e9d
 });
