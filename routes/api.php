@@ -7,6 +7,8 @@ use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Auth\AuthController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,6 +29,14 @@ Route::apiResource("profession",ProfessionController::class);
 Route::apiResource("role",RoleController::class);
 Route::apiResource("user",UserController::class);
 
+// Route::post('user/login', [AuthController::class, 'login']);
+
 // Route::post("user/store",[UserController::class,"userStore"]);
 // Route::apiResource("promo",PromoController::class);
 // Route::post("update/user/{user}",[UserController::class,"updateUser"]);
+
+// Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('auth/register', [AuthController::class, 'register']);
+    Route::post('auth/login', [AuthController::class, 'login']);
+    Route::delete('auth/logout', [AuthController::class, 'logout']);
+// });
