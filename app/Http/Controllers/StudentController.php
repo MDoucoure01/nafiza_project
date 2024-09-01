@@ -104,7 +104,8 @@ class StudentController extends Controller
                     return $this->responseData("Pensionnaire non assigné à un cohort", false, Response::HTTP_NOT_FOUND, null);
                 }
                 $cohort = Cohort::find($CohortSubs->cohort_id);
-                return CohortResource::make($cohort);
+                return $this->responseData("student enregistré", true, Response::HTTP_OK, CohortResource::make($cohort));
+
             });
         } catch (\Throwable $th) {
             return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST, null);
