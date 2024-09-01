@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Conseil extends Model
@@ -15,14 +17,19 @@ class Conseil extends Model
         'id'
     ];
 
-    public function comite()
+    public function comite():BelongsTo
     {
         return $this->belongsTo(Comite::class);
     }
 
-    public function student()
+    // public function student()
+    // {
+    //     return $this->hasOne(Student::class);
+    // }
+
+    public function students():HasMany
     {
-        return $this->hasOne(Student::class);
+        return $this->hasMany(Student::class);
     }
 
 }
