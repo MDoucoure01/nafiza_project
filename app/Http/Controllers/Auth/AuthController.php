@@ -77,7 +77,8 @@ class AuthController extends Controller
                     $token = $user->createToken('token')->plainTextToken;
                     return $this->responseData('Connection réussie ...', true, Response::HTTP_OK, ["user" => UserResource::make($user), "Token" => $token]);
                 }
-                return response(['message' => 'le login ou le mot de passe est erroné'], 401);
+                return $this->responseData('le login ou le mot de passe est erroné', false, Response::HTTP_NOT_FOUND);
+
             });
         } catch (\Throwable $th) {
             return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST);
