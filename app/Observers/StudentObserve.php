@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\School_session;
 use App\Models\Student;
 use App\Models\Subscription;
 use Illuminate\Support\Facades\DB;
@@ -13,9 +14,9 @@ class StudentObserve
      */
     public function created(Student $student): void
     {
-        $anneeActifId = 1;
+        $anneeActifId = School_session::where("status",true)->first();
         $subscription = Subscription::create([
-         'session_id'=> $anneeActifId,
+         'school_session_id'=> $anneeActifId->id,
          'student_id'=> $student->id
         ]);
     }

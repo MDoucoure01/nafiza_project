@@ -99,12 +99,5 @@ class AuthController extends Controller
         }
     }
 
-    public function profile(Request $request){
-        return response()->json([
-            "status" => true,
-            "message" => "Profile utilisateur ...",
-            "data" => $request->user(),
-        ]);
-    }
-    
+
 }
