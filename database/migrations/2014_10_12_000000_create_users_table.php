@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('phone')->nullable()->unique();
             $table->text('address')->nullable();
             $table->string('status')->nullable();
+            $table->string('sex')->nullable();
             $table->string('emergency_number')->nullable();
             $table->text('specific_skills')->nullable();
             $table->timestamp('email_verified_at')->nullable();

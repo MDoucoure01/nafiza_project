@@ -13,9 +13,9 @@ class StudentObserve
      */
     public function created(Student $student): void
     {
-        $anneeActifId = 1;
+        $anneeActifId = request()->appActuSession->id;
         $subscription = Subscription::create([
-         'session_id'=> $anneeActifId,
+         'school_session_id'=> $anneeActifId,
          'student_id'=> $student->id
         ]);
     }

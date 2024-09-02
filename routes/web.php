@@ -2,8 +2,12 @@
 
 use App\Http\Controllers\Backoffice\CohortsController;
 use App\Http\Controllers\Backoffice\GroupsController;
+use App\Http\Controllers\Backoffice\ProfessorsController;
 use App\Http\Controllers\Backoffice\SchoolsessionController;
+use App\Http\Controllers\Backoffice\StudentsController;
 use App\Livewire\Backoffice\HomeComponent;
+use App\Livewire\Backoffice\Professors\AddProfessor;
+use App\Livewire\Backoffice\Professors\ListProfessors;
 use App\Livewire\Backoffice\Schoolsessions\Cohorts;
 use App\Livewire\Backoffice\Schoolsessions\EditCohort;
 use App\Livewire\Backoffice\Schoolsessions\EditGroup;
@@ -42,6 +46,9 @@ Route::middleware([
     Route::get('/pensionnaires', ListStudent::class)->name('students.list');
     Route::get('/pensionnaires/en-attente', StudentPending::class)->name('students.pending.list');
     Route::get('/pensionnaire/profile/{id}', StudentProfile::class)->name('student.profile');
+    Route::put('/create-student', [StudentsController::class, 'create'])->name('student.create');
+
+    Route::get('/professeurs', ListProfessors::class)->name('professors.list');
 
     Route::get('/session/{slug}', ShowSession::class)->name('session.show');
     Route::get('/sessions', ListSessions::class)->name('sessions.list');
@@ -76,4 +83,7 @@ Route::middleware([
     Route::get('/group/edit/{id}', EditGroup::class)->name('group.edit');
     Route::put('/group-update', [GroupsController::class, 'update'])->name('group.update');
     Route::put('/delete-group', [GroupsController::class, 'delete'])->name('group.delete');
+
+    Route::get('/professeur/nouveau', AddProfessor::class)->name('professor.add');
+    Route::put('/create-professor', [ProfessorsController::class, 'create'])->name('professor.create');
 });
