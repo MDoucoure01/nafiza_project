@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Profession;
+use App\Models\School_session;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('session_professors', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Profession::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(School_session::class)->constrained()->cascadeOnDelete();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
