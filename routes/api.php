@@ -34,7 +34,7 @@ Route::apiResource("subscription", SubscriptionController::class);
 
 Route::post("user/subscription", [UserController::class, "store"]);
 // Route::post('user/login', [AuthController::class, 'login']);
-
+Route::apiResource("module",);
 // Route::post("user/store",[UserController::class,"userStore"]);
 // Route::apiResource("promo",PromoController::class);
 // Route::post("update/user/{user}",[UserController::class,"updateUser"]);
