@@ -7,7 +7,7 @@ trait ImageTrait
 {
     protected function load($request)
     {
-        return $request->file('profile')->store('public/images');
+        return $request->file('media_link')->store('public/images');
     }
 
     protected function loadCovered($request)

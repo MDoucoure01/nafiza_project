@@ -18,13 +18,9 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Module::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(CourseType::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Cohort::class)->constrained()->cascadeOnDelete();
             $table->string('title')->nullable();
             $table->longText('description')->nullable();
             $table->json('file')->nullable();
-            $table->string('replay')->nullable();
-            $table->dateTime('start_date')->nullable();
-            $table->dateTime('end_date')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

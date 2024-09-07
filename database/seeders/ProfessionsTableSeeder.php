@@ -14,12 +14,22 @@ class ProfessionsTableSeeder extends Seeder
     public function run(): void
     {
         $professions = [
+            ['name' => 'Enseignant - Professeur'],
+            ['name' => 'Menuisier'],
+            ['name' => 'Tailleur'],
+            ['name' => 'Etudiant'],
+            ['name' => 'Mécanicien'],
+            ['name' => 'Commerçant'],
+            ['name' => 'Cultivateur'],
+            ['name' => 'Médecin - Infirmier'],
+            ['name' => 'Plombier'],
+            ['name' => 'Commerçant'],
             ['name' => 'Développeur'],
             ['name' => 'Designer'],
-            ['name' => 'Chef de projet'],
-            ['name' => 'Analyste de données'],
-            ['name' => 'Administrateur système'],
-            ['name' => 'Professeur'],
+            ['name' => 'Infographie - Multimeéia'],
+            ['name' => 'Informatique - Télécom'],
+            ['name' => 'Juriste'],
+            ['name' => 'Autres'],
         ];
 
         DB::table('professions')->insert($professions);

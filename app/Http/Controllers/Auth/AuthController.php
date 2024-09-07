@@ -19,7 +19,6 @@ use Laravel\Sanctum\PersonalAccessToken;
 class AuthController extends Controller
 {
     use ResponseTrait;
-
     public function register(Request $request)
     {
         try {
