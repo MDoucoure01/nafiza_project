@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Cohort;
 use App\Models\CourseType;
 use App\Models\Module;
 use Illuminate\Database\Migrations\Migration;
@@ -17,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Module::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(CourseType::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Cohort::class)->constrained()->cascadeOnDelete();
             $table->string('title')->nullable();
             $table->longText('description')->nullable();
             $table->json('file')->nullable();
