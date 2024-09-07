@@ -35,6 +35,7 @@
                     <ul class="ml-menu">
                         <li><a href="{{ route('professor.add') }}">Ajouter professeur</a></li>
                         <li><a href="{{ route('professors.list') }}">Liste des professeurs</a></li>
+
                     </ul>
                 </li>
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-accounts-outline"></i><span>Pensionnaires</span> </a>

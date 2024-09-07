@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cohort extends Model
@@ -21,8 +22,12 @@ class Cohort extends Model
         return $this->hasMany(TdGroup::class);
     }
 
-    public function subscriptions()
+    // public function subscriptions()
+    // {
+    //     return $this->hasMany(Subscription::class);
+    // }
+    public function subscriptions():BelongsToMany
     {
-        return $this->hasMany(Subscription::class);
+        return $this->belongsToMany(Subscription::class,"cohort_subscriptions");
     }
 }

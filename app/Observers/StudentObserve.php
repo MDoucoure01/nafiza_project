@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\School_session;
 use App\Models\Student;
 use App\Models\Subscription;
 use Illuminate\Support\Facades\DB;
@@ -13,14 +14,10 @@ class StudentObserve
      */
     public function created(Student $student): void
     {
-        $anneeActifId = request()->appActuSession->id;
-        // Vérifiez si les frais ont été payés
-        $isActive = isset($student->fee_paid) && $student->fee_paid == 1;
-
+        $anneeActifId = School_session::where("status",true)->first();
         $subscription = Subscription::create([
-         'school_session_id'=> $anneeActifId,
-         'student_id'=> $student->id,
-         'is_active' => $isActive, // 1 si payé, 0 sinon
+         'school_session_id'=> $anneeActifId->id,
+         'student_id'=> $student->id
         ]);
     }
 

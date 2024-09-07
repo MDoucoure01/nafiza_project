@@ -46,6 +46,7 @@
                                             <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </p>
                                         </div>
                                         {{-- <hr>
+
                                         <div class="post-box">
                                             <h4>Skill Set</h4>
                                             <div class="body p-l-0 p-r-0">
@@ -87,6 +88,7 @@
                                         <p>{{ $student->user->phone }}</p>
                                         <strong>Adresse</strong>
                                         <p>{{ $student->user->address }}</p>
+
                                     </div>
                                 </div>
                             </div>
