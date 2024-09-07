@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Cohort;
 use App\Models\CourseType;
 use App\Models\Module;
 use Illuminate\Database\Migrations\Migration;

@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\School_session;
 use App\Models\Student;
 use App\Models\Subscription;
 use Illuminate\Support\Facades\DB;

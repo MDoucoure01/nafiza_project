@@ -20,7 +20,7 @@ class StudentCohortResource extends JsonResource
             'student_id' => $this->student_id,
             'school_session_id' => $this->school_session_id,
             'is_active' => $this->is_active,
-            'cohort' => $this->activeCohort() ?? 'A' // Ajoutez la cohorte active ici
+            'cohort' => $this->activeCohort() ?? 'Null' // Ajoutez la cohorte active ici
         ];
     }
 }

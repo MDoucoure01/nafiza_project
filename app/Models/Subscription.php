@@ -20,11 +20,6 @@ class Subscription extends Model
         return $this->belongsTo(Student::class);
     }
 
-    // public function cohort():BelongsTo
-    // {
-    //     return $this->belongsTo(Cohort::class);
-    // }
-
     public function cohorts():BelongsToMany
     {
         return $this->belongsToMany(Cohort::class,"cohort_subscriptions")->withPivot(["is_actual"]);
@@ -35,7 +30,7 @@ class Subscription extends Model
     {
         return $this->belongsTo(School_session::class);
     }
-    
+
     public function activeCohort()
     {
         return $this->cohorts()->where('is_actual', true)->first();

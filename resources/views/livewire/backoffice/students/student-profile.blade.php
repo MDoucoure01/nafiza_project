@@ -16,9 +16,21 @@
                         <strong>Prénoms & Nom</strong>
                         <p>{{ $student->user->firstname.' '.$student->user->lastname }}</p>
                         <strong>Cohorte</strong>
+<<<<<<< HEAD
                         <p>{{ $currentCohort->name }}</p>
                         <strong>Groupe TD</strong>
                         {{-- <p>{{ $currentCohort }}</p> --}}
+=======
+                        <p>{{ $currentCohort }}</p>
+                        <strong>Comité</strong>
+                        <p>{{ $student->conseil->comite->name }}</p>
+                        <strong>Conseil</strong>
+                        <p>{{ $student->conseil->name }}</p>
+                        <strong>Phone</strong>
+                        <p>{{ $student->user->phone }}</p>
+                        <strong>Adresse</strong>
+                        <p>{{ $student->user->address }}</p>
+>>>>>>> f5abbd3cf794dafa6828fdd56a12722e915c3115
                         <hr>
                         <strong>Matricule</strong>
                         <address>{{ $student->matricule }}</address>
@@ -30,22 +42,37 @@
                     <div class="body">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
+<<<<<<< HEAD
                             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#report">A propos</a></li>
                             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#timeline">Activitiés</a></li>
                             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#payment">Paiements</a></li>
                             <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#update">Mettre à jour</a></li>
+=======
+                            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#report">A propos</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#timeline">Activitiés</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#payment">Paiements</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#update">Mettre à jour</a></li>
+>>>>>>> f5abbd3cf794dafa6828fdd56a12722e915c3115
                         </ul>
 
                         <!-- Tab panes -->
                         <div class="tab-content">
+<<<<<<< HEAD
                             <div role="tabpanel" class="tab-pane" id="report">
+=======
+                            <div role="tabpanel" class="tab-pane in active" id="report">
+>>>>>>> f5abbd3cf794dafa6828fdd56a12722e915c3115
                                 <div class="wrap-reset">
                                     <div class="mypost-list">
                                         <div class="post-box">
                                             <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </p>
                                             <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </p>
                                         </div>
+<<<<<<< HEAD
                                         {{-- <hr>
+=======
+                                        <hr>
+>>>>>>> f5abbd3cf794dafa6828fdd56a12722e915c3115
                                         <div class="post-box">
                                             <h4>Skill Set</h4>
                                             <div class="body p-l-0 p-r-0">
@@ -76,6 +103,7 @@
                                                     </li>
                                                 </ul>
                                             </div>
+<<<<<<< HEAD
                                         </div> --}}
                                         <hr>
                                         <h4>Détails</h4>
@@ -87,6 +115,26 @@
                                         <p>{{ $student->user->phone }}</p>
                                         <strong>Adresse</strong>
                                         <p>{{ $student->user->address }}</p>
+=======
+                                        </div>
+                                        <hr>
+                                        <h4>Education</h4>
+                                        <ul class="dis">
+                                            <li>Primary School (Year 1 to 6)</li>
+                                            <li>Secondary School (Year 7 to 11)</li>
+                                            <li>Colleges (BCA)</li>
+                                        </ul>
+                                        <hr>
+                                        <h4>Certification</h4>
+                                        <ul class="dis">
+                                            <li>Integer aesent vest .</li>
+                                            <li>Praesent vestibulum dapibus nibh.</li>
+                                            <li>Integer tinciaesent vest dunt.</li>
+                                            <li>Praesent vestibulum dapibus nibh.</li>
+                                            <li>Integer tincidunt.</li>
+                                            <li>Praesent vestibulum dapibus nibh.</li>
+                                        </ul>
+>>>>>>> f5abbd3cf794dafa6828fdd56a12722e915c3115
                                     </div>
                                 </div>
                             </div>
@@ -147,6 +195,7 @@
                             <div role="tabpanel" class="tab-pane" id="payment">
                                 <p>Paiements</p>
                             </div>
+<<<<<<< HEAD
                             <div role="tabpanel" class="tab-pane in active" id="update">
                                 <form action="{{ route('student.update', ['id' => $student->id]) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
@@ -425,6 +474,10 @@
                                         </div>
                                     </div>
                                 </form>
+=======
+                            <div role="tabpanel" class="tab-pane" id="update">
+                                <p>Mise à jour des infos</p>
+>>>>>>> f5abbd3cf794dafa6828fdd56a12722e915c3115
                             </div>
                         </div>
                     </div>

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Conseil;
+<<<<<<< HEAD
+=======
+use App\Models\User;
+>>>>>>> f5abbd3cf794dafa6828fdd56a12722e915c3115
 use App\Services\ExistUser;
 use App\Services\UserService;
 use Illuminate\Support\Facades\DB;
@@ -11,10 +15,15 @@ use App\Traits\SlugTrait;
 use Illuminate\Http\Request;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\user\UserRequest;
 use App\Http\Resources\user\UserResource;
+=======
+use Illuminate\Support\Facades\Validator;
+>>>>>>> f5abbd3cf794dafa6828fdd56a12722e915c3115
 
 
 class UserController extends Controller
@@ -122,10 +131,6 @@ class UserController extends Controller
 <<<<<<< HEAD
         try {
             return DB::transaction(function () use ($request) {
-                // $roleExiste = Role::find($request->role_id);
-                // if (!$roleExiste) {
-                //     return $this->responseData("Oops donnée incohérent", false, Response::HTTP_NOT_FOUND, null);
-                // }
                 $conseilExiste = Conseil::find($request->conseil_id);
                 if (!$conseilExiste) {
                     return $this->responseData("Oops donnée incohérent", false, Response::HTTP_NOT_FOUND, null);
@@ -153,7 +158,6 @@ class UserController extends Controller
                     return $this->responseData("Oops Vous devez avoir au moins 2 ans.", false, Response::HTTP_NOT_FOUND, null);
                 }
                 $user = User::create([
-                    // "role_id" => $roleExiste->id,Jj
                     "firstname" => $request->firstname,
                     "lastname" => $request->lastname,
                     "email" => $request->email,
@@ -162,17 +166,18 @@ class UserController extends Controller
                     "status" => $request->status ?? null,
                     "specific_skills" => $request->specific_skills ?? null,
                     "password" => $request->password ?? "N@Fiz@2024",
+                    "sexe" => $request->sexe
                 ]);
-                $user->assignRole('student');
+                $thisUser = User::findOrfail($user->id);
+                $thisUser->assignRole('student');
                 $insertStudent = new UserService($user->id);
 
                 $studentExist = $insertStudent->InsertUserStudent($request);
-               if ($studentExist){
-                return $this->responseData("student enregistré", true, Response::HTTP_OK, UserResource::make($user));
-               }
+                if ($studentExist) {
+                    return $this->responseData("student enregistré", true, Response::HTTP_OK, UserResource::make($user));
+                }
 
-               DB::rollBack();
-
+                DB::rollBack();
             });
         } catch (\Throwable $th) {
             return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST, null);
@@ -201,12 +206,47 @@ class UserController extends Controller
 >>>>>>> bcc3e1df25726a20f9ea9081bc5085bd70630e9d
     }
 
+    public function edit(Request $request)
+    {
+        try {
+            $input = $request->all();
+            $validator = Validator::make($input, [
+                'email' => "email|unique:users,email",
+                'firstname' => "required",
+                'lastname' => "required",
+                'phone' => "required",
+                'address' => "required",
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    "status" => false,
+                    "message" => "Erreur de validation",
+                    "errors" => $validator->errors(),
+                ], 422);
+            }
+            $request->user()->update($input);
+            return response()->json([
+                "status" => true,
+                "message" => "Utilisateur mis à jour avec success",
+                "data" => $request->user(),
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json([
+                "status" => false,
+                "message" => $th->getMessage(),
+            ], 500);
+        }
+    }
+
+
     /**
      * Display the specified resource.
      */
 <<<<<<< HEAD
     public function show(User $user)
     {
+<<<<<<< HEAD
         //
 =======
     public function show(Request $request)
@@ -261,53 +301,14 @@ class UserController extends Controller
     }
 
     public function userStore(UserRequest $request){
+=======
+>>>>>>> f5abbd3cf794dafa6828fdd56a12722e915c3115
         try {
-            return DB::transaction(function () use ($request) {
-                // $roleExiste = Role::find($request->role_id);
-                // if (!$roleExiste) {
-                //     return $this->responseData("Oops donnée incohérent", false, Response::HTTP_NOT_FOUND, null);
-                // }
-                // $conseilExiste = Conseil::find($request->conseil_id);
-                // if (!$conseilExiste) {
-                //     return $this->responseData("Oops donnée incohérent", false, Response::HTTP_NOT_FOUND, null);
-                // }
-                /**
-                 * @var ExistUser $userExist
-                 */
-                // $userExist = new ExistUser();
-                // $phone = $userExist->userExistByPhone($request->phone);
-                // if ($phone) {
-                //     return $this->responseData("Oops numero lié a un utilisateur", false, Response::HTTP_NOT_FOUND, UserResource::make($phone));
-                // }
-
-                // $userMailExist = $userExist->userExistByEmail($request->email);
-                // if ($userMailExist) {
-                //     return $this->responseData("Oops email lié a un utilisateur", false, Response::HTTP_NOT_FOUND, UserResource::make($userMailExist));
-                // }
-                // $validatDate = $userExist->isValidDate($request->date_born);
-                // if (!$validatDate) {
-                //     return $this->responseData("Oops La date de naissance n\'est pas valide.", false, Response::HTTP_NOT_FOUND, null);
-                // }
-
-                // $isTwoOld = $userExist->isAtLeastTwoYearsOld($request->date_born);
-                // if (!$isTwoOld) {
-                //     return $this->responseData("Oops Vous devez avoir au moins 2 ans.", false, Response::HTTP_NOT_FOUND, null);
-                // }
-
-
-                $user = User::create([
-                    "role_id" => $request->role_id,
-                    "firstname" => $request->firstname,
-                    "lastname" => $request->lastname,
-                    "email" => $request->email,
-                    "phone" => $request->phone ?? null,
-                    "address" => $request->address,
-                    "status" => $request->status ?? null,
-                    "specific_skills" => $request->specific_skills ?? null,
-                    "password" => $request->password ?? "N@Fiz@2024",
-                ]);
-
-                return $this->responseData("Utilisateurs enregistres", true, Response::HTTP_OK, UserResource::make($user));
+            return DB::transaction(function () use ($user) {
+                if (Auth::id() != $user->id) {
+                    return $this->responseData("Oops donnée incohérent", false, Response::HTTP_NOT_FOUND, null);
+                }
+                return $this->responseData("afficher un utilisateur", true, Response::HTTP_OK, UserResource::make($user));
             });
         } catch (\Throwable $th) {
             return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST, null);
@@ -329,4 +330,28 @@ class UserController extends Controller
         });
 >>>>>>> bcc3e1df25726a20f9ea9081bc5085bd70630e9d
     }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UserRequest $request, User $user)
+    {
+        try {
+            return DB::transaction(function () use ($request, $user) {
+                $user->firstname = $request->firstname;
+                $user->lastname = $request->lastname;
+                $user->phone = $request->phone;
+                $user->address = $request->address;
+                $user->save();
+                return $this->responseData("Modification réussie", true, Response::HTTP_ACCEPTED, $user);
+            });
+        } catch (\Throwable $th) {
+            return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST, null);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(User $user) {}
 }

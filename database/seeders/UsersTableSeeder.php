@@ -16,6 +16,18 @@ class UsersTableSeeder extends Seeder
      */
     public function run(): void
     {
+
+        // Créer le Super Admin
+        DB::table('users')->insert([
+            'firstname' => 'Super',
+            'lastname' => 'Admin',
+            'email' => 'superadmin@example.com',
+            'phone' => '0123456789',
+            'address' => 'Admin Street, City',
+            'password' => Hash::make('password123'), // Remplacez par un mot de passe fort
+        ]);
+
+
         // Créer 3 Professeurs
         $professors = [
             ['firstname' => 'John', 'lastname' => 'Doe', 'email' => 'john.doe@example.com', 'phone' => '0123456780'],
