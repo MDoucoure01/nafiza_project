@@ -7,13 +7,9 @@ use App\Services\ExistUser;
 use App\Services\UserService;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
-use App\Traits\SlugTrait;
 use Illuminate\Http\Request;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\user\UserRequest;
 use App\Http\Resources\user\UserResource;
 use Illuminate\Support\Facades\Hash;
@@ -35,7 +31,7 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST, null);
         }
-   
+
     }
 
     /**
@@ -172,39 +168,7 @@ class UserController extends Controller
         });
     }
 
- 
 
-    public function userStore(UserRequest $request){
-        try {
-            return DB::transaction(function () use ($user) {
-                if (Auth::id() != $user->id) {
-                    return $this->responseData("Oops donnée incohérent", false, Response::HTTP_NOT_FOUND, null);
-                }
-                return $this->responseData("afficher un utilisateur", true, Response::HTTP_OK, UserResource::make($user));
-            });
-        } catch (\Throwable $th) {
-            return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST, null);
-        }
-    
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UserRequest $request, User $user)
-    {
-        try {
-            return DB::transaction(function () use ($request, $user) {
-                $user->firstname = $request->firstname;
-                $user->lastname = $request->lastname;
-                $user->phone = $request->phone;
-                $user->address = $request->address;
-                $user->save();
-                return $this->responseData("Modification réussie", true, Response::HTTP_ACCEPTED, $user);
-            });
-        } catch (\Throwable $th) {
-            return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST, null);
-        }
-    }
 
     /**
      * Remove the specified resource from storage.
