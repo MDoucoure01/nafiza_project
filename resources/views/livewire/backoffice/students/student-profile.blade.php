@@ -16,15 +16,9 @@
                         <strong>Prénoms & Nom</strong>
                         <p>{{ $student->user->firstname.' '.$student->user->lastname }}</p>
                         <strong>Cohorte</strong>
-                        <p>{{ $currentCohort }}</p>
-                        <strong>Comité</strong>
-                        <p>{{ $student->conseil->comite->name }}</p>
-                        <strong>Conseil</strong>
-                        <p>{{ $student->conseil->name }}</p>
-                        <strong>Phone</strong>
-                        <p>{{ $student->user->phone }}</p>
-                        <strong>Adresse</strong>
-                        <p>{{ $student->user->address }}</p>
+                        <p>{{ $currentCohort->name }}</p>
+                        <strong>Groupe TD</strong>
+                        {{-- <p>{{ $currentCohort }}</p> --}}
                         <hr>
                         <strong>Matricule</strong>
                         <address>{{ $student->matricule }}</address>
@@ -36,22 +30,23 @@
                     <div class="body">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#report">A propos</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#report">A propos</a></li>
                             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#timeline">Activitiés</a></li>
                             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#payment">Paiements</a></li>
-                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#update">Mettre à jour</a></li>
+                            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#update">Mettre à jour</a></li>
                         </ul>
 
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane in active" id="report">
+                            <div role="tabpanel" class="tab-pane" id="report">
                                 <div class="wrap-reset">
                                     <div class="mypost-list">
                                         <div class="post-box">
                                             <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </p>
                                             <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </p>
                                         </div>
-                                        <hr>
+                                        {{-- <hr>
+
                                         <div class="post-box">
                                             <h4>Skill Set</h4>
                                             <div class="body p-l-0 p-r-0">
@@ -82,24 +77,18 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <hr>
-                                        <h4>Education</h4>
-                                        <ul class="dis">
-                                            <li>Primary School (Year 1 to 6)</li>
-                                            <li>Secondary School (Year 7 to 11)</li>
-                                            <li>Colleges (BCA)</li>
-                                        </ul>
-                                        <hr>
-                                        <h4>Certification</h4>
-                                        <ul class="dis">
-                                            <li>Integer aesent vest .</li>
-                                            <li>Praesent vestibulum dapibus nibh.</li>
-                                            <li>Integer tinciaesent vest dunt.</li>
-                                            <li>Praesent vestibulum dapibus nibh.</li>
-                                            <li>Integer tincidunt.</li>
-                                            <li>Praesent vestibulum dapibus nibh.</li>
-                                        </ul>
+                                        <h4>Détails</h4>
+                                        <strong>Comité</strong>
+                                        <p>{{ $student->conseil->comite->name }}</p>
+                                        <strong>Conseil</strong>
+                                        <p>{{ $student->conseil->name }}</p>
+                                        <strong>Phone</strong>
+                                        <p>{{ $student->user->phone }}</p>
+                                        <strong>Adresse</strong>
+                                        <p>{{ $student->user->address }}</p>
+
                                     </div>
                                 </div>
                             </div>
@@ -160,8 +149,284 @@
                             <div role="tabpanel" class="tab-pane" id="payment">
                                 <p>Paiements</p>
                             </div>
-                            <div role="tabpanel" class="tab-pane" id="update">
-                                <p>Mise à jour des infos</p>
+                            <div role="tabpanel" class="tab-pane in active" id="update">
+                                <form action="{{ route('student.update', ['id' => $student->id]) }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="row clearfix">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="card">
+                                                <div class="header">
+                                                    <h2>Informations personnelles</h2>
+                                                </div>
+                                                <div class="body">
+                                                    <div class="row clearfix">
+                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                                            <label for="">Photo de profi</label>
+                                                            <div class="fallback">
+                                                                <input name="profile_photo" type="file" />
+                                                            </div>
+                                                            @error('profile_photo')
+                                                                <span class="text-danger" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="row clearfix">
+                                                        <div class="col-lg-6 col-md-12">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input name="firstname" type="text" value="{{ $student->user->firstname }}" class="form-control" placeholder="Prénoms">
+                                                                </div>
+                                                            </div>
+                                                            @error('firstname')
+                                                                <span class="text-danger" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-12">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input name="lastname" type="text" value="{{ $student->user->lastname }}" class="form-control" placeholder="Nom">
+                                                                </div>
+                                                            </div>
+                                                            @error('lastname')
+                                                                <span class="text-danger" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="row clearfix">
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="date" title="Date de naissance" name="born_date" value="{{ $student->born_date }}" class="form-control" placeholder="Date de naissance">
+                                                                </div>
+                                                            </div>
+                                                            @error('born_date')
+                                                                <span class="text-danger" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input name="phone" type="text" value="{{ $student->user->phone }}" class="form-control" placeholder="No. Téléphone">
+                                                                </div>
+                                                            </div>
+                                                            @error('phone')
+                                                                <span class="text-danger" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="email" name="email" value="{{ $student->user->email }}" class="form-control" placeholder="Email">
+                                                                </div>
+                                                            </div>
+                                                            @error('email')
+                                                                <span class="text-danger" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                                            <div class="form-group drop-custum">
+                                                                <select class="form-control show-tick" name="conseil_id">
+                                                                    <option value="{{ $student->conseil->id }}">__ Changer conseil __</option>
+                                                                    @foreach ($comites as $comite)
+                                                                        <optgroup label="{{ $comite->name }}">
+                                                                            @foreach ($comite->conseils as $conseil)
+                                                                                <option value="{{ $conseil->id }}">{{ $conseil->name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </optgroup>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            @error('conseil_id')
+                                                                <span class="text-danger" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="text" name="address" value="{{ $student->user->address }}" class="form-control" placeholder="Adresse complète">
+                                                                </div>
+                                                            </div>
+                                                            @error('address')
+                                                                <span class="text-danger" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="text" value="{{ $student->specific_desease }}" name="specific_desease" class="form-control" placeholder="Maladie spécifique">
+                                                                </div>
+                                                            </div>
+                                                            @error('specific_desease')
+                                                                <span class="text-danger" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-12">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="text" value="{{ $student->allergies }}" name="allergies" class="form-control" placeholder="Allergies">
+                                                                </div>
+                                                            </div>
+                                                            @error('allergies')
+                                                                <span class="text-danger" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-12">
+                                                            <div class="form-group drop-custum">
+                                                                <select name="specific_skills" class="form-control show-tick">
+                                                                    <option value="{{ $student->user->specific_skills }}">__ Profession __</option>
+                                                                    @foreach ($professions as $profession)
+                                                                        <option value="{{ $profession->id }}">{{ $profession->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            @error('profession')
+                                                                <span class="text-danger" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-12">
+                                                            <div class="form-group drop-custum">
+                                                                <select class="form-control show-tick" name="sex" required>
+                                                                    <option value="{{ $student->user->sex }}">__ Sexe __</option>
+                                                                    <option value="M">Masculin</option>
+                                                                    <option value="F">Féminin</option>
+                                                                </select>
+                                                            </div>
+                                                            @error('sex')
+                                                                <span class="text-danger" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="row clearfix">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <textarea name="presentation" rows="4" class="form-control no-resize" placeholder="Présentation">{{ $student->user->presentation }}</textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row clearfix">
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="header">
+                                                    <h2>Informations scholaires</h2>
+                                                </div>
+                                                <div class="body">
+                                                    <div class="row clearfix">
+                                                        <div class="col-lg-6 col-md-12">
+                                                            <div class="form-group drop-custum">
+                                                                <select class="form-control show-tick">
+                                                                    <option value="A">__ Cohorte __</option>
+                                                                    @foreach (request()->appActuSession->cohorts as $cohort)
+                                                                        <option value="{{ $cohort->id }}">{{ $cohort->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            @error('profession')
+                                                                <span class="text-danger" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-12">
+                                                            <div class="form-group drop-custum">
+                                                                <select name="TD_group" class="form-control show-tick">
+                                                                    <option value="">__ Groupe TD __</option>
+                                                                    @foreach (request()->appActuSession->cohorts as $cohort)
+                                                                        <optgroup label="{{ $cohort->name }}">
+                                                                            @foreach ($cohort->groups as $group)
+                                                                                <option value="{{ $group->id }}">{{ $group->name }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </optgroup>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            @error('TD_group')
+                                                                <span class="text-danger" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-12">
+                                                            <div class="form-group drop-custum">
+                                                                <select name="languages" class="form-control show-tick">
+                                                                    <option value="">__ Langues parlées __</option>
+                                                                    @foreach ($languages as $language)
+                                                                        <option value="{{ $language->id }}">{{ $language->name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            @error('languages')
+                                                                <span class="text-danger" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-12">
+                                                            <div class="form-group drop-custum">
+                                                                <select name="online" class="form-control show-tick">
+                                                                    <option value="{{ $student->online }}">__ Régime de cours __</option>
+                                                                    <option value="0">Présentiel</option>
+                                                                    <option value="1">En ligne</option>
+                                                                </select>
+                                                            </div>
+                                                            @error('languages')
+                                                                <span class="text-danger" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="row clearfix">
+                                                        <div class="col-lg-12">
+                                                            <input name="fee_paid" value="1" @if($subscription->is_active == 1) checked @endif type="checkbox" id="remember_me"
+                                                                class="filled-in">
+                                                            <label for="remember_me">Frais d'inscription payés </label>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="row clearfix">
+                                                        <div class="col-sm-12 text-right">
+                                                            <button type="submit" class="btn btn-raised btn-success ">Enregistrer modification</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

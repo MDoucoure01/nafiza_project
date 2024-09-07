@@ -16,7 +16,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run(): void
     {
-
         // Créer le Super Admin
         DB::table('users')->insert([ 
             'firstname' => 'Super',

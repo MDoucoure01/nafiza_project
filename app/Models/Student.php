@@ -39,5 +39,4 @@ class Student extends Model
     {
         return $this->hasManyThrough(Cohort::class, Subscription::class);
     }
-
 }

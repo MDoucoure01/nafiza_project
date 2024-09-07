@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -31,9 +30,14 @@ class Subscription extends Model
         return $this->belongsToMany(Cohort::class,"cohort_subscriptions")->withPivot(["is_actual"]);
     }
 
-
     public function school_session(): BelongsTo
     {
         return $this->belongsTo(School_session::class);
     }
+    
+    public function activeCohort()
+    {
+        return $this->cohorts()->where('is_actual', true)->first();
+    }
+
 }

@@ -28,7 +28,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-    // protected $fillable = [
+  // protected $fillable = [
     //     'firstname',
     //     'lastname',
     //     'email',
@@ -40,8 +40,6 @@ class User extends Authenticatable
     {
        return $this->hasMany(Student::class);
     }
-
-
 
 
     protected $guarded = [
