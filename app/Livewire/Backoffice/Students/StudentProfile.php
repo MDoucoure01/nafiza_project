@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Backoffice\Students;
 
+use App\Http\Resources\Students\StudentCohortResource;
 use App\Models\Comite;
 use App\Models\Language;
 use App\Models\Profession;
@@ -25,8 +26,12 @@ class StudentProfile extends Component
         $this->student = Student::findOrFail(request()->id);
         $this->subscription = Subscription::where('student_id', request()->id)
                                             ->where('school_session_id', request()->appActuSession->id)
-                                            ->first();
-        $this->currentCohort = "A";
+                                            ->latest()->first();
+        // $this->currentCohort =
+        // Récupérer la cohorte active
+        if ($this->subscription) {
+            $this->currentCohort = $this->subscription->activeCohort();
+        }
     }
 
     public function render()

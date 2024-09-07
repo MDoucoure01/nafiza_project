@@ -16,15 +16,9 @@
                         <strong>Prénoms & Nom</strong>
                         <p>{{ $student->user->firstname.' '.$student->user->lastname }}</p>
                         <strong>Cohorte</strong>
-                        <p>{{ $currentCohort }}</p>
-                        <strong>Comité</strong>
-                        <p>{{ $student->conseil->comite->name }}</p>
-                        <strong>Conseil</strong>
-                        <p>{{ $student->conseil->name }}</p>
-                        <strong>Phone</strong>
-                        <p>{{ $student->user->phone }}</p>
-                        <strong>Adresse</strong>
-                        <p>{{ $student->user->address }}</p>
+                        <p>{{ $currentCohort->name }}</p>
+                        <strong>Groupe TD</strong>
+                        {{-- <p>{{ $currentCohort }}</p> --}}
                         <hr>
                         <strong>Matricule</strong>
                         <address>{{ $student->matricule }}</address>
@@ -51,7 +45,7 @@
                                             <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </p>
                                             <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </p>
                                         </div>
-                                        <hr>
+                                        {{-- <hr>
                                         <div class="post-box">
                                             <h4>Skill Set</h4>
                                             <div class="body p-l-0 p-r-0">
@@ -82,24 +76,17 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <hr>
-                                        <h4>Education</h4>
-                                        <ul class="dis">
-                                            <li>Primary School (Year 1 to 6)</li>
-                                            <li>Secondary School (Year 7 to 11)</li>
-                                            <li>Colleges (BCA)</li>
-                                        </ul>
-                                        <hr>
-                                        <h4>Certification</h4>
-                                        <ul class="dis">
-                                            <li>Integer aesent vest .</li>
-                                            <li>Praesent vestibulum dapibus nibh.</li>
-                                            <li>Integer tinciaesent vest dunt.</li>
-                                            <li>Praesent vestibulum dapibus nibh.</li>
-                                            <li>Integer tincidunt.</li>
-                                            <li>Praesent vestibulum dapibus nibh.</li>
-                                        </ul>
+                                        <h4>Détails</h4>
+                                        <strong>Comité</strong>
+                                        <p>{{ $student->conseil->comite->name }}</p>
+                                        <strong>Conseil</strong>
+                                        <p>{{ $student->conseil->name }}</p>
+                                        <strong>Phone</strong>
+                                        <p>{{ $student->user->phone }}</p>
+                                        <strong>Adresse</strong>
+                                        <p>{{ $student->user->address }}</p>
                                     </div>
                                 </div>
                             </div>
