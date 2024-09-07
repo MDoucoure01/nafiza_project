@@ -2,21 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Users\UserRequest;
-use App\Http\Resources\Users\UserResource;
 use App\Models\Conseil;
-use App\Models\User;
 use App\Services\ExistUser;
 use App\Services\UserService;
-use App\Traits\ResponseTrait;
+use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Traits\SlugTrait;
 use Illuminate\Http\Request;
+use App\Traits\ResponseTrait;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\user\UserRequest;
+use App\Http\Resources\user\UserResource;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Validator;
-
 
 class UserController extends Controller
 {
@@ -33,6 +35,7 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST, null);
         }
+   
     }
 
     /**
@@ -132,8 +135,46 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+
+    public function show(Request $request)
     {
+        return DB::transaction(function () use ($request){
+            try {
+                return $this->responseData("", true, Response::HTTP_ACCEPTED,UserResource::make(User::where("id", $this->decodeSlug($request->user)["id"])->first()));
+            } catch (\Throwable $th) {
+                return $this->responseData("La resource inexistante", false, Response::HTTP_BAD_REQUEST);
+            }
+        });
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+
+    public function update(Request $request)
+    {
+        return DB::transaction(function () use ($request) {
+            try {
+                $user = User::find($request->user);
+                if ($user) {
+                    $user->firstname = $request->firstname;
+                    $user->lastname = $request->lastname;
+                    $user->profil = $request->profil;
+                    $user->pseudo = $request->pseudo;
+                    $user->save();
+                    return $user;
+                    return $this->responseData('Modification effectuée', true, Response::HTTP_OK,UserResource::make($user));
+                }
+                return $this->responseData("L'utilisateur n'existe pas ", false, Response::HTTP_NOT_FOUND, null);
+            } catch (\Throwable $th) {
+                return $this->responseData($th->getMessage(), false, Response::HTTP_INTERNAL_SERVER_ERROR, null);
+            }
+        });
+    }
+
+ 
+
+    public function userStore(UserRequest $request){
         try {
             return DB::transaction(function () use ($user) {
                 if (Auth::id() != $user->id) {
@@ -144,7 +185,7 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST, null);
         }
-    }
+    
 
     /**
      * Update the specified resource in storage.

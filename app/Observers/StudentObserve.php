@@ -14,10 +14,14 @@ class StudentObserve
      */
     public function created(Student $student): void
     {
-        $anneeActifId = School_session::where("status",true)->first();
+        $anneeActifId = request()->appActuSession->id;
+        // Vérifiez si les frais ont été payés
+        $isActive = isset($student->fee_paid) && $student->fee_paid == 1;
+
         $subscription = Subscription::create([
-         'school_session_id'=> $anneeActifId->id,
-         'student_id'=> $student->id
+         'school_session_id'=> $anneeActifId,
+         'student_id'=> $student->id,
+         'is_active' => $isActive, // 1 si payé, 0 sinon
         ]);
     }
 

@@ -22,6 +22,11 @@ class Cohort extends Model
         return $this->hasMany(TdGroup::class);
     }
 
+<<<<<<< HEAD
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+=======
     // public function subscriptions()
     // {
     //     return $this->hasMany(Subscription::class);
@@ -29,5 +34,6 @@ class Cohort extends Model
     public function subscriptions():BelongsToMany
     {
         return $this->belongsToMany(Subscription::class,"cohort_subscriptions");
+>>>>>>> f5abbd3cf794dafa6828fdd56a12722e915c3115
     }
 }

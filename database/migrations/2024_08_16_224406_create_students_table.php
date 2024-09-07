@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('born_date')->nullable();
             $table->text('specific_desease')->nullable();
             $table->text('allergies')->nullable();
+            $table->integer('online')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
