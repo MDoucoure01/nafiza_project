@@ -253,8 +253,8 @@
                                     <div class="form-group drop-custum">
                                         <select name="online" class="form-control show-tick">
                                             <option value="">__ Régime de cours __</option>
-                                            <option value="0">__ Présentiel __</option>
-                                            <option value="1">__ En ligne __</option>
+                                            <option value="0">Présentiel</option>
+                                            <option value="1">En ligne</option>
                                         </select>
                                     </div>
                                     @error('languages')

@@ -47,6 +47,7 @@ Route::middleware([
     Route::get('/pensionnaires/en-attente', StudentPending::class)->name('students.pending.list');
     Route::get('/pensionnaire/profile/{id}', StudentProfile::class)->name('student.profile');
     Route::put('/create-student', [StudentsController::class, 'create'])->name('student.create');
+    Route::put('/update-student', [StudentsController::class, 'update'])->name('student.update');
 
     Route::get('/professeurs', ListProfessors::class)->name('professors.list');
 

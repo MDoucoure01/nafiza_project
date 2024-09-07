@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Backoffice;
 
 use App\Http\Controllers\Controller;
-use App\Traits\UserCreationTrait;
-use App\Models\Student;
 use App\Models\Subscription;
+use App\Traits\UserTrait;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class StudentsController extends Controller
 {
-    use UserCreationTrait;
+    use UserTrait;
 
     public function create(Request $request)
     {
@@ -43,13 +43,33 @@ class StudentsController extends Controller
             $student->save();
 
             if($student){
-                $subscription = new Subscription();
-                $subscription->student_id = $student->id;
-                $subscription->school_session_id = $request->appActuSession->id;
-                if($request->fee_paid == 1){
-                    $subscription->is_active = 1;
-                }
-                $subscription->save();
+                // Passer la valeur de fee_paid à l'Observer
+                $student->fee_paid = $request->fee_paid;
+            }
+        }
+
+        toastr()->success('Pensionnaire créé avec succès !');
+        return back();
+    }
+
+    public function update(Request $request)
+    {
+        $user = $this->updateUser($request);
+
+        if ($user) {
+            $student = Student::findOrFail($request->id);
+            $student->conseil_id = $request->conseil_id;
+            $student->born_date = $request->born_date;
+            $student->specific_desease = $request->specific_desease;
+            $student->allergies = $request->allergies;
+            $student->online = $request->online;
+            $student->save();
+
+            if($student){
+                $subscription = Subscription::where('student_id', request()->id)
+                                                    ->where('school_session_id', request()->appActuSession->id)
+                                                    ->first();
+                $subscription->is_active = $request->fee_paid;
             }
         }
 
