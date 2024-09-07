@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(StudentsTableSeeder::class);
         $this->call(SubscriptionsTableSeeder::class);
+<<<<<<< HEAD
 =======
         \App\Models\User::factory(10)->create();
 
@@ -31,5 +32,9 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 >>>>>>> bcc3e1df25726a20f9ea9081bc5085bd70630e9d
+=======
+        $this->call(ProfessionsTableSeeder::class);
+        $this->call(LanguagesTableSeeder::class);
+>>>>>>> StudentsManagement
     }
 }
