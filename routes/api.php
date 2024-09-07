@@ -109,14 +109,16 @@ Route::post('bibliotheques/{bibliotheque_id}/like/user/{user_id}',[BibliothequeC
 >>>>>>> bcc3e1df25726a20f9ea9081bc5085bd70630e9d
 =======
 Route::get("test",[StudentController::class,"test"]);
+Route::post('auth/register', [AuthController::class, 'register']);
+
 
 Route::post('auth/login', [AuthController::class, 'login']);
 Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('auth/changePassword', [UserController::class, 'changePassword']);
     Route::apiResource("user", UserController::class);
-    Route::post('auth/register', [AuthController::class, 'register']);
     Route::delete('auth/logout', [AuthController::class, 'logout']);
 
-    Route::post('auth/register', [AuthController::class, 'register']);
+    // Route::post('auth/register', [AuthController::class, 'register']);
     // Route::post('auth/login', [AuthController::class, 'login']);
     // Route::group(['middleware' => 'auth:sanctum'], function () {
     //     Route::delete('auth/logout', [AuthController::class, 'logout']);
