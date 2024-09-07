@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -167,4 +169,43 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(User $user) {}
+
+    // Changer votre mot de passe
+    public function changePassword(Request $request){
+        $request->validate([
+            'current_password' => 'required|string',
+            'new_password' => [
+                'required',
+                'max:150',
+                'confirmed',
+                Password::min(8)
+                ->letters()
+                ->mixedCase()
+                ->numbers()
+                ->symbols()
+                ->uncompromised()
+            ],
+        ]);
+        $user = $request->user();
+
+        if (!Hash::check($request->current_password, $user->password)){
+            return response()->json([
+                'message' => 'Désolé, aucune modification effectuer',
+            ], 401);
+        }
+
+        $user->password = bcrypt($request->new_password);
+        if ($user->save()){
+            return response()->json([
+                'message' => 'Mot de passe modifé avec succès',
+            ],200);
+        }
+
+        else{
+            return response()->json([
+                'message' => 'Erreur rencontrer dans notre server',
+            ], 500);
+        }
+
+    }
 }
