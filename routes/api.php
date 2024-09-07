@@ -31,7 +31,8 @@ Route::apiResource("languages", LanguageController::class);
 Route::apiResource("profession", ProfessionController::class);
 Route::apiResource("role", RoleController::class);
 Route::apiResource("subscription", SubscriptionController::class);
-
+Route::post('update-user-password/{user_token}', [UserController::class, 'updateUserPassword']);
+Route::get('send-reset-password', [UserController::class, 'sendPasswordResetMail']);
 Route::post("user/subscription", [UserController::class, "store"]);
 // Route::post('user/login', [AuthController::class, 'login']);
 
@@ -45,21 +46,12 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource("user", UserController::class);
     Route::post('auth/register', [AuthController::class, 'register']);
     Route::delete('auth/logout', [AuthController::class, 'logout']);
-
     Route::post('auth/register', [AuthController::class, 'register']);
-    // Route::post('auth/login', [AuthController::class, 'login']);
-    // Route::group(['middleware' => 'auth:sanctum'], function () {
-    //     Route::delete('auth/logout', [AuthController::class, 'logout']);
-    // });
-
-
-
-
     Route::get('/professor/profile', [ProfessorController::class, 'showProfile']);
     Route::put('/professor/profile', [ProfessorController::class, 'updateProfile']);
-
     Route::get('/student/profile', [StudentController::class, 'showProfile']);
     Route::put('/student/profile', [StudentController::class, 'updateProfile']);
     Route::put('auth/edit-profile', [UserController::class, 'edit']);
     Route::get("user/{id}/comrade", [StudentController::class, 'comradeUser']);
+   
 });

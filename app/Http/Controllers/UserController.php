@@ -14,7 +14,9 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-
+use App\Notifications\PasswordResetMail;
+use App\Notifications\PasswordResetSuccessNotification;
+use App\Notifications\CreateUserNotification;
 
 class UserController extends Controller
 {
@@ -77,15 +79,18 @@ class UserController extends Controller
                     "password" => $request->password ?? "N@Fiz@2024",
                     "sexe" => $request->sexe
                 ]);
+                if($user->save()){
+                    $noHashUserpassword = $request->password ?? "N@Fiz@2024";
+                    $user->notify(new CreateUserNotification($noHashUserpassword, $user));
+                }
                 $thisUser = User::findOrfail($user->id);
                 $thisUser->assignRole('student');
                 $insertStudent = new UserService($user->id);
-
+               
                 $studentExist = $insertStudent->InsertUserStudent($request);
                 if ($studentExist) {
                     return $this->responseData("student enregistré", true, Response::HTTP_OK, UserResource::make($user));
                 }
-
                 DB::rollBack();
             });
         } catch (\Throwable $th) {
@@ -167,4 +172,54 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(User $user) {}
+
+    /** 
+     * Reset password
+     */
+
+     public function sendPasswordResetMail(Request $request)
+     {
+        // print_r('ok');
+         $userEmail = $request->email;
+        //  dd($userEmail);
+         $user = User::where('email', $userEmail)->first();
+        //  dd($user);
+         $findUser = User::findOrFail($user->id);
+         $findUser->notify(new PasswordResetMail($user));
+         $response = [
+             'success' => true,
+             'data' => $findUser,
+             'message' => 'Mail envoyé avec succès.',
+         ];
+ 
+         return response()->json($response, 200);
+     }
+
+     public function updateUserPassword($userToken, Request $request)
+     {
+        // dd($userToken);
+         $userInfos = User::where('remember_token', $userToken)->first();
+         $user = User::findOrFail($userInfos->id);
+ 
+         $user->password = \Hash::make($request->password);
+ 
+         if ($user->save()) {
+             $response = [
+                 'success' => true,
+                 'data' => $user,
+                 'message' => 'Mot de passe modifié avec succès.',
+             ];
+             $user->noHashingPassword = $request->password;
+             $user->notify(new PasswordResetSuccessNotification($user));
+ 
+             return response()->json($response, 200);
+         } else {
+             $response = [
+                 'success' => false,
+                 'message' => 'Mot de passe non modifié.',
+             ];
+ 
+             return response()->json($response, 400);
+         }
+     }
 }
