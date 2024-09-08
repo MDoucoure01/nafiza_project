@@ -13,6 +13,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CourseItemsController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\TextbookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,9 @@ Route::apiResource("subscription", SubscriptionController::class);
 Route::post('update-user-password/{user_token}', [UserController::class, 'updateUserPassword']);
 Route::get('send-reset-password', [UserController::class, 'sendPasswordResetMail']);
 Route::post("user/subscription", [UserController::class, "store"]);
+
+Route::post('textbooks', [TextbookController::class, 'store']);
+
 // Route::post('user/login', [AuthController::class, 'login']);
 
 // Route::post("user/store",[UserController::class,"userStore"]);
