@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Notifications\PasswordResetMail;
 use App\Notifications\PasswordResetSuccessNotification;
 use App\Notifications\CreateUserNotification;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -201,7 +203,7 @@ class UserController extends Controller
          $userInfos = User::where('remember_token', $userToken)->first();
          $user = User::findOrFail($userInfos->id);
  
-         $user->password = \Hash::make($request->password);
+         $user->password = ($request->password);
  
          if ($user->save()) {
              $response = [
@@ -222,4 +224,42 @@ class UserController extends Controller
              return response()->json($response, 400);
          }
      }
+
+     public function changePassword(Request $request){
+        $request->validate([
+            'current_password' => 'required|string',
+            'new_password' => [
+                'required',
+                'max:150',
+                'confirmed',
+                Password::min(8)
+                ->letters()
+                ->mixedCase()
+                ->numbers()
+                ->symbols()
+                ->uncompromised()
+            ],
+        ]);
+        $user = $request->user();
+
+        if (!Hash::check($request->current_password, $user->password)){
+            return response()->json([
+                'message' => 'Désolé, aucune modification effectuer',
+            ], 401);
+        }
+
+        $user->password = bcrypt($request->new_password);
+        if ($user->save()){
+            return response()->json([
+                'message' => 'Mot de passe modifé avec succès',
+            ],200);
+        }
+
+        else{
+            return response()->json([
+                'message' => 'Erreur rencontrer dans notre server',
+            ], 500);
+        }
+
+    }
 }

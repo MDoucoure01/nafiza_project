@@ -10,7 +10,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CourseItemsController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\TextbookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +37,9 @@ Route::apiResource("subscription", SubscriptionController::class);
 Route::post('update-user-password/{user_token}', [UserController::class, 'updateUserPassword']);
 Route::get('send-reset-password', [UserController::class, 'sendPasswordResetMail']);
 Route::post("user/subscription", [UserController::class, "store"]);
+
+Route::post('textbooks', [TextbookController::class, 'store']);
+
 // Route::post('user/login', [AuthController::class, 'login']);
 
 // Route::post("user/store",[UserController::class,"userStore"]);
@@ -53,5 +59,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::put('/student/profile', [StudentController::class, 'updateProfile']);
     Route::put('auth/edit-profile', [UserController::class, 'edit']);
     Route::get("user/{id}/comrade", [StudentController::class, 'comradeUser']);
-   
+
 });
+Route::apiResource("course/items",CourseItemsController::class);
+Route::get("get/course/{id}/items",[CourseItemsController::class, "getCourseItems"]);
+ROute::apiResource("comment", CommentController::class);
+Route::get("course/items/{id}/comment", [CourseItemsController::class, "getCommentToCourseItems"]);
+Route::get("modules/sessions",[CourseItemsController::class,"getModulesSession"]);
