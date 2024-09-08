@@ -13,293 +13,33 @@
             </div>
         </div>
         <div class="row clearfix">
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="body">
-                        <div class="member-card verified">
-                            <div class="thumb-xl member-thumb">
-                                <img src="assets/images/random-avatar3.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
-                            </div>
+            @foreach ($professors as $item)
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                    <div class="card">
+                        <div class="body">
+                            <div class="member-card verified">
+                                <div class="thumb-xl member-thumb">
+                                    <img style="width: 100%; height: 100px;" src="{{ asset('backoffice/assets/images/logo.png') }}" class="img-thumbnail rounded-circle" alt="profile-image">
+                                </div>
 
-                            <div class="m-t-20">
-                                <h4 class="m-b-0">Dr. John</h4>
-                                <p class="text-muted">Java<span> <a href="#" class="text-pink">websitename.com</a> </span></p>
-                            </div>
+                                <div class="m-t-20">
+                                    <h4 class="m-b-0">{{ $item->user->firstname.' '.$item->user->lastname }}</h4>
+                                    <p class="text-muted">
+                                        <i class="zmdi zmdi-phone"></i> {{ $item->user->phone }}
+                                        <span><a href="mailto: {{ $item->user->email }}" class="text-pink"><i class="zmdi zmdi-email"></i> {{ $item->user->email }}</a> </span>
+                                    </p>
+                                </div>
 
-                            <p class="text-muted">795 Folsom Ave, Suite 600 San Francisco, CADGE 94107</p>
-                            <a href="profile.html"  class="btn btn-raised btn-default">View Profile</a>
-                            <ul class="social-links  m-t-10">
-                                <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                                <li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>
-                                <li><a title="instagram" href="#" ><i class="zmdi zmdi-instagram"></i></a></li>
-                            </ul>
+                                <a href="profile.html"  class="btn btn-raised btn-default">Voir Profil</a>
+                                <ul class="social-links  m-t-10">
+                                    <li><a href="#"><i class="zmdi zmdi-account text-success"></i></a></li>
+                                    <li><a href="#" ><i class="zmdi zmdi-delete text-danger"></i></a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="body">
-                        <div class="member-card">
-                            <div class="thumb-xl member-thumb">
-                                <img src="assets/images/random-avatar4.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
-                            </div>
-                            <div class="m-t-20">
-                                <h4 class="m-b-0">Kendra V. Alfaro</h4>
-                                <p class="text-muted">Designer<span> <a href="#" class="text-pink">websitename.com</a> </span></p>
-                            </div>
-
-                            <p class="text-muted">795 Folsom Ave, Suite 600 San Francisco, CADGE 94107</p>
-                            <a href="#"  class="btn btn-raised btn-default">View Profile</a>
-                            <ul class="social-links m-t-10">
-                                <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                                <li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>
-                                <li><a title="instagram" href="#" ><i class="zmdi zmdi-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="body">
-                        <div class="member-card verified">
-                            <div class="thumb-xl member-thumb">
-                                <img src="assets/images/random-avatar6.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
-                            </div>
-
-                            <div class="m-t-20">
-                                <h4 class="m-b-0">Kendra V. Alfaro</h4>
-                                <p class="text-muted">PHP Developer<span> <a href="#" class="text-pink">websitename.com</a> </span></p>
-                            </div>
-
-                            <p class="text-muted">795 Folsom Ave, Suite 600 San Francisco, CADGE 94107</p>
-                            <a href="#"  class="btn btn-raised btn-default">View Profile</a>
-                            <ul class="social-links  m-t-10">
-                                <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                                <li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>
-                                <li><a title="instagram" href="#" ><i class="zmdi zmdi-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="body">
-                        <div class="member-card verified">
-                            <div class="thumb-xl member-thumb">
-                                <img src="assets/images/random-avatar6.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
-                            </div>
-
-                            <div class="m-t-20">
-                                <h4 class="m-b-0">Kendra V. Alfaro</h4>
-                                <p class="text-muted">PHP Developer<span> <a href="#" class="text-pink">websitename.com</a> </span></p>
-                            </div>
-
-                            <p class="text-muted">795 Folsom Ave, Suite 600 San Francisco, CADGE 94107</p>
-                            <a href="#"  class="btn btn-raised btn-default">View Profile</a>
-                            <ul class="social-links  m-t-10">
-                                <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                                <li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>
-                                <li><a title="instagram" href="#" ><i class="zmdi zmdi-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="body">
-                        <div class="member-card verified">
-                            <div class="thumb-xl member-thumb">
-                                <img src="assets/images/random-avatar3.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
-                            </div>
-
-                            <div class="m-t-20">
-                                <h4 class="m-b-0">Kendra V. Alfaro</h4>
-                                <p class="text-muted">Java<span> <a href="#" class="text-pink">websitename.com</a> </span></p>
-                            </div>
-
-                            <p class="text-muted">795 Folsom Ave, Suite 600 San Francisco, CADGE 94107</p>
-                            <a href="#"  class="btn btn-raised btn-default">View Profile</a>
-                            <ul class="social-links  m-t-10">
-                                <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                                <li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>
-                                <li><a title="instagram" href="#" ><i class="zmdi zmdi-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="body">
-                        <div class="member-card">
-                            <div class="thumb-xl member-thumb">
-                                <img src="assets/images/random-avatar4.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
-                            </div>
-
-                            <div class="m-t-20">
-                                <h4 class="m-b-0">Kendra V. Alfaro</h4>
-                                <p class="text-muted">Designer<span> <a href="#" class="text-pink">websitename.com</a> </span></p>
-                            </div>
-
-                            <p class="text-muted">795 Folsom Ave, Suite 600 San Francisco, CADGE 94107</p>
-                            <a href="#"  class="btn btn-raised btn-default">View Profile</a>
-                            <ul class="social-links  m-t-10">
-                                <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                                <li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>
-                                <li><a title="instagram" href="#" ><i class="zmdi zmdi-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="body">
-                        <div class="member-card verified">
-                            <div class="thumb-xl member-thumb">
-                                <img src="assets/images/random-avatar6.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
-                            </div>
-
-                            <div class="m-t-20">
-                                <h4 class="m-b-0">Kendra V. Alfaro</h4>
-                                <p class="text-muted">PHP Developer<span> <a href="#" class="text-pink">websitename.com</a> </span></p>
-                            </div>
-
-                            <p class="text-muted">795 Folsom Ave, Suite 600 San Francisco, CADGE 94107</p>
-                            <a href="#"  class="btn btn-raised btn-default">View Profile</a>
-                            <ul class="social-links  m-t-10">
-                                <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                                <li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>
-                                <li><a title="instagram" href="#" ><i class="zmdi zmdi-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="body">
-                        <div class="member-card verified">
-                            <div class="thumb-xl member-thumb">
-                                <img src="assets/images/random-avatar6.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
-                            </div>
-
-                            <div class="m-t-20">
-                                <h4 class="m-b-0">Kendra V. Alfaro</h4>
-                                <p class="text-muted">PHP Developer<span> <a href="#" class="text-pink">websitename.com</a> </span></p>
-                            </div>
-
-                            <p class="text-muted">795 Folsom Ave, Suite 600 San Francisco, CADGE 94107</p>
-                            <a href="#"  class="btn btn-raised btn-default">View Profile</a>
-                            <ul class="social-links  m-t-10">
-                                <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                                <li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>
-                                <li><a title="instagram" href="#" ><i class="zmdi zmdi-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="body">
-                        <div class="member-card verified">
-                            <div class="thumb-xl member-thumb">
-                                <img src="assets/images/random-avatar6.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
-                            </div>
-
-                            <div class="m-t-20">
-                                <h4 class="m-b-0">Kendra V. Alfaro</h4>
-                                <p class="text-muted">PHP Developer<span> <a href="#" class="text-pink">websitename.com</a> </span></p>
-                            </div>
-
-                            <p class="text-muted">795 Folsom Ave, Suite 600 San Francisco, CADGE 94107</p>
-                            <a href="#"  class="btn btn-raised btn-default">View Profile</a>
-                            <ul class="social-links  m-t-10">
-                                <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                                <li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>
-                                <li><a title="instagram" href="#" ><i class="zmdi zmdi-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="body">
-                        <div class="member-card verified">
-                            <div class="thumb-xl member-thumb">
-                                <img src="assets/images/random-avatar6.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
-                            </div>
-
-                            <div class="m-t-20">
-                                <h4 class="m-b-0">Kendra V. Alfaro</h4>
-                                <p class="text-muted">PHP Developer<span> <a href="#" class="text-pink">websitename.com</a> </span></p>
-                            </div>
-
-                            <p class="text-muted">795 Folsom Ave, Suite 600 San Francisco, CADGE 94107</p>
-                            <a href="#"  class="btn btn-raised btn-default">View Profile</a>
-                            <ul class="social-links  m-t-10">
-                                <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                                <li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>
-                                <li><a title="instagram" href="#" ><i class="zmdi zmdi-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="body">
-                        <div class="member-card verified">
-                            <div class="thumb-xl member-thumb">
-                                <img src="assets/images/random-avatar3.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
-                            </div>
-
-                            <div class="m-t-20">
-                                <h4 class="m-b-0">Kendra V. Alfaro</h4>
-                                <p class="text-muted">Java<span> <a href="#" class="text-pink">websitename.com</a> </span></p>
-                            </div>
-
-                            <p class="text-muted">795 Folsom Ave, Suite 600 San Francisco, CADGE 94107</p>
-                            <a href="#"  class="btn btn-raised btn-default">View Profile</a>
-                            <ul class="social-links  m-t-10">
-                                <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                                <li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>
-                                <li><a title="instagram" href="#" ><i class="zmdi zmdi-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="body">
-                        <div class="member-card">
-                            <div class="thumb-xl member-thumb">
-                                <img src="assets/images/random-avatar4.jpg" class="img-thumbnail rounded-circle" alt="profile-image">
-                            </div>
-
-                            <div class="m-t-20">
-                                <h4 class="m-b-0">Kendra V. Alfaro</h4>
-                                <p class="text-muted">Designer<span> <a href="#" class="text-pink">websitename.com</a> </span></p>
-                            </div>
-
-                            <p class="text-muted">795 Folsom Ave, Suite 600 San Francisco, CADGE 94107</p>
-                            <a href="#"  class="btn btn-raised btn-default">View Profile</a>
-                            <ul class="social-links  m-t-10">
-                                <li><a title="facebook" href="#"><i class="zmdi zmdi-facebook"></i></a></li>
-                                <li><a title="twitter" href="#" ><i class="zmdi zmdi-twitter"></i></a></li>
-                                <li><a title="instagram" href="#" ><i class="zmdi zmdi-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>

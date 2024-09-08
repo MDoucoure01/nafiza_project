@@ -41,6 +41,11 @@ class User extends Authenticatable
        return $this->hasMany(Student::class);
     }
 
+    public function professor():HasMany
+    {
+       return $this->hasMany(Professor::class);
+    }
+
 
     protected $guarded = [
         'id'
