@@ -15,6 +15,16 @@
                     <div class="body">
                         <strong>Prénoms & Nom</strong>
                         <p>{{ $professor->user->firstname.' '.$professor->user->lastname }}</p>
+                        <strong>Phone</strong>
+                        <p>{{ $professor->user->phone }}</p>
+                        <strong>Adresse</strong>
+                        <p>{{ $professor->user->address }}</p>
+                        <strong>Date d'embauche</strong>
+                        <p>{{ $professor->hire_date }}</p>
+                        <strong>Années d'expérience</strong>
+                        <p>{{ $professor->experience_year }}</p>
+                        <strong>Diplômes</strong>
+                        <p>{{ $professor->obtained_diplomas }}</p>
                         <hr>
                         <strong>Matricule</strong>
                         <address>{{ $professor->matricule }}</address>
@@ -26,7 +36,6 @@
                     <div class="body">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#report">A propos</a></li>
                             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#timeline">Activitiés</a></li>
                             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#payment">Forum</a></li>
                             <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#update">Mettre à jour</a></li>
@@ -34,60 +43,6 @@
 
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane" id="report">
-                                <div class="wrap-reset">
-                                    <div class="mypost-list">
-                                        <div class="post-box">
-                                            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </p>
-                                            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </p>
-                                        </div>
-                                        {{-- <hr>
-                                        <div class="post-box">
-                                            <h4>Skill Set</h4>
-                                            <div class="body p-l-0 p-r-0">
-                                                <ul class="list-unstyled">
-                                                    <li>
-                                                        <div>Cake PHP</div>
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:80%"> <span class="sr-only">80% Complete (success)</span> </div>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div>CSS</div>
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:50%"> <span class="sr-only">50% Complete</span> </div>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div>PHP</div>
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%"> <span class="sr-only">60% Complete (warning)</span> </div>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div>HTML</div>
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:20%"> <span class="sr-only">20% Complete (danger)</span> </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div> --}}
-                                        <hr>
-                                        <h4>Détails</h4>
-                                        <strong>Phone</strong>
-                                        <p>{{ $professor->user->phone }}</p>
-                                        <strong>Adresse</strong>
-                                        <p>{{ $professor->user->address }}</p>
-                                        <strong>Date d'embauche</strong>
-                                        <p>{{ $professor->hire_date }}</p>
-                                        <strong>Années d'expérience</strong>
-                                        <p>{{ $professor->experience_year }}</p>
-                                        <strong>Diplômes</strong>
-                                        <p>{{ $professor->obtained_diplomas }}</p>
-                                    </div>
-                                </div>
-                            </div>
                             <div role="tabpanel" class="tab-pane" id="timeline">
                                 <div class="timeline-body">
                                     <div class="timeline m-border">
@@ -233,56 +188,12 @@
                                                             @enderror
                                                         </div>
                                                         <div class="col-lg-4 col-md-6 col-sm-12">
-                                                            <div class="form-group drop-custum">
-                                                                <select class="form-control show-tick" name="conseil_id">
-                                                                    <option value="{{ $professor->conseil->id }}">__ Changer conseil __</option>
-                                                                    @foreach ($comites as $comite)
-                                                                        <optgroup label="{{ $comite->name }}">
-                                                                            @foreach ($comite->conseils as $conseil)
-                                                                                <option value="{{ $conseil->id }}">{{ $conseil->name }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </optgroup>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                            @error('conseil_id')
-                                                                <span class="text-danger" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="col-lg-4 col-md-6 col-sm-12">
                                                             <div class="form-group">
                                                                 <div class="form-line">
                                                                     <input type="text" name="address" value="{{ $professor->user->address }}" class="form-control" placeholder="Adresse complète">
                                                                 </div>
                                                             </div>
                                                             @error('address')
-                                                                <span class="text-danger" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="col-lg-4 col-md-6 col-sm-12">
-                                                            <div class="form-group">
-                                                                <div class="form-line">
-                                                                    <input type="text" value="{{ $professor->specific_desease }}" name="specific_desease" class="form-control" placeholder="Maladie spécifique">
-                                                                </div>
-                                                            </div>
-                                                            @error('specific_desease')
-                                                                <span class="text-danger" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="col-lg-4 col-md-12">
-                                                            <div class="form-group">
-                                                                <div class="form-line">
-                                                                    <input type="text" value="{{ $professor->allergies }}" name="allergies" class="form-control" placeholder="Allergies">
-                                                                </div>
-                                                            </div>
-                                                            @error('allergies')
                                                                 <span class="text-danger" role="alert">
                                                                     <strong>{{ $message }}</strong>
                                                                 </span>
@@ -331,7 +242,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row clearfix">
+                                    {{-- <div class="row clearfix">
                                         <div class="col-md-12">
                                             <div class="card">
                                                 <div class="header">
@@ -421,7 +332,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </form>
                             </div>
                         </div>

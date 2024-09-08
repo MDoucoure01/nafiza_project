@@ -30,9 +30,9 @@
                                     </p>
                                 </div>
 
-                                <a href="profile.html"  class="btn btn-raised btn-default">Voir Profil</a>
+                                <a href="{{ route('professor.profile', ['id' => $item->id]) }}" class="btn btn-raised btn-default">Voir Profil</a>
                                 <ul class="social-links  m-t-10">
-                                    <li><a href="#"><i class="zmdi zmdi-account text-success"></i></a></li>
+                                    <li><a href="{{ route('professor.profile', ['id', $item->id]) }}"><i class="zmdi zmdi-account text-success"></i></a></li>
                                     <li><a href="#" ><i class="zmdi zmdi-delete text-danger"></i></a></li>
                                 </ul>
                             </div>
