@@ -8,6 +8,7 @@ use App\Http\Controllers\Backoffice\StudentsController;
 use App\Livewire\Backoffice\HomeComponent;
 use App\Livewire\Backoffice\Professors\AddProfessor;
 use App\Livewire\Backoffice\Professors\ListProfessors;
+use App\Livewire\Backoffice\Professors\ProfessorProfile;
 use App\Livewire\Backoffice\Schoolsessions\Cohorts;
 use App\Livewire\Backoffice\Schoolsessions\EditCohort;
 use App\Livewire\Backoffice\Schoolsessions\EditGroup;
@@ -50,6 +51,7 @@ Route::middleware([
     Route::put('/update-student', [StudentsController::class, 'update'])->name('student.update');
 
     Route::get('/professeurs', ListProfessors::class)->name('professors.list');
+    Route::get('/professeur/profile/{id}', ProfessorProfile::class)->name('professor.profile');
 
     Route::get('/session/{slug}', ShowSession::class)->name('session.show');
     Route::get('/sessions', ListSessions::class)->name('sessions.list');

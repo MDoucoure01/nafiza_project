@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Professor;
-use App\Models\School_session;
+use App\Models\Subscription;
+use App\Models\TdGroup;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('session_professors', function (Blueprint $table) {
+        Schema::create('student_tdgroups', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Professor::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(School_session::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Subscription::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(TdGroup::class)->constrained()->cascadeOnDelete();
+            $table->boolean("is_actual")->default(false);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('session_professors');
+        Schema::dropIfExists('student_tdgroups');
     }
 };

@@ -11,9 +11,9 @@ class ListProfessors extends Component
 
     public function mount(){
         $sessionId = request()->appActuSession->id;
-        // $this->professors = Professor::whereHas('schoolsessions', function($query) use ($sessionId) {
-        //     $query->where('school_session_id', $sessionId);
-        // })->get();
+        $this->professors = Professor::whereHas('schoolsessions', function($query) use ($sessionId) {
+            $query->where('school_session_id', $sessionId);
+        })->get();
     }
 
     public function render()

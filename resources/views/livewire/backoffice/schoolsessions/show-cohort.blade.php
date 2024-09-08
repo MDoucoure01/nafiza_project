@@ -7,39 +7,30 @@
             <small class="text-muted">Welcome to {{ env('APP_NAME') }} application</small>
         </div>
         <div class="row clearfix">
-            <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="info-box-4 hover-zoom-effect">
                     <div class="icon"> <i class="zmdi zmdi-accounts-outline col-blue"></i> </div>
                     <div class="content">
                         <div class="text" style="font-size: 1em">Pensionnaires</div>
-                        <div class="number">270</div>
+                        <div class="number">{{ $cohort->subscriptions->count() }}</div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                <div class="info-box-4 hover-zoom-effect">
-                    <div class="icon"> <i class="zmdi zmdi-globe col-blue"></i> </div>
-                    <div class="content">
-                        <div class="text" style="font-size: 1em">Pensionnaires en ligne</div>
-                        <div class="number">270</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="info-box-4 hover-zoom-effect">
                     <div class="icon"> <i class="zmdi zmdi-accounts col-green"></i> </div>
                     <div class="content">
                         <div class="text" style="font-size: 1.3em">Professeurs</div>
-                        <div class="number">12</div>
+                        <div class="number">{{ request()->appActuSession->professors->count() }}</div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="info-box-4 hover-zoom-effect">
                     <div class="icon"> <i class="zmdi zmdi-chart-donut col-cyan"></i> </div>
                     <div class="content">
                         <div class="text" style="font-size: 1.3em">Groupe TD</div>
-                        <div class="number">7</div>
+                        <div class="number">{{ $cohort->groups->count() }}</div>
                     </div>
                 </div>
             </div>
@@ -48,7 +39,10 @@
         <!-- Basic Examples -->
         <div class="row clearfix">
             <div class="col-lg-12">
-                <a href="#" class="btn btn-sm btn-primary text-white">Ajouter pensionnaires</a>
+                <a href="#" class="btn btn-sm btn-primary text-white"><i class="zmdi zmdi-plus"></i> Nouveau pensionnaire</a>
+                <a href="#" class="btn btn-sm btn-primary text-white"><i class="zmdi zmdi-sign-in"></i> Attacher à la cohorte</a>
+                <a href="#" class="btn btn-sm btn-primary text-white"><i class="zmdi zmdi-accounts"></i> Liste pensionnaires</a>
+                <a href="#" class="btn btn-sm btn-primary text-white"><i class="zmdi zmdi-accounts-outline"></i> Liste d'attente</a>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
@@ -57,9 +51,9 @@
                         <ul class="header-dropdown">
                             <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="zmdi zmdi-more-vert"></i> </a>
                                 <ul class="dropdown-menu pull-right">
-                                    <li><a href="javascript:void(0);">Action</a></li>
-                                    <li><a href="javascript:void(0);">Another action</a></li>
-                                    <li><a href="javascript:void(0);">Something else here</a></li>
+                                    <li><a href="{{ route('student.add') }}">Ajouter pensionnaire</a></li>
+                                    <li><a href="{{ route('student.add') }}">Ajouter dans la cohorte</a></li>
+                                    <li><a href="{{ route('students.pending.list') }}">En attente</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -68,111 +62,35 @@
                         <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                             <thead>
                                 <tr>
-                                    <th>no</th>
-                                    <th>Dept. Name</th>
-                                    <th>Brief</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>No. of Students</th>
+                                    <th></th>
+                                    <th>Matricule</th>
+                                    <th>Prénoms & Nom</th>
+                                    <th>Comité</th>
+                                    <th>Téléphone</th>
+                                    <th>Régime</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>MBA</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>MBA</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>MBA</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>MBA</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>MBA</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>M.COM</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>MBA</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td>B.COM</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td>MBA</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td>BBA</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>11</td>
-                                    <td>MBA</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>12</td>
-                                    <td>MCA</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
+                                @foreach ($cohort->subscriptions as $item)
+                                    <tr>
+                                        <th>
+                                            <a href="{{ route('student.profile', ['id' => $item->student->id]) }}">
+                                                <img style="height: 30px; width: 30px" src="{{ asset('backoffice/assets/images/logo.png') }}" alt="user" class="img-thumbnail img-fluid">
+                                            </a>
+                                        </th>
+                                        <td>{{ $item->student->matricule }}</td>
+                                        <td>{{ $item->student->user->firstname.' '.$item->student->user->lastname }}</td>
+                                        <td>{{ $item->student->conseil->comite->name }}</td>
+                                        <td>{{ $item->student->user->phone }}</td>
+                                        <td>
+                                            @if ($item->student->online == 1)
+                                                <span class="label bg-blue">en ligne</span>
+                                            @else
+                                                <span class="label bg-green">présentiel</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
