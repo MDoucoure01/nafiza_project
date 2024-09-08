@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Course extends Model
+class CourseItems extends Model
 {
     use HasFactory;
 
@@ -15,21 +15,18 @@ class Course extends Model
         "id"
     ];
 
-
-    public function courseItems():HasMany
+    public function course(): BelongsTo
     {
-        return $this->hasMany(CourseItems::class);
+        return $this->belongsTo(Course::class);
     }
 
-
-    public function module(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Module::class);
+        return $this->belongsTo(User::class);
     }
 
-
-    public function courseType(): BelongsTo
+    public function comments():HasMany
     {
-        return $this->belongsTo(CourseType::class);
+        return $this->hasMany(Comments::class);
     }
 }

@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CourseItemsController;
 use App\Http\Controllers\SubscriptionController;
 
 /*
@@ -53,5 +55,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::put('/student/profile', [StudentController::class, 'updateProfile']);
     Route::put('auth/edit-profile', [UserController::class, 'edit']);
     Route::get("user/{id}/comrade", [StudentController::class, 'comradeUser']);
-   
+
 });
+Route::apiResource("course/items",CourseItemsController::class);
+Route::get("get/course/{id}/items",[CourseItemsController::class, "getCourseItems"]);
+ROute::apiResource("comment", CommentController::class);
+Route::get("course/items/{id}/comment", [CourseItemsController::class, "getCommentToCourseItems"]);
+Route::get("modules/sessions",[CourseItemsController::class,"getModulesSession"]);
