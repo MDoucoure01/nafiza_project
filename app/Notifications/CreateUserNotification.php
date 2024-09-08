@@ -6,7 +6,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use App\Notifications\CreateUserNotification;
 
 class CreateUserNotification extends Notification
 {
@@ -45,7 +44,7 @@ class CreateUserNotification extends Notification
      */
     // public function toMail($notifiable)
     // {
-       
+
     //     $userName = $this->user->firstname.' '.$this->user->lastname;
     //     $userEmail = $this->user->email;
     //     $userPassword = $this->noHashUserpassword;
@@ -64,14 +63,14 @@ class CreateUserNotification extends Notification
         return (new MailMessage)
                     ->subject('[NAAFIZA] - Création de votre compte')
                     ->view('emails.custom_notification', [
-                        'content' => 'Bienvenue à Naafiza, nous avons bien reçu votre insciption. 
-                        Votre compte est en cours de la validation sous paiement de vos droit d\'inscription qui s\'éléve au montant de : 200000 fr 
+                        'content' => 'Bienvenue à Naafiza, nous avons bien reçu votre insciption.
+                        Votre compte est en cours de la validation sous paiement de vos droit d\'inscription qui s\'éléve au montant de : 200000 fr
                         Vous pouvez clique sur le bouton suivant pour payer',
                         'actionUrl' => url('/'), // Lien du bouton d'action
                         'actionText' => 'Payer ici'
                     ]);
     }
-    
-    
+
+
 
 }
