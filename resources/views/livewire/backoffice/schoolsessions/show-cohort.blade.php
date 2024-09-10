@@ -113,7 +113,7 @@
                         </div>
                         <div class="content">
                             <div class="text">{{ $item->name }}</div>
-                            <div class="number">63 <i class="zmdi zmdi-accounts-outline"></i></div>
+                            <div class="number">{{ $item->subscriptions->count() }} <i class="zmdi zmdi-accounts-outline"></i></div>
                         </div>
                     </div>
                 </div>
