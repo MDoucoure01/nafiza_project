@@ -39,10 +39,7 @@
         <!-- Basic Examples -->
         <div class="row clearfix">
             <div class="col-lg-12">
-                <a href="#" class="btn btn-sm btn-primary text-white"><i class="zmdi zmdi-plus"></i> Nouveau pensionnaire</a>
-                <a href="#" class="btn btn-sm btn-primary text-white"><i class="zmdi zmdi-sign-in"></i> Attacher à la cohorte</a>
-                <a href="#" class="btn btn-sm btn-primary text-white"><i class="zmdi zmdi-accounts"></i> Liste pensionnaires</a>
-                <a href="#" class="btn btn-sm btn-primary text-white"><i class="zmdi zmdi-accounts-outline"></i> Liste d'attente</a>
+                <a href="{{ route('cohort.new.students', ['slug' => $cohort->slug]) }}" class="btn btn-sm btn-primary text-white"><i class="zmdi zmdi-sign-in"></i> Ajouter pensionnaires à la cohorte</a>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
@@ -59,7 +56,7 @@
                         </ul>
                     </div>
                     <div class="body table-responsive">
-                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                        <table class="table table-bordered table-striped table-hover dataTable">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -68,16 +65,17 @@
                                     <th>Comité</th>
                                     <th>Téléphone</th>
                                     <th>Régime</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($cohort->subscriptions as $item)
                                     <tr>
-                                        <th>
+                                        <td>
                                             <a href="{{ route('student.profile', ['id' => $item->student->id]) }}">
                                                 <img style="height: 30px; width: 30px" src="{{ asset('backoffice/assets/images/logo.png') }}" alt="user" class="img-thumbnail img-fluid">
                                             </a>
-                                        </th>
+                                        </td>
                                         <td>{{ $item->student->matricule }}</td>
                                         <td>{{ $item->student->user->firstname.' '.$item->student->user->lastname }}</td>
                                         <td>{{ $item->student->conseil->comite->name }}</td>
@@ -88,6 +86,9 @@
                                             @else
                                                 <span class="label bg-green">présentiel</span>
                                             @endif
+                                        </td>
+                                        <td>
+                                            <button wire:click="detachStudent({{ $item->id }})" title="Enlever ce pensionnaire de cette cohorte"><span class="label bg-red">détacher</span></button>
                                         </td>
                                     </tr>
                                 @endforeach
