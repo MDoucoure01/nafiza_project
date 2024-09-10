@@ -26,8 +26,10 @@ class Cohort extends Model
     // {
     //     return $this->hasMany(Subscription::class);
     // }
-    public function subscriptions():BelongsToMany
+    
+    public function subscriptions()
     {
-        return $this->belongsToMany(Subscription::class,"cohort_subscriptions");
+        return $this->belongsToMany(Subscription::class, 'cohort_subscriptions')
+                    ->withPivot('is_actual');
     }
 }

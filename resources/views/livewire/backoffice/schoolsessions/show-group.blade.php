@@ -29,6 +29,9 @@
 
         <!-- Basic Examples -->
         <div class="row clearfix">
+            <div class="col-lg-12">
+                <a href="{{ route('group.new.students', ['slug' => $group->slug]) }}" class="btn btn-sm btn-primary text-white"><i class="zmdi zmdi-sign-in"></i> Ajouter pensionnaires au groupe</a>
+            </div>
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="header">
@@ -64,6 +67,9 @@
                                             @else
                                                 <span class="label bg-green">présentiel</span>
                                             @endif
+                                        </td>
+                                        <td>
+                                            <button wire:click="detachStudent({{ $item->id }})" title="Enlever ce pensionnaire du groupe"><span class="label bg-red">détacher</span></button>
                                         </td>
                                     </tr>
                                 @endforeach
