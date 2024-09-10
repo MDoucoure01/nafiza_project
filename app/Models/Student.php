@@ -36,6 +36,11 @@ class Student extends Model
         return $this->hasMany(Subscription::class);
     }
 
+    public function activeSubscription()
+    {
+        return $this->subscriptions()->where('is_active', 1)->first();
+    }
+
     public function cohorts()
     {
         return $this->hasManyThrough(Cohort::class, Subscription::class);

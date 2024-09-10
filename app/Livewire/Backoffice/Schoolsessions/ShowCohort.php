@@ -27,6 +27,16 @@ class ShowCohort extends Component
         // return redirect()->back();
     }
 
+    public function detachStudent($studentId)
+    {
+        // Détacher l'étudiant de la cohorte
+        $this->cohort->subscriptions()->detach($studentId);
+
+        // Optionnel : ajouter un message de succès
+        toastr()->error('Pensionnaire enlevé de la cohorte avec succès !');
+        return redirect()->route('cohort.show', ['slug' => $this->cohort->slug ]);
+    }
+
     public function render()
     {
         return view('livewire.backoffice.schoolsessions.show-cohort')->layout('layouts.app');
