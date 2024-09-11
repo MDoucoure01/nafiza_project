@@ -48,6 +48,7 @@
                     <ul class="ml-menu">
                         <li><a href="add-courses.html">Ajouter cours</a></li>
                         <li><a href="courses.html">Lite des cours</a></li>
+                        <li><a href="{{ route('courses.modules') }}">Gestion modules</a></li>
                     </ul>
                 </li>
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-book"></i><span>Bibliothèques</span> </a>

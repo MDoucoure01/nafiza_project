@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\Backoffice\CohortsController;
 use App\Http\Controllers\Backoffice\GroupsController;
+use App\Http\Controllers\Backoffice\ModulesController;
 use App\Http\Controllers\Backoffice\ProfessorsController;
 use App\Http\Controllers\Backoffice\SchoolsessionController;
 use App\Http\Controllers\Backoffice\StudentsController;
+use App\Livewire\Backoffice\Courses\Modules;
 use App\Livewire\Backoffice\HomeComponent;
 use App\Livewire\Backoffice\Professors\AddProfessor;
 use App\Livewire\Backoffice\Professors\ListProfessors;
@@ -93,4 +95,7 @@ Route::middleware([
 
     Route::get('/professeur/nouveau', AddProfessor::class)->name('professor.add');
     Route::put('/create-professor', [ProfessorsController::class, 'create'])->name('professor.create');
+
+    Route::get('/cours/modules', Modules::class)->name('courses.modules');
+    Route::put('/create-module', [ModulesController::class, 'create'])->name('module.create');
 });

@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="block-header">
             <h2>Gestion des Cohortes</h2>
-            <small class="text-muted">Welcome to Nafiza application</small>
+            <small class="text-muted">Welcome to {{ env('APP_NAME') }} application</small>
         </div>
         <!-- Horizontal Layout -->
         @hasanyrole('admin|root')
