@@ -7,7 +7,7 @@
             font-family: 'Poppins', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: white;
+            background-color: #F0F0F0; /* Fond gris pour tout le mail */
             font-size: 16px;
         }
         .email-body {
@@ -15,16 +15,17 @@
             max-width: 600px;
             margin: 0 auto;
             position: relative;
+            padding-bottom: 150px; /* Espacement entre le contenu et le pied de page */
         }
         .email-header {
             background-color: #F9B71A; /* Nouveau jaune */
-            height: 200px;
+            height: 250px;
             width: 100%;
         }
         .email-content {
             background-color: white;
             padding: 50px; /* Augmenté de 20px à 30px */
-            margin: -80px auto 30px;
+            margin: -80px auto 0; /* Suppression de la marge inférieure */
             width: 80%;
             border-radius: 8px;
             /* Shadow supprimé */
@@ -35,7 +36,10 @@
             text-align: center;
             font-size: 8px; /* Réduit de 12px à 10px */
             width: 100%;
-
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
         }
         .logo {
             display: block;
