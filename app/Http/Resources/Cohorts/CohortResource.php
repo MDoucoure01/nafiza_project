@@ -19,7 +19,7 @@ class CohortResource extends JsonResource
         // return parent::toArray($request);
          // Filtrer les subscriptions pour n'inclure que celles avec school_session->status == 1
          $filteredSubscriptions = $this->subscriptions->filter(function ($subscription) {
-            return $subscription->school_session && $subscription->school_session->status == 1 && $subscription->is_active == true;
+            return $subscription->school_session && $subscription->school_session->status == 1 && $subscription->is_active == true && $subscription->pivot->is_actual == true;
         });
 
         return [

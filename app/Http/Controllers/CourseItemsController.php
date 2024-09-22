@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CourseItems\CourseItemsRequest;
 use App\Http\Resources\CourseItems\CourseItemResource;
 use App\Http\Resources\CourseItems\CourseItemsCommentResource;
+use App\Http\Resources\Modules\ModuleCoursesResource;
 use App\Http\Resources\Modules\ModuleResource;
 use App\Models\Course;
 use App\Models\CourseItems;
@@ -150,11 +151,30 @@ class CourseItemsController extends Controller
         }
     }
 
-    public function getModulesSession(Request $request) {
+    public function getModulesSession(Request $request)
+    {
         try {
-            return DB::transaction(function () use ($request){
+            return DB::transaction(function () use ($request) {
                 $modulesSession = Module::where('school_session_id', $request->appActuSession->id)->get();
-                return $this->responseData("Affichage commentaire du cour", true, Response::HTTP_OK, ModuleResource::collection($modulesSession));
+                return $this->responseData("Affichage Module de la session", true, Response::HTTP_OK, ModuleResource::collection($modulesSession));
+            });
+        } catch (\Throwable $th) {
+            return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST, null);
+        }
+    }
+
+
+    public function getModulesCourseItemsElements(Request $request)
+    {
+        try {
+            return DB::transaction(function () use ($request) {
+                $modulesSession = Module::where("school_session_id", $request->appActuSession->id)->get();
+                $result = ModuleCoursesResource::collection($modulesSession)->flatMap(function ($module) {
+                    return $module->toArray(request());
+                });
+
+                return $this->responseData('Modules récupérés avec succès', true, Response::HTTP_OK, $result);
+                // return $this->responseData('Modules récupérés avec succès', true, Response::HTTP_OK, ModuleCoursesResource::collection($modulesSession));
             });
         } catch (\Throwable $th) {
             return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST, null);

@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Modules;
+namespace App\Http\Resources\Cohorts;
 
-use App\Http\Resources\Courses\courseResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ModuleResource extends JsonResource
+class CohortSessionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,10 +18,13 @@ class ModuleResource extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->name,
+            "slug" => $this->slug,
             "start_date" => $this->start_date,
             "end_date" => $this->end_date,
-            "school_session_id" => $this->school_session_id,
-            // "course" => courseResource::collection($this->courses)
+            "status" => $this->status,
+            "description" => $this->description,
+            "cohort" => $this->cohorts->makeHidden(["pivot","deleted_at","created_at","updated_at"])
         ];
+
     }
 }
