@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\Comites\ComiteResource;
 use App\Http\Resources\Comites\ComiteWithConseilResource;
+use App\Jobs\SendMailBienvenue;
 use App\Models\Comite;
+use App\Models\User;
+use App\Notifications\CreateUserNotification;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class ComiteController extends Controller
 {
@@ -57,5 +61,19 @@ class ComiteController extends Controller
     public function destroy(Comite $comite)
     {
         //
+    }
+
+    public function testMail()
+    {
+        try {
+            $user = User::where('email', "babacar.sy9792@gmail.com")->first();
+            // $user->notify(new CreateUserNotification($user));
+            SendMailBienvenue::dispatch($user);
+            // Mail::to($user->email)->queue(new SendMailBienvenue($user));
+
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+
     }
 }
