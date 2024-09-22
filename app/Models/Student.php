@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Student extends Model
@@ -15,7 +16,7 @@ class Student extends Model
         'id'
     ];
 
-    public function schoolsessions()
+    public function schoolsessions():BelongsToMany
     {
         return $this->belongsToMany(School_session::class, 'subscriptions');
     }
@@ -39,5 +40,4 @@ class Student extends Model
     {
         return $this->hasManyThrough(Cohort::class, Subscription::class);
     }
-
 }

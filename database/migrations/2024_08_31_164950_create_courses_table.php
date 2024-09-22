@@ -20,9 +20,6 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->longText('description')->nullable();
             $table->json('file')->nullable();
-            $table->string('replay')->nullable();
-            $table->dateTime('start_date')->nullable();
-            $table->dateTime('end_date')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

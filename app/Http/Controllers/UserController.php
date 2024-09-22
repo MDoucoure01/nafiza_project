@@ -82,7 +82,7 @@ class UserController extends Controller
                 $thisUser = User::findOrfail($user->id);
                 $thisUser->assignRole('student');
                 $insertStudent = new UserService($user->id);
-               
+
                 $studentExist = $insertStudent->InsertUserStudent($request);
                 if ($studentExist) {
                     return $this->responseData("student enregistré", true, Response::HTTP_OK, UserResource::make($user));
@@ -169,7 +169,7 @@ class UserController extends Controller
      */
     public function destroy(User $user) {}
 
-    /** 
+    /**
      * Reset password
      */
 
@@ -187,7 +187,7 @@ class UserController extends Controller
              'data' => $findUser,
              'message' => 'Mail envoyé avec succès.',
          ];
- 
+
          return response()->json($response, 200);
      }
 
@@ -207,15 +207,53 @@ class UserController extends Controller
              ];
              $user->noHashingPassword = $request->password;
              $user->notify(new PasswordResetSuccessNotification($user));
- 
+
              return response()->json($response, 200);
          } else {
              $response = [
                  'success' => false,
                  'message' => 'Mot de passe non modifié.',
              ];
- 
+
              return response()->json($response, 400);
          }
      }
+
+     public function changePassword(Request $request){
+        $request->validate([
+            'current_password' => 'required|string',
+            'new_password' => [
+                'required',
+                'max:150',
+                'confirmed',
+                Password::min(8)
+                ->letters()
+                ->mixedCase()
+                ->numbers()
+                ->symbols()
+                ->uncompromised()
+            ],
+        ]);
+        $user = $request->user();
+
+        if (!Hash::check($request->current_password, $user->password)){
+            return response()->json([
+                'message' => 'Désolé, aucune modification effectuer',
+            ], 401);
+        }
+
+        $user->password = bcrypt($request->new_password);
+        if ($user->save()){
+            return response()->json([
+                'message' => 'Mot de passe modifé avec succès',
+            ],200);
+        }
+
+        else{
+            return response()->json([
+                'message' => 'Erreur rencontrer dans notre server',
+            ], 500);
+        }
+
+    }
 }

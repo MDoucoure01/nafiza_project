@@ -28,7 +28,7 @@ class SubscriptionController extends Controller
                 return $this->responseData("Tous les Utilisateurs", true, Response::HTTP_OK, SubscriptionWithoutCohortResource::collection($subscriptions));
             });
         } catch (\Throwable $th) {
-
+            return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST);
         }
     }
 

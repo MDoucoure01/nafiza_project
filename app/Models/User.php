@@ -28,7 +28,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-    // protected $fillable = [
+  // protected $fillable = [
     //     'firstname',
     //     'lastname',
     //     'email',
@@ -41,7 +41,10 @@ class User extends Authenticatable
        return $this->hasMany(Student::class);
     }
 
-
+    public function professor():HasMany
+    {
+       return $this->hasMany(Professor::class);
+    }
 
 
     protected $guarded = [
@@ -89,4 +92,13 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public function courseItems():HasMany
+    {
+        return $this->hasMany(CourseItems::class);
+    }
+
+    public function comments():HasMany
+    {
+        return $this->hasMany(Comments::class);
+    }
 }

@@ -14,11 +14,13 @@ class LanguagesTableSeeder extends Seeder
     public function run(): void
     {
         $languages = [
-            ['name' => 'English'],
-            ['name' => 'French'],
-            ['name' => 'Spanish'],
+            ['name' => 'Anglais'],
+            ['name' => 'Français'],
+            ['name' => 'Espagnol'],
             ['name' => 'Arabe'],
-            ['name' => 'Italian'],
+            ['name' => 'Italien'],
+            ['name' => 'Allemand'],
+            ['name' => 'Autres'],
         ];
         DB::table('languages')->insert($languages);
     }

@@ -12,7 +12,7 @@
                     <div class="icon"> <i class="zmdi zmdi-accounts-outline col-blue"></i> </div>
                     <div class="content">
                         <div class="text" style="font-size: 1.3em">Pensionnaires</div>
-                        <div class="number">270</div>
+                        <div class="number">{{ $session->students->count() }}</div>
                     </div>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                     <div class="icon"> <i class="zmdi zmdi-accounts col-green"></i> </div>
                     <div class="content">
                         <div class="text" style="font-size: 1.3em">Professeurs</div>
-                        <div class="number">12</div>
+                        <div class="number">{{ $session->professors->count() }}</div>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                     <div class="icon"> <i class="zmdi zmdi-city-alt col-blush"></i> </div>
                     <div class="content">
                         <div class="text" style="font-size: 1.3em">Cohortes</div>
-                        <div class="number">2</div>
+                        <div class="number">{{ $session->cohorts->count() }}</div>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                     <div class="icon"> <i class="zmdi zmdi-chart-donut col-cyan"></i> </div>
                     <div class="content">
                         <div class="text" style="font-size: 1.3em">Groupe TD</div>
-                        <div class="number">7</div>
+                        <div class="number">{{ $session->groups->count() }}</div>
                     </div>
                 </div>
             </div>
@@ -57,9 +57,8 @@
                         <ul class="header-dropdown">
                             <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="zmdi zmdi-more-vert"></i> </a>
                                 <ul class="dropdown-menu pull-right">
-                                    <li><a href="javascript:void(0);">Action</a></li>
-                                    <li><a href="javascript:void(0);">Another action</a></li>
-                                    <li><a href="javascript:void(0);">Something else here</a></li>
+                                    <li><a href="{{ route('student.add') }}">Ajouter pensionnaire</a></li>
+                                    <li><a href="{{ route('students.pending.list') }}">Pensionnaires en attente</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -68,111 +67,37 @@
                         <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                             <thead>
                                 <tr>
-                                    <th>no</th>
-                                    <th>Dept. Name</th>
-                                    <th>Brief</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>No. of Students</th>
+                                    <th></th>
+                                    <th>Matricule</th>
+                                    <th>Prénoms & Nom</th>
+                                    <th>Cohorte</th>
+                                    <th>Comité</th>
+                                    <th>Téléphone</th>
+                                    <th>Régime</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>MBA</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>MBA</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>MBA</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>MBA</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>MBA</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>M.COM</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>MBA</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td>B.COM</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td>MBA</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td>BBA</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>11</td>
-                                    <td>MBA</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
-                                <tr>
-                                    <td>12</td>
-                                    <td>MCA</td>
-                                    <td>Lorem Ipsum is simply dummy text of the printing</td>
-                                    <td>info@gamil.com</td>
-                                    <td>+123 456 7890</td>
-                                    <td>Airi Satou</td>
-                                </tr>
+                                @foreach ($session->students as $item)
+                                    <tr>
+                                        <th>
+                                            <a href="{{ route('student.profile', ['id' => $item->id]) }}">
+                                                <img style="height: 30px; width: 30px" src="{{ asset('backoffice/assets/images/logo.png') }}" alt="user" class="img-thumbnail img-fluid">
+                                            </a>
+                                        </th>
+                                        <td>{{ $item->matricule }}</td>
+                                        <td>{{ $item->user->firstname.' '.$item->user->lastname }}</td>
+                                        <td>{{ $item->subscription->activeCohort->name ?? '' }}</td>
+                                        <td>{{ $item->conseil->comite->name }}</td>
+                                        <td>{{ $item->user->phone }}</td>
+                                        <td>
+                                            @if ($item->online == 1)
+                                                <span class="label bg-blue">en ligne</span>
+                                            @else
+                                                <span class="label bg-green">présentiel</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

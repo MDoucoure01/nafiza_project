@@ -6,7 +6,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use App\Notifications\CreateUserNotification;
 
 class CreateUserNotification extends Notification
 {
@@ -43,7 +42,7 @@ class CreateUserNotification extends Notification
      */
     // public function toMail($notifiable)
     // {
-       
+
     //     $userName = $this->user->firstname.' '.$this->user->lastname;
     //     $userEmail = $this->user->email;
     //     $userPassword = $this->noHashUserpassword;

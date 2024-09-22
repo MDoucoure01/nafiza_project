@@ -12,7 +12,6 @@ class Conseil extends Model
 {
     use HasFactory, SoftDeletes;
 
-
     protected $guarded = [
         'id'
     ];
