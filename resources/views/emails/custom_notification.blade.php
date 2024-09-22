@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: white;
+            font-size: 16px;
         }
         .email-body {
             width: 100%;
@@ -29,11 +31,11 @@
         }
         .email-footer {
             background-color: #F9B71A; /* Nouveau jaune */
-            color: black;
-            padding: 1px; /* Réduit de 5px à 3px */
+            color: white;
             text-align: center;
-            font-size: 10px; /* Réduit de 12px à 10px */
+            font-size: 8px; /* Réduit de 12px à 10px */
             width: 100%;
+
         }
         .logo {
             display: block;
@@ -42,6 +44,7 @@
         }
         .email-text {
             color: black;
+            font-size: 16px;
         }
         h4 {
             color: #F9B71A;

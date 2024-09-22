@@ -2,8 +2,11 @@
 <html>
 <head>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', Arial, sans-serif;
+            font-size: 16px;
             margin: 0;
             padding: 0;
             background-color: white;
@@ -27,12 +30,12 @@
             border-radius: 8px;
         }
         .email-footer {
-            background-color: #F9B71A;
-            color: black;
-            padding: 3px;
+            background-color: #F9B71A; /* Nouveau jaune */
+            color: white;
             text-align: center;
-            font-size: 10px;
+            font-size: 8px; /* Réduit de 12px à 10px */
             width: 100%;
+
         }
         .logo {
             display: block;
@@ -46,6 +49,7 @@
         h4 {
             color: #F9B71A;
             text-align: center;
+            font-weight: 600;
         }
         .email-button {
             background-color: #007AFF;
