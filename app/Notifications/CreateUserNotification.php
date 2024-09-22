@@ -71,6 +71,7 @@ class CreateUserNotification extends Notification
     // }
 
     public function toMail($notifiable)
+
 {
     // L'URL à encoder dans le QR code
     $qrCodeUrl = 'https://pay.wave.com/m/M_QIKlqn4fuMS7/c/sn/?amount=25000';
@@ -88,7 +89,6 @@ class CreateUserNotification extends Notification
                 ]);
 }
 
-    
-    
+
 
 }

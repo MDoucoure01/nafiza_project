@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Notifications\PasswordResetMail;
 use App\Notifications\PasswordResetSuccessNotification;
 
+
 class UserController extends Controller
 {
     use ResponseTrait;
@@ -78,7 +79,7 @@ class UserController extends Controller
                     "password" => $request->password ?? "N@Fiz@2024",
                     "sexe" => $request->sexe
                 ]);
-                
+
                 $thisUser = User::findOrfail($user->id);
                 $thisUser->assignRole('student');
                 $insertStudent = new UserService($user->id);
@@ -196,9 +197,7 @@ class UserController extends Controller
         // dd($userToken);
          $userInfos = User::where('remember_token', $userToken)->first();
          $user = User::findOrFail($userInfos->id);
- 
          $user->password = $request->password;
- 
          if ($user->save()) {
              $response = [
                  'success' => true,
