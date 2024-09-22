@@ -39,16 +39,29 @@ class PasswordResetMail extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
+    // public function toMail($notifiable)
+    // {
+    //     $userID = $this->user->id;
+    //     $userToken = $this->user->auth_token;
+ 
+    //     return (new MailMessage)
+    //                 ->subject('[NAAFIZA ] - Réinitialiser votre mot de passe')
+    //                 ->line('Vous recevez cet email car nous avons reçu une demande de réinitialisation du mot de passe pour votre compte.')
+    //                 ->action('Modifier votre mot de passe', url('https://xyz/password-reset/'.$userToken))
+    //                 ->line('Nous vous souhaitons une bonne expérience sur notre application naafiza.');
+    // }
     public function toMail($notifiable)
     {
         $userID = $this->user->id;
         $userToken = $this->user->auth_token;
- 
         return (new MailMessage)
                     ->subject('[NAAFIZA ] - Réinitialiser votre mot de passe')
-                    ->line('Vous recevez cet email car nous avons reçu une demande de réinitialisation du mot de passe pour votre compte.')
-                    ->action('Modifier votre mot de passe', url('https://xyz/password-reset/'.$userToken))
-                    ->line('Nous vous souhaitons une bonne expérience sur notre application naafiza.');
+                    ->view('emails.custom_other_notification', [
+                        'title' => 'Réinitialisation mot de passe',
+                        'content' => 'Vous recevez cet email car nous avons reçu une demande de réinitialisation du mot de passe pour votre compte.',
+                        'actionUrl' => url('https://xyz/password-reset/'.$userToken), // Lien du bouton d'action
+                        'actionText' => 'Modifier votre mot de passe ici'
+                    ]);
     }
  
 } 
