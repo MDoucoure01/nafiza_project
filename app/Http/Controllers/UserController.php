@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\PasswordResetMail;
 use App\Notifications\PasswordResetSuccessNotification;
-use App\Notifications\CreateUserNotification;
 
 class UserController extends Controller
 {
@@ -79,10 +78,7 @@ class UserController extends Controller
                     "password" => $request->password ?? "N@Fiz@2024",
                     "sexe" => $request->sexe
                 ]);
-                if($user->save()){
-                    $noHashUserpassword = $request->password ?? "N@Fiz@2024";
-                    $user->notify(new CreateUserNotification($noHashUserpassword, $user));
-                }
+                
                 $thisUser = User::findOrfail($user->id);
                 $thisUser->assignRole('student');
                 $insertStudent = new UserService($user->id);
@@ -201,7 +197,7 @@ class UserController extends Controller
          $userInfos = User::where('remember_token', $userToken)->first();
          $user = User::findOrFail($userInfos->id);
  
-         $user->password = \Hash::make($request->password);
+         $user->password = $request->password;
  
          if ($user->save()) {
              $response = [

@@ -39,15 +39,27 @@ class PasswordResetSuccessNotification extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
+    // public function toMail($notifiable)
+    // {
+    //     $userEmail = $this->user->email;
+    //     $userPassword = $this->user->noHashingPassword;
+    //     return (new MailMessage)
+    //                 ->subject('[NAAFIZA] - Votre nouveau mot de passe')
+    //                 ->line('Bravo ! Votre mot de passe a été bien réinitialié avec succés. Vous pouvez à nouveau vous reconnecter avec vos identifiants suivants : <br/>
+    //                         <b>Email : </b> '.$userEmail)
+    //                 ->action('Connectez-vous', url('https://xyw'))
+    //                 ->line('Nous vous souhaitons une bonne expérience sur notre application Naafiza.');
+    // }
     public function toMail($notifiable)
     {
-        $userEmail = $this->user->email;
-        $userPassword = $this->user->noHashingPassword;
         return (new MailMessage)
                     ->subject('[NAAFIZA] - Votre nouveau mot de passe')
-                    ->line('Bravo ! Votre mot de passe a été bien réinitialié avec succés. Vous pouvez à nouveau vous reconnecter avec vos identifiants suivants : <br/>
-                            <b>Email : </b> '.$userEmail)
-                    ->action('Connectez-vous', url('https://xyw'))
-                    ->line('Nous vous souhaitons une bonne expérience sur notre application Naafiza.');
+                    ->view('emails.custom_other_notification', [
+                        'title' => 'Nouveau mot de passe',
+                        'content' => 'Bravo ! Votre mot de passe a été bien réinitialié avec succés. Vous pouvez à nouveau vous reconnecter avec vos identifiants suivants:',
+                        'actionUrl' => url('https://xyw'), // Lien du bouton d'action
+                        'actionText' => 'Connectez-vous ici'
+                    ]);
     }
+    
 }

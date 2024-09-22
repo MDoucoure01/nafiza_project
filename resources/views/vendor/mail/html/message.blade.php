@@ -76,7 +76,7 @@
 <body>
     <div class="email-body">
         <div class="email-header">
-            <h1>Inscription à Naafiza</h1>
+            <h1>{{ $title }}</h1>
         </div>
 
         <div class="email-content">

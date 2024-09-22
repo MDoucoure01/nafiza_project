@@ -15,24 +15,23 @@
             position: relative;
         }
         .email-header {
-            background-color: #F9B71A; /* Nouveau jaune */
+            background-color: #F9B71A;
             height: 200px;
             width: 100%;
         }
         .email-content {
             background-color: white;
-            padding: 50px; /* Augmenté de 20px à 30px */
+            padding: 30px;
             margin: -80px auto 30px;
             width: 80%;
             border-radius: 8px;
-            /* Shadow supprimé */
         }
         .email-footer {
-            background-color: #F9B71A; /* Nouveau jaune */
+            background-color: #F9B71A;
             color: black;
-            padding: 1px; /* Réduit de 5px à 3px */
+            padding: 3px;
             text-align: center;
-            font-size: 10px; /* Réduit de 12px à 10px */
+            font-size: 10px;
             width: 100%;
         }
         .logo {
@@ -42,10 +41,23 @@
         }
         .email-text {
             color: black;
+            text-align: center; /* Centrer tout le texte */
         }
         h4 {
             color: #F9B71A;
             text-align: center;
+        }
+        .email-button {
+            background-color: #007AFF;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .button-container {
+            text-align: center; /* Centrer le contenu */
         }
     </style>
 </head>
@@ -59,9 +71,9 @@
             <div class="email-text">
                 <h4>{{ $title }}</h4>
                 <p>{{ $content }}</p>
-                <a href="{{ $actionUrl }}" class="email-button">{{ $actionText }}</a>
-
-                <!-- Autres éléments de contenu -->
+                <div class="button-container">
+                    <a href="{{ $actionUrl }}" class="email-button">{{ $actionText }}</a>
+                </div>
             </div>
         </div>
         <div class="email-footer">
