@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Jobs\SendMailBienvenue;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Support\Str;
@@ -29,7 +30,8 @@ class UserObserver
         // Effacer les données de la session après utilisation
         // session()->forget('extra_data');
             $user->notify(new CreateUserNotification($user));
-        
+            SendMailBienvenue::dispatch($user);
+
     }
 
     /**
