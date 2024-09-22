@@ -23,7 +23,7 @@ class School_session extends Model
 
     public function cohorts()
     {
-        return $this->belongsToMany(Cohort::class, 'session__cohorts', 'school_session_id', 'cohort_id');
+        return $this->belongsToMany(Cohort::class, 'session__cohorts');
     }
 
     public function groups()

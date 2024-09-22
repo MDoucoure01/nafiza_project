@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Modules;
+namespace App\Http\Resources\Comites;
 
-use App\Http\Resources\Courses\courseResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ModuleResource extends JsonResource
+class ComiteWithConseilResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,10 +18,7 @@ class ModuleResource extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->name,
-            "start_date" => $this->start_date,
-            "end_date" => $this->end_date,
-            "school_session_id" => $this->school_session_id,
-            // "course" => courseResource::collection($this->courses)
+            "conseils" => $this->conseils->makeHidden(["deleted_at", "updated_at","comite_id", "created_at"])
         ];
     }
 }

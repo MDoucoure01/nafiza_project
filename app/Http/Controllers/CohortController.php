@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\Subscriptions\SubscriptionWithoutCohortResource;
+use App\Http\Resources\Cohorts\CohortSessionResource;
+use App\Models\Cohort;
 use App\Models\School_session;
-use App\Models\Subscription;
+use App\Models\Session_Cohort;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
-class SubscriptionController extends Controller
+class CohortController extends Controller
 {
     use ResponseTrait;
     /**
@@ -24,8 +25,9 @@ class SubscriptionController extends Controller
                 if (!$actifAnnee) {
                     return $this->responseData("Oops aucun année active", false, Response::HTTP_NOT_FOUND, null);
                 }
-                $subscriptions = Subscription::where('school_session_id',$actifAnnee->id)->where('is_active', true)->get();
-                return $this->responseData("Tous les Utilisateurs", true, Response::HTTP_OK, SubscriptionWithoutCohortResource::collection($subscriptions));
+                return CohortSessionResource::make($actifAnnee);
+                $sessionActif = Session_Cohort::where('school_session_id',$actifAnnee->id)->get();
+                return $this->responseData("Tous les Cohort", true, Response::HTTP_OK, CohortSessionResource::collection($sessionActif));
 
             });
         } catch (\Throwable $th) {
@@ -44,7 +46,7 @@ class SubscriptionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Subscription $subscription)
+    public function show(Cohort $cohort)
     {
         //
     }
@@ -52,7 +54,7 @@ class SubscriptionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Subscription $subscription)
+    public function update(Request $request, Cohort $cohort)
     {
         //
     }
@@ -60,7 +62,7 @@ class SubscriptionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Subscription $subscription)
+    public function destroy(Cohort $cohort)
     {
         //
     }
