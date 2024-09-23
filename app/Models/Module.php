@@ -4,8 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Module extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+
+    public function schoolsessions()
+    {
+        return $this->belongsToMany(School_session::class, 'session__modules');
+    }
 }

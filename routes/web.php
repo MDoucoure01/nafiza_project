@@ -6,7 +6,9 @@ use App\Http\Controllers\Backoffice\ModulesController;
 use App\Http\Controllers\Backoffice\ProfessorsController;
 use App\Http\Controllers\Backoffice\SchoolsessionController;
 use App\Http\Controllers\Backoffice\StudentsController;
+use App\Livewire\Backoffice\Courses\AddCourse;
 use App\Livewire\Backoffice\Courses\Modules;
+use App\Livewire\Backoffice\Courses\ShowModule;
 use App\Livewire\Backoffice\HomeComponent;
 use App\Livewire\Backoffice\Professors\AddProfessor;
 use App\Livewire\Backoffice\Professors\ListProfessors;
@@ -41,10 +43,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware([
     'auth:sanctum',
-    config('jetstream.auth_session'),
+    config(key: 'jetstream.auth_session'),
     'verified',
     'role:root|admin|secretary'
-])->group(function () {
+])->group(function (): void {
     Route::get('/', HomeComponent::class)->name('home');
 
     Route::get('/pensionnaire/nouveau', AddStudent::class)->name('student.add');
@@ -67,15 +69,18 @@ Route::middleware([
     Route::get('/groupe/{slug}/nouveaux-pensionnaire', AddStudentsToGroup::class)->name('group.new.students');
     Route::get('/groupe/{slug}', ShowGroup::class)->name('group.show');
     Route::get('/groupes-td', GroupeTD::class)->name('groupes.td');
+
+    Route::get('/module/{id}', ShowModule::class)->name('module.show');
+    Route::get('/cours/ajouter', AddCourse::class)->name('course.add');
 });
 
 
 Route::middleware([
     'auth:sanctum',
-    config('jetstream.auth_session'),
+    config(key: 'jetstream.auth_session'),
     'verified',
     'role:root|admin'
-])->group(function () {
+])->group(function (): void {
     Route::get('/session/edit/{id}', EditSession::class)->name('session.edit');
     Route::put('/create-session', [SchoolsessionController::class, 'create'])->name('session.create');
     Route::put('/sessions/update', [SchoolsessionController::class, 'update'])->name('session.update');
