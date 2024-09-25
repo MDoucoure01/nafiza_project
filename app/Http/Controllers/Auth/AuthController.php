@@ -92,7 +92,8 @@ class AuthController extends Controller
                         return $this->responseData("Oops inscription non valide", false, Response::HTTP_NOT_FOUND, null);
                     }
                     $token = $user->createToken('token')->plainTextToken;
-                    return $this->responseData('Connection réussie ...', true, Response::HTTP_OK, ["user" => UserResource::make($user), "Token" => $token]);
+                    return $this->responseData('Connection réussie ...', true, Response::HTTP_OK,
+                        ["user" => UserResource::make($user), "Token" => $token]);
                 }
                 return $this->responseData('le login ou le mot de passe est erroné', false, Response::HTTP_NOT_FOUND);
             });
