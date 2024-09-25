@@ -19,8 +19,8 @@ class CourseItemResource extends JsonResource
         // return parent::toArray($request);
         return [
             "id" => $this->id,
-            "course_id" => courseResource::make($this->course),
-            "user_id" => UserResource::make($this->user),
+            "course" => courseResource::make($this->course),
+            "user" => UserResource::make($this->user),
             "content" => $this->content,
             "file" => $this->file,
             "image" => $this->image,

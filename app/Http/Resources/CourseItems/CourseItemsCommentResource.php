@@ -13,22 +13,12 @@ class CourseItemsCommentResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @return array<string, mixed>
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function toArray(Request $request): array
+    public function toArray(Request $request): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         // return parent::toArray($request);
-        return [
-            // "id" => $this->id,
-            // "course_id" => courseResource::make($this->course),
-            // "user_id" => UserResource::make($this->user),
-            // "content" => $this->content,
-            // "file" => $this->file,
-            // "image" => $this->image,
-            // "link" => $this->link,
-            // "date" => $this->created_at,
-            "comment" => CommentResource::collection($this->comments),
-        ];
+        return CommentResource::collection($this->comments);
     }
 
 }

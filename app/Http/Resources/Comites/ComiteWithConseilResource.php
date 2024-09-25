@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Comments;
+namespace App\Http\Resources\Comites;
 
-use App\Http\Resources\Users\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CommentResource extends JsonResource
+class ComiteWithConseilResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,9 +17,8 @@ class CommentResource extends JsonResource
         // return parent::toArray($request);
         return [
             "id" => $this->id,
-            "user" => UserResource::make($this->user),
-            "content" => $this->content,
-            "created_at" => $this->created_at
+            "name" => $this->name,
+            "conseils" => $this->conseils->makeHidden(["deleted_at", "updated_at","comite_id", "created_at"])
         ];
     }
 }

@@ -11,9 +11,9 @@ class Cohort extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public function schoolsessions()
+    public function schoolsessions():BelongsToMany
     {
-        return $this->belongsToMany(School_session::class, 'session__cohorts', 'cohort_id', 'school_session_id');
+        return $this->belongsToMany(School_session::class, 'session__cohorts');
     }
 
 
@@ -29,7 +29,11 @@ class Cohort extends Model
     
     public function subscriptions()
     {
+<<<<<<< HEAD
         return $this->belongsToMany(Subscription::class, 'cohort_subscriptions')
                     ->withPivot('is_actual');
+=======
+        return $this->belongsToMany(Subscription::class,"cohort_subscriptions")->withPivot(["is_actual"]);
+>>>>>>> 21c7d2d9a87d9e0aa1264f299d7fe43999113720
     }
 }

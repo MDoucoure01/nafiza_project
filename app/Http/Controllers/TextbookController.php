@@ -22,8 +22,7 @@ class TextbookController extends Controller
         $validated = $request->validate([
             'professor_id' => 'required|exists:professors,id',
             'seance_id' => 'required|exists:seances,id',
-            'title' => 'required|string|max:255',
-            'description' => 'required|string|max:1000',
+            'content' => 'required|string|max:1000',
             'start_date' => 'required|date|before_or_equal:' . $currentDate,
             'end_date' => 'required|date|after_or_equal:' . $currentDate,
         ]);
@@ -46,8 +45,7 @@ class TextbookController extends Controller
                 $textBook = Textbook::create([
                     "professor_id" => $validated['professor_id'],
                     "seance_id" => $validated['seance_id'],
-                    "title" => $validated['title'],
-                    "description" => $validated['description'],
+                    "content" => $validated['content'],
                     "start_date" => $validated['start_date'],
                     "end_date" => $validated['end_date'],
                 ]);
@@ -59,5 +57,5 @@ class TextbookController extends Controller
         }
     }
 
-   
+
 }
