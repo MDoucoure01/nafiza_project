@@ -12,9 +12,9 @@ class CohortResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @return array<string, mixed>
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function toArray(Request $request): array
+    public function toArray(Request $request): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         // return parent::toArray($request);
          // Filtrer les subscriptions pour n'inclure que celles avec school_session->status == 1
@@ -22,12 +22,6 @@ class CohortResource extends JsonResource
             return $subscription->school_session && $subscription->school_session->status == 1 && $subscription->is_active == true && $subscription->pivot->is_actual == true;
         });
 
-        return [
-            "id" => $this->id,
-            "name" => $this->name,
-            "slug" => $this->slug,
-            "description" => $this->description,
-            "students" => SubscriptionWithoutCohortResource::collection($filteredSubscriptions),
-        ];
+        return SubscriptionWithoutCohortResource::collection($filteredSubscriptions);
     }
 }
