@@ -71,3 +71,4 @@ Route::get("course/items/{id}/comment", [CourseItemsController::class, "getComme
 Route::get("modules/sessions",[CourseItemsController::class,"getModulesSession"]);
 Route::get("modules/courses/elements",[CourseItemsController::class,"getModulesCourseItemsElements"]);
 Route::apiResource("comite",ComiteController::class);
+Route::get("test/test",[ComiteController::class,"testMail"]);

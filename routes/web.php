@@ -25,6 +25,7 @@ use App\Livewire\Backoffice\Schoolsessions\ListSessions;
 use App\Livewire\Backoffice\Students\StudentPending;
 use App\Livewire\Backoffice\Students\StudentProfile;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\QrCodeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,8 @@ Route::middleware([
     Route::get('/groupes-td', GroupeTD::class)->name('groupes.td');
 });
 
+
+Route::get('/generate-qr-code', [QrCodeController::class, 'generate']);
 
 Route::middleware([
     'auth:sanctum',
