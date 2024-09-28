@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="block-header">
             <h2>Gestion de module</h2>
-            <small class="text-muted">Welcome to Swift application</small>
+            <small class="text-muted">Welcome to {{ env('APP_NAME') }} application</small>
         </div>
         <div class="row clearfix">
             <div class="col-md-12">
@@ -42,7 +42,7 @@
                             </div>
                             <div role="tabpanel" class="tab-pane" id="update">
                                 <h5>Modifer le module</h5>
-                                <form class="form-horizontal" action="{{ route('module.create') }}" method="POST">
+                                <form class="form-horizontal" action="{{ route('module.update', ['id' => $module->id]) }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <div class="row clearfix">
@@ -52,7 +52,7 @@
                                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                             <div class="form-group mt-0 mb-4">
                                                 <div class="form-line">
-                                                    <input required name="name" value="{{ old('name') }}" type="text"
+                                                    <input required name="name" value="{{ $module->name }}" type="text"
                                                         class="form-control" placeholder="Entrer le nom du module">
                                                     @error('name')
                                                         <span class="text-danger" role="alert">
@@ -71,7 +71,7 @@
                                             <div class="col-lg-6 col-md-6 col-sm-8 col-xs-7">
                                                 <div class="form-group mt-0 mb-4">
                                                     <div class="form-line">
-                                                        du: <input required name="start_date" value="{{ old('start_date') }}"
+                                                        du: <input required name="start_date" value="{{ $module->start_date }}"
                                                             type="date" class="form-control">
                                                         @error('start_date')
                                                             <span class="text-danger" role="alert">
@@ -84,7 +84,7 @@
                                             <div class="col-lg-6 col-md-6 col-sm-8 col-xs-7">
                                                 <div class="form-group mt-0 mb-4">
                                                     <div class="form-line">
-                                                        au: <input required name="end_date" value="{{ old('end_date') }}"
+                                                        au: <input required name="end_date" value="{{ $module->end_date }}"
                                                             type="date" class="form-control">
                                                         @error('end_date')
                                                             <span class="text-danger" role="alert">
@@ -103,7 +103,7 @@
                                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                             <div class="form-group mt-0 mb-4">
                                                 <div class="form-line">
-                                                    <textarea name="description" class="form-control" cols="30" rows="10">{{ old('description') }}</textarea>
+                                                    <textarea name="description" class="form-control" cols="30" rows="10">{{ $module->description }}</textarea>
                                                     @error('description')
                                                         <span class="text-danger" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -115,7 +115,7 @@
                                     </div>
                                     <div class="row clearfix">
                                         <div class="offset-lg-2 col-lg-10 text-right">
-                                            <button type="submit" class="btn btn-raised btn-warning m-t-15 waves-effect">Créer cohorte</button>
+                                            <button type="submit" class="btn btn-raised btn-primary m-t-15 waves-effect">Modifier module</button>
                                         </div>
                                     </div>
                                 </form>
@@ -130,12 +130,19 @@
         </div>
         <div class="row clearfix">
             @foreach ($module->courses as $item)
-                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
                     <div class="thumbnail card">
                         <div class="caption  body">
                             <h3>{{ $item->title }}</h3>
                             <p>Type: <strong class="col-green">{{ $item->courseType->name }}</strong></p>
-                            <a href="{{ route('course.show', ['id' => $item->id]) }}" class="btn  btn-raised btn-info waves-effect" role="button">Voir détails</a>
+                            <form action="{{ route("course.delete", ['id' => $item->id]) }}" method="POST">
+                                @csrf
+                                @method("PUT")
+                                <a href="{{ route('course.show', ['id' => $item->id]) }}" class="text-white btn btn-xs btn-success"><i class="zmdi zmdi-eye"></i></a>
+                                @hasanyrole('admin|root')
+                                    <button class="text-white btn btn-sm btn-danger" onclick="if(!confirm('Vous êtes sur le point de supprimer ce cours. Voulez-vous continuer ?')) { event.preventDefault(); return false; }"><i class="zmdi zmdi-delete"></i></button>
+                                @endhasanyrole
+                            </form>
                         </div>
                     </div>
                 </div>

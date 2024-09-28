@@ -23,6 +23,10 @@
                         <h5>{{ $course->module->name }}</h5>
                         <p class="m-b-0">Type</p>
                         <h5>{{ $course->courseType->name }}</h5>
+                        @if ($course->file)
+                            <p class="m-b-0">Fichier</p>
+                            <a href="{{ asset('storage') }}/{{ $course->file }}" download="" class="btn btn-secondary"><i class="zmdi zmdi-download"></i> Télécharger fichier</a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -41,81 +45,73 @@
                                 <p>{!! $course->description !!}</p>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="update">
-                                <h5>Modifer le module</h5>
-                                <form class="form-horizontal" action="{{ route('module.create') }}" method="POST">
-                                    @csrf
-                                    @method('PUT')
+                                <h5>Modifer le cours</h5>
+                                <form action="{{ route('course.update', ['id' => $course->id]) }}" method="POST" enctype="multipart/form-data">
                                     <div class="row clearfix">
-                                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                            <label for="email_address_2">Nom du module</label>
-                                        </div>
-                                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                            <div class="form-group mt-0 mb-4">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
                                                 <div class="form-line">
-                                                    <input required name="name" value="{{ old('name') }}" type="text"
-                                                        class="form-control" placeholder="Entrer le nom du module">
-                                                    @error('name')
-                                                        <span class="text-danger" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
+                                                    <label for="">Titre</label>
+                                                    <input name="name" type="text" value="{{ $course->title }}" class="form-control" placeholder="Titre du cours" required>
                                                 </div>
                                             </div>
+                                            @error('name')
+                                                <span class="text-danger" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
-                                    </div>
-                                    <div class="row clearfix">
-                                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                            <label>Période</label>
-                                        </div>
-                                        <div class="row col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                                            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-7">
-                                                <div class="form-group mt-0 mb-4">
-                                                    <div class="form-line">
-                                                        du: <input required name="start_date" value="{{ old('start_date') }}"
-                                                            type="date" class="form-control">
-                                                        @error('start_date')
-                                                            <span class="text-danger" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-7">
-                                                <div class="form-group mt-0 mb-4">
-                                                    <div class="form-line">
-                                                        au: <input required name="end_date" value="{{ old('end_date') }}"
-                                                            type="date" class="form-control">
-                                                        @error('end_date')
-                                                            <span class="text-danger" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="form-group drop-custum">
+                                                <label for="">Module</label>
+                                                <select class="form-control show-tick" name="module_id" required>
+                                                    <option value="{{ $course->module->id }}">-- {{ $course->module->name }} --</option>
+                                                    @foreach ($modules as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row clearfix">
-                                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                            <label>Description</label>
+                                        <div class="col-lg-6 col-md-12">
+                                            <div class="form-group drop-custum">
+                                                <label for="">Type</label>
+                                                <select class="form-control show-tick" name="course_type_id" required>
+                                                    <option value="{{ $course->courseType->id }}">-- {{ $course->courseType->name }} --</option>
+                                                    @foreach ($courseTypes as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                            <div class="form-group mt-0 mb-4">
+                                        <div class="col-lg-6 col-md-12 col-sm-12">
+                                            <br>
+                                            <label for="">Changer fichier</label>
+                                            <div class="fallback">
+                                                <input name="file" type="file" value="{{ old('file') }}" />
+                                            </div>
+                                            @error('file')
+                                                <span class="text-danger" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <p for="">Description du cours</p>
                                                 <div class="form-line">
-                                                    <textarea name="description" class="form-control" cols="30" rows="10">{{ old('description') }}</textarea>
-                                                    @error('description')
-                                                        <span class="text-danger" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
+                                                    <textarea id="ckeditor" name="description">{{ $course->description }}</textarea>
                                                 </div>
+                                                @error('description')
+                                                    <span class="text-danger" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row clearfix">
-                                        <div class="offset-lg-2 col-lg-10 text-right">
-                                            <button type="submit" class="btn btn-raised btn-warning m-t-15 waves-effect">Créer cohorte</button>
+                                        <div class="col-sm-12 text-right">
+                                            <button type="submit" class="btn btn-raised waves-effect btn-success">Modifier cours</button>
                                         </div>
                                     </div>
                                 </form>

@@ -88,7 +88,7 @@
                             </div>
                             <div class="row clearfix">
                                 <div class="offset-lg-2 col-lg-10 text-right">
-                                    <button type="submit" class="btn btn-raised btn-warning m-t-15 waves-effect">Créer cohorte</button>
+                                    <button type="submit" class="btn btn-raised btn-warning m-t-15 waves-effect">Créer module</button>
                                 </div>
                             </div>
                         </form>
@@ -131,7 +131,6 @@
 
                                                     <a href="{{ route('module.show', ['id' => $item->id]) }}" class="text-white btn btn-xs btn-success"><i class="zmdi zmdi-eye"></i></a>
                                                     @hasanyrole('admin|root')
-                                                        <a href="{{ route('cohort.edit', ['id' => $item->id]) }}" class="text-white btn btn-xs btn-primary"><i class="zmdi zmdi-edit"></i></a>
                                                         <button class="text-white btn btn-xs btn-danger" onclick="if(!confirm('Vous êtes sur le point de supprimer ce module. Voulez-vous continuer ?')) { event.preventDefault(); return false; }"><i class="zmdi zmdi-delete"></i></button>
                                                     @endhasanyrole
                                                 </form>

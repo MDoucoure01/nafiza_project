@@ -107,8 +107,11 @@ Route::middleware([
 
     Route::get('/cours/modules', Modules::class)->name('courses.modules');
     Route::put('/create-module', [ModulesController::class, 'create'])->name('module.create');
+    Route::put('/update-module', [ModulesController::class, 'update'])->name('module.update');
     Route::put('/delete-module', [ModulesController::class, 'delete'])->name('module.delete');
 
     Route::get('/cours/ajouter', AddCourse::class)->name('course.add');
     Route::put('/create-course', [CoursesController::class, 'create'])->name('course.create');
+    Route::put('/update-course', [CoursesController::class, 'update'])->name('course.update');
+    Route::put('/delete-course', [CoursesController::class, 'delete'])->name('course.delete');
 });

@@ -36,6 +36,8 @@ class ModulesController extends Controller
         $module = Module::findOrFail($request->id);
         $module->name = $request->name;
         $module->slug = Str::slug($request->name);
+        $module->start_date = $request->start_date;
+        $module->end_date = $request->end_date;
         $module->description = $request->description;
         $module->save();
 
