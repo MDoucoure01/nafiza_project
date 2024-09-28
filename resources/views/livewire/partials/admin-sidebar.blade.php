@@ -46,8 +46,8 @@
                 </li>
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-graduation-cap"></i><span>Cours</span> </a>
                     <ul class="ml-menu">
-                        <li><a href="add-courses.html">Ajouter cours</a></li>
-                        <li><a href="courses.html">Lite des cours</a></li>
+                        <li><a href="{{ route('course.add') }}">Ajouter cours</a></li>
+                        <li><a href="{{ route('courses.list') }}">Lite des cours</a></li>
                         <li><a href="{{ route('courses.modules') }}">Gestion modules</a></li>
                     </ul>
                 </li>

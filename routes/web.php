@@ -1,13 +1,16 @@
 <?php
 
 use App\Http\Controllers\Backoffice\CohortsController;
+use App\Http\Controllers\Backoffice\CoursesController;
 use App\Http\Controllers\Backoffice\GroupsController;
 use App\Http\Controllers\Backoffice\ModulesController;
 use App\Http\Controllers\Backoffice\ProfessorsController;
 use App\Http\Controllers\Backoffice\SchoolsessionController;
 use App\Http\Controllers\Backoffice\StudentsController;
 use App\Livewire\Backoffice\Courses\AddCourse;
+use App\Livewire\Backoffice\Courses\ListCourses;
 use App\Livewire\Backoffice\Courses\Modules;
+use App\Livewire\Backoffice\Courses\ShowCourse;
 use App\Livewire\Backoffice\Courses\ShowModule;
 use App\Livewire\Backoffice\HomeComponent;
 use App\Livewire\Backoffice\Professors\AddProfessor;
@@ -71,7 +74,8 @@ Route::middleware([
     Route::get('/groupes-td', GroupeTD::class)->name('groupes.td');
 
     Route::get('/module/{id}', ShowModule::class)->name('module.show');
-    Route::get('/cours/ajouter', AddCourse::class)->name('course.add');
+    Route::get('/cours/liste', ListCourses::class)->name('courses.list');
+    Route::get('/cours/details/{id}', ShowCourse::class)->name('course.show');
 });
 
 
@@ -103,4 +107,8 @@ Route::middleware([
 
     Route::get('/cours/modules', Modules::class)->name('courses.modules');
     Route::put('/create-module', [ModulesController::class, 'create'])->name('module.create');
+    Route::put('/delete-module', [ModulesController::class, 'delete'])->name('module.delete');
+
+    Route::get('/cours/ajouter', AddCourse::class)->name('course.add');
+    Route::put('/create-course', [CoursesController::class, 'create'])->name('course.create');
 });

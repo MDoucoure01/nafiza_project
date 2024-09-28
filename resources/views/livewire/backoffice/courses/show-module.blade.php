@@ -6,6 +6,11 @@
             <small class="text-muted">Welcome to Swift application</small>
         </div>
         <div class="row clearfix">
+            <div class="col-md-12">
+                <a href="{{ route('course.add', ['module_id' => $module->id]) }}" class="btn btn-raised btn-success" role="button">Ajouter un cours</a>
+            </div>
+        </div>
+        <div class="row clearfix">
             <div class="col-lg-4 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="header">
@@ -27,7 +32,6 @@
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#description">Description</a></li>
-                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#courses">Cours</a></li>
                             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#update">Modification</a></li>
                         </ul>
 
@@ -35,159 +39,6 @@
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane in active" id="description">
                                 <p>{{ $module->description }}</p>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="courses">
-                                <div class="row clearfix">
-                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="thumbnail card">
-                                            <img src="assets/images/course-3.jpg" alt=""  class="img-fluid">
-                                            <div class="caption  body">
-                                                <h3>Magento Programmer Course</h3>
-                                                <p>First Year, MBA</p>
-                                                <p>Price: <strong class="col-blush">$315.60</strong> Time: <strong class="col-green">9 months</strong></p>
-                                                <p>Prof.: Prof. <strong>Will Smith</strong></p>
-                                                <p>Students: <strong class="col-green">115</strong></p>
-                                                <a href="courses-info.html" class="btn  btn-raised btn-info waves-effect" role="button">Read more</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="thumbnail card">
-                                            <img src="assets/images/course-1.jpg" alt=""  class="img-fluid">
-                                            <div class="caption  body">
-                                                <h3>Magento Programmer Course</h3>
-                                                <p>First Year, MBA</p>
-                                                <p>Price: <strong class="col-blush">$315.60</strong> Time: <strong class="col-green">9 months</strong></p>
-                                                <p>Prof.: Prof. <strong>Will Smith</strong></p>
-                                                <p>Students: <strong class="col-green">115</strong></p>
-                                                <a href="courses-info.html" class="btn  btn-raised btn-info waves-effect" role="button">Read more</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                                        <div class="thumbnail card"><img src="assets/images/course-2.jpg" alt=""  class="img-fluid">
-                                            <div class="caption  body">
-                                                <h3>PHP Course</h3>
-                                                <p>First Year, MBA</p>
-                                                <p>Price: <strong class="col-blush">$315.60</strong> Time: <strong class="col-green">9 months</strong></p>
-                                                <p>Prof.: Prof. <strong>Will Smith</strong></p>
-                                                <p>Students: <strong class="col-green">115</strong></p>
-                                                <a href="courses-info.html" class="btn  btn-raised btn-info waves-effect" role="button">Read more</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
-                                        <div class="thumbnail card"><img src="assets/images/course-3.jpg" alt=""  class="img-fluid">
-                                            <div class="caption  body">
-                                                <h3>Web Design Course</h3>
-                                                <p>First Year, MBA</p>
-                                                <p>Price: <strong class="col-blush">$315.60</strong> Time: <strong class="col-green">9 months</strong></p>
-                                                <p>Prof.: Prof. <strong>Will Smith</strong></p>
-                                                <p>Students: <strong class="col-green">115</strong></p>
-                                                <a href="courses-info.html" class="btn  btn-raised btn-info waves-effect" role="button">Read more</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
-                                        <div class="thumbnail card"><img src="assets/images/course-1.jpg" alt=""  class="img-fluid">
-                                            <div class="caption  body">
-                                                <h3>Magento Programmer Course</h3>
-                                                <p>First Year, MBA</p>
-                                                <p>Price: <strong class="col-blush">$315.60</strong> Time: <strong class="col-green">9 months</strong></p>
-                                                <p>Prof.: Prof. <strong>Will Smith</strong></p>
-                                                <p>Students: <strong class="col-green">115</strong></p>
-                                                <a href="courses-info.html" class="btn  btn-raised btn-info waves-effect" role="button">Read more</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
-                                        <div class="thumbnail card"><img src="assets/images/course-2.jpg" alt=""  class="img-fluid">
-                                            <div class="caption  body">
-                                                <h3>PHP Course</h3>
-                                                <p>First Year, MBA</p>
-                                                <p>Price: <strong class="col-blush">$315.60</strong> Time: <strong class="col-green">9 months</strong></p>
-                                                <p>Prof.: Prof. <strong>Will Smith</strong></p>
-                                                <p>Students: <strong class="col-green">115</strong></p>
-                                                <a href="courses-info.html" class="btn  btn-raised btn-info waves-effect" role="button">Read more</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
-                                        <div class="thumbnail card"><img src="assets/images/course-3.jpg" alt=""  class="img-fluid">
-                                            <div class="caption  body">
-                                                <h3>Magento Programmer Course</h3>
-                                                <p>First Year, MBA</p>
-                                                <p>Price: <strong class="col-blush">$315.60</strong> Time: <strong class="col-green">9 months</strong></p>
-                                                <p>Prof.: Prof. <strong>Will Smith</strong></p>
-                                                <p>Students: <strong class="col-green">115</strong></p>
-                                                <a href="courses-info.html" class="btn  btn-raised btn-info waves-effect" role="button">Read more</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
-                                        <div class="thumbnail card"><img src="assets/images/course-1.jpg" alt=""  class="img-fluid">
-                                            <div class="caption  body">
-                                                <h3>Magento Programmer Course</h3>
-                                                <p>First Year, MBA</p>
-                                                <p>Price: <strong class="col-blush">$315.60</strong> Time: <strong class="col-green">9 months</strong></p>
-                                                <p>Prof.: Prof. <strong>Will Smith</strong></p>
-                                                <p>Students: <strong class="col-green">115</strong></p>
-                                                <a href="courses-info.html" class="btn  btn-raised btn-info waves-effect" role="button">Read more</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
-                                        <div class="thumbnail card"><img src="assets/images/course-2.jpg" alt=""  class="img-fluid">
-                                            <div class="caption  body">
-                                                <h3>PHP Course</h3>
-                                                <p>First Year, MBA</p>
-                                                <p>Price: <strong class="col-blush">$315.60</strong> Time: <strong class="col-green">9 months</strong></p>
-                                                <p>Prof.: Prof. <strong>Will Smith</strong></p>
-                                                <p>Students: <strong class="col-green">115</strong></p>
-                                                <a href="courses-info.html" class="btn  btn-raised btn-info waves-effect" role="button">Read more</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
-                                        <div class="thumbnail card"><img src="assets/images/course-3.jpg" alt=""  class="img-fluid">
-                                            <div class="caption  body">
-                                                <h3>Web Design Course</h3>
-                                                <p>First Year, MBA</p>
-                                                <p>Price: <strong class="col-blush">$315.60</strong> Time: <strong class="col-green">9 months</strong></p>
-                                                <p>Prof.: Prof. <strong>Will Smith</strong></p>
-                                                <p>Students: <strong class="col-green">115</strong></p>
-                                                <a href="courses-info.html" class="btn  btn-raised btn-info waves-effect" role="button">Read more</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
-                                        <div class="thumbnail card"><img src="assets/images/course-1.jpg" alt=""  class="img-fluid">
-                                            <div class="caption  body">
-                                                <h3>Magento Programmer Course</h3>
-                                                <p>First Year, MBA</p>
-                                                <p>Price: <strong class="col-blush">$315.60</strong> Time: <strong class="col-green">9 months</strong></p>
-                                                <p>Prof.: Prof. <strong>Will Smith</strong></p>
-                                                <p>Students: <strong class="col-green">115</strong></p>
-                                                <a href="courses-info.html" class="btn  btn-raised btn-info waves-effect" role="button">Read more</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
-                                        <div class="thumbnail card"><img src="assets/images/course-2.jpg" alt=""  class="img-fluid">
-                                            <div class="caption  body">
-                                                <h3>PHP Course</h3>
-                                                <p>First Year, MBA</p>
-                                                <p>Price: <strong class="col-blush">$315.60</strong> Time: <strong class="col-green">9 months</strong></p>
-                                                <p>Prof.: Prof. <strong>Will Smith</strong></p>
-                                                <p>Students: <strong class="col-green">115</strong></p>
-                                                <a href="courses-info.html" class="btn  btn-raised btn-info waves-effect" role="button">Read more</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 text-center">
-                                        <a href="#" class="btn btn-raised waves-effect g-bg-blush2" role="button">Load more</a>
-                                    </div>
-                                </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="update">
                                 <h5>Modifer le module</h5>
@@ -274,80 +125,22 @@
                 </div>
             </div>
         </div>
-         <div class="row clearfix">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="body">
-                        <div class="plans row">
-                            <div class="col-lg-3 col-md-6 col-sm-12">
-                                <ul class="planContainer">
-                                    <li class="title"><h2>Plan 1</h2></li>
-                                    <li class="price"><p>$10/<span>month</span></p></li>
-                                    <li>
-                                        <ul class="options">
-                                            <li>2x <span>option 1</span></li>
-                                            <li>Free <span>option 2</span></li>
-                                            <li>Unlimited <span>option 3</span></li>
-                                            <li>Unlimited <span>option 4</span></li>
-                                            <li>1x <span>option 5</span></li>
-                                        </ul>
-                                    </li>
-                                    <li><a  class="btn btn-raised btn-success" href="#">Purchase</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-12">
-                                <ul class="planContainer">
-                                    <li class="title"><h2 class="bestPlanTitle">Plan 2</h2></li>
-                                    <li class="price"><p class="bestPlanPrice">$20/month</p></li>
-                                    <li>
-                                        <ul class="options">
-                                            <li>2x <span>option 1</span></li>
-                                            <li>Free <span>option 2</span></li>
-                                            <li>Unlimited <span>option 3</span></li>
-                                            <li>Unlimited <span>option 4</span></li>
-                                            <li>1x <span>option 5</span></li>
-                                        </ul>
-                                    </li>
-                                    <li><a class="btn btn-raised btn-success" href="#">Purchase</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-12">
-                                <ul class="planContainer">
-                                    <li class="title"><h2>Plan 3</h2></li>
-                                    <li class="price"><p>$30/<span>month</span></p></li>
-                                    <li>
-                                        <ul class="options">
-                                            <li>2x <span>option 1</span></li>
-                                            <li>Free <span>option 2</span></li>
-                                            <li>Unlimited <span>option 3</span></li>
-                                            <li>Unlimited <span>option 4</span></li>
-                                            <li>1x <span>option 5</span></li>
-                                        </ul>
-                                    </li>
-                                    <li><a class="btn btn-raised g-bg-blush2" href="#">Purchase</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-12">
-                                <ul class="planContainer">
-                                    <li class="title"><h2>Plan 4</h2></li>
-                                    <li class="price"><p>$40/<span>month</span></p></li>
-                                    <li>
-                                        <ul class="options">
-                                            <li>2x <span>option 1</span></li>
-                                            <li>Free <span>option 2</span></li>
-                                            <li>Unlimited <span>option 3</span></li>
-                                            <li>Unlimited <span>option 4</span></li>
-                                            <li>1x <span>option 5</span></li>
-                                        </ul>
-                                    </li>
-                                    <li><a  class="btn btn-raised btn-primary" href="#">Purchase</a></li>
-                                </ul>
-                            </div>
+        <div class="col-sm-12 block-header">
+            <h3>Liste des cours</h3>
+        </div>
+        <div class="row clearfix">
+            @foreach ($module->courses as $item)
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div class="thumbnail card">
+                        <div class="caption  body">
+                            <h3>{{ $item->title }}</h3>
+                            <p>Type: <strong class="col-green">{{ $item->courseType->name }}</strong></p>
+                            <a href="{{ route('course.show', ['id' => $item->id]) }}" class="btn  btn-raised btn-info waves-effect" role="button">Voir détails</a>
                         </div>
                     </div>
                 </div>
-            </div>
-         </div>
+            @endforeach
+        </div>
     </div>
 </section>
 <!-- main content -->

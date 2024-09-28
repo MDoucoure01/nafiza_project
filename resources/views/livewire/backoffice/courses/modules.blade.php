@@ -125,14 +125,14 @@
                                             <td>{{ $item->start_date }}</td>
                                             <td>{{ $item->end_date }}</td>
                                             <td class="text-right">
-                                                <form action="{{ route("cohort.delete", ['id' => $item->id]) }}" method="POST">
+                                                <form action="{{ route("module.delete", ['id' => $item->id]) }}" method="POST">
                                                     @csrf
                                                     @method("PUT")
 
                                                     <a href="{{ route('module.show', ['id' => $item->id]) }}" class="text-white btn btn-xs btn-success"><i class="zmdi zmdi-eye"></i></a>
                                                     @hasanyrole('admin|root')
                                                         <a href="{{ route('cohort.edit', ['id' => $item->id]) }}" class="text-white btn btn-xs btn-primary"><i class="zmdi zmdi-edit"></i></a>
-                                                        <button class="text-white btn btn-xs btn-danger" onclick="if(!confirm('Vous êtes sur le point de supprimer cette cohorte. Voulez-vous continuer ?')) { event.preventDefault(); return false; }"><i class="zmdi zmdi-delete"></i></button>
+                                                        <button class="text-white btn btn-xs btn-danger" onclick="if(!confirm('Vous êtes sur le point de supprimer ce module. Voulez-vous continuer ?')) { event.preventDefault(); return false; }"><i class="zmdi zmdi-delete"></i></button>
                                                     @endhasanyrole
                                                 </form>
                                             </td>
