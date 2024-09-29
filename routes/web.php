@@ -9,6 +9,7 @@ use App\Http\Controllers\Backoffice\SchoolsessionController;
 use App\Http\Controllers\Backoffice\StudentsController;
 use App\Livewire\Backoffice\Courses\AddCourse;
 use App\Livewire\Backoffice\Courses\AddSeance;
+use App\Livewire\Backoffice\Courses\Calendar;
 use App\Livewire\Backoffice\Courses\ListCourses;
 use App\Livewire\Backoffice\Courses\Modules;
 use App\Livewire\Backoffice\Courses\Seances;
@@ -78,6 +79,9 @@ Route::middleware([
     Route::get('/module/{id}', ShowModule::class)->name('module.show');
     Route::get('/cours/liste', ListCourses::class)->name('courses.list');
     Route::get('/cours/details/{id}', ShowCourse::class)->name('course.show');
+
+    Route::get('/cours/seances', Seances::class)->name('seances.list');
+    Route::get('/cours/calendrier', Calendar::class)->name('calendar');
 });
 
 
@@ -118,7 +122,6 @@ Route::middleware([
     Route::put('/delete-course', [CoursesController::class, 'delete'])->name('course.delete');
 
     Route::get('/cours/seance/ajouter', AddSeance::class)->name('seance.add');
-    Route::get('/cours/seances', Seances::class)->name('seances.list');
     Route::put('/create-seance', [CoursesController::class, 'createSeance'])->name('seance.create');
     Route::put('/update-seance', [CoursesController::class, 'updateSeance'])->name('seance.update');
     Route::put('/delete-seance', [CoursesController::class, 'deleteSeance'])->name('seance.delete');
