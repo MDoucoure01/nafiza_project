@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backoffice;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\Seance;
 use Illuminate\Http\Request;
 
 class CoursesController extends Controller
@@ -64,6 +65,33 @@ class CoursesController extends Controller
         $course->delete();
 
         toastr()->error('Cours supprimé avec succès !');
+        return back();
+    }
+
+    // Seances controllers
+
+    public function createSeance(Request $request){
+        $request->validate([
+            'start_time' => 'required',
+            'end_time' => 'required',
+            'date' => 'required|date',
+            'course_id' => 'required',
+            'professor_id' => 'required',
+            'cohort_id' => 'required',
+            'note' => 'max:225',
+        ]);
+
+        $course = new Seance();
+        $course->course_id = $request->course_id;
+        $course->professor_id = $request->professor_id;
+        $course->cohort_id = $request->cohort_id;
+        $course->note = $request->note;
+        $course->date = $request->date;
+        $course->start_time = $request->start_time;
+        $course->end_time = $request->end_time;
+        $course->save();
+
+        toastr()->success('Séance de cours ajouté avec succès !');
         return back();
     }
 }

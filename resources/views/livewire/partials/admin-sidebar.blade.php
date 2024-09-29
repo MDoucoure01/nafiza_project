@@ -47,14 +47,14 @@
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-graduation-cap"></i><span>Cours</span> </a>
                     <ul class="ml-menu">
                         <li><a href="{{ route('course.add') }}">Ajouter cours</a></li>
-                        <li><a href="{{ route('courses.list') }}">Lite des cours</a></li>
+                        <li><a href="{{ route('courses.list') }}">Liste des cours</a></li>
                         <li><a href="{{ route('courses.modules') }}">Gestion modules</a></li>
                     </ul>
                 </li>
-                <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-book"></i><span>Bibliothèques</span> </a>
+                <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-calendar"></i><span>Séances de cours</span> </a>
                     <ul class="ml-menu">
-                        <li><a href="library.html">Ajouter oeuvre</a></li>
-                        <li><a href="add-library.html">Liste des oeuvres</a></li>
+                        <li><a href="{{ route('seance.add') }}">Ajouter séance</a></li>
+                        <li><a href="{{ route('seances.list') }}">Liste des séances</a></li>
                     </ul>
                 </li>
                 <li><a href="{{ route('cohorts.list') }}"><i class="zmdi zmdi-city-alt"></i><span>Cohortes</span> </a></li>

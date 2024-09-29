@@ -324,7 +324,8 @@
                                                         <div class="col-sm-12">
                                                             <div class="form-group">
                                                                 <div class="form-line">
-                                                                    <textarea name="presentation" rows="4" class="form-control no-resize" placeholder="Présentation">{{ $student->user->presentation }}</textarea>
+                                                                    <label for="">Présentation</label>
+                                                                    <textarea name="presentation" id="ckeditor" rows="4" class="form-control no-resize" placeholder="Présentation">{{ $student->user->presentation }}</textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
