@@ -22,14 +22,14 @@
                         <h2> Ajouter une séance de cours</h2>
                     </div>
                     <div class="body">
-                        <form class="form-horizontal" action="{{ route('seance.create') }}" method="POST">
+                        <form class="form-horizontal" action="{{ route('seance.update', ['id' => $seance->id]) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="row clearfix col-lg-12">
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                     <div class="form-group drop-custum">
                                         <select class="form-control show-tick" name="cohort_id" required>
-                                            <option value="">-- Cohort --</option>
+                                            <option value="{{ $seance->cohort_id }}">-- Cohort --</option>
                                             @foreach ($cohorts as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
@@ -39,7 +39,7 @@
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                     <div class="form-group drop-custum">
                                         <select class="form-control show-tick" name="professor_id" required>
-                                            <option value="">-- Professeur / Animateur --</option>
+                                            <option value="{{ $seance->professor_id }}">-- Professeur / Animateur --</option>
                                             @foreach ($professors as $item)
                                                 <option value="{{ $item->id }}">{{ $item->user->firstname.' '.$item->user->lastname }}</option>
                                             @endforeach
@@ -49,7 +49,7 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group drop-custum">
                                         <select class="form-control show-tick" name="course_id" required>
-                                            <option value="">-- Cours --</option>
+                                            <option value="{{ $seance->course_id }}">-- Cours --</option>
                                             @foreach ($courses as $item)
                                                 <option value="{{ $item->id }}">{{ $item->title }}</option>
                                             @endforeach
@@ -61,7 +61,7 @@
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                     <div class="form-group mt-0 mb-4">
                                         <div class="form-line">
-                                            Date: <input required name="date" value="{{ old('date') }}"
+                                            Date: <input required name="date" value="{{ $seance->date }}"
                                                 type="date" class="form-control">
                                             @error('date')
                                                 <span class="text-danger" role="alert">
@@ -74,7 +74,7 @@
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                     <div class="form-group mt-0 mb-4">
                                         <div class="form-line">
-                                            Heure de début: <input required name="start_time" value="{{ old('start_time') }}"
+                                            Heure de début: <input required name="start_time" value="{{ $seance->start_time }}"
                                                 type="time" class="form-control">
                                             @error('start_time')
                                                 <span class="text-danger" role="alert">
@@ -87,7 +87,7 @@
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                     <div class="form-group mt-0 mb-4">
                                         <div class="form-line">
-                                            Heure de fin: <input required name="end_time" value="{{ old('end_time') }}"
+                                            Heure de fin: <input required name="end_time" value="{{ $seance->end_time }}"
                                                 type="time" class="form-control">
                                             @error('end_time')
                                                 <span class="text-danger" role="alert">
@@ -103,7 +103,7 @@
                                     <div class="form-group mt-0 mb-4">
                                         <div class="form-line">
                                             <label for="">Note sur le cours</label>
-                                            <textarea name="note" maxlength="255" class="form-control" cols="30" rows="10">{{ old('note') }}</textarea>
+                                            <textarea name="note" maxlength="255" class="form-control" cols="30" rows="10">{{ $seance->note }}</textarea>
                                             @error('note')
                                                 <span class="text-danger" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -115,7 +115,7 @@
                             </div>
                             <div class="row clearfix">
                                 <div class="offset-lg-2 col-lg-10 text-right">
-                                    <button type="submit" class="btn btn-raised btn-warning m-t-15 waves-effect">Ajouter séance</button>
+                                    <button type="submit" class="btn btn-raised btn-warning m-t-15 waves-effect">Modifier séance</button>
                                 </div>
                             </div>
                         </form>

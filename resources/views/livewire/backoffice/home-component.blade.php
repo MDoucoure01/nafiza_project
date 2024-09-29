@@ -60,6 +60,9 @@
                 </div>
             </div>
         </div>
+        <div class="row clearfix col-lg-12">
+            @livewire('partials.appointment')
+        </div>
         <div class="row clearfix">
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="card">

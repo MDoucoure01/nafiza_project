@@ -94,4 +94,28 @@ class CoursesController extends Controller
         toastr()->success('Séance de cours ajouté avec succès !');
         return back();
     }
+    public function updateSeance(Request $request){
+        $request->validate([
+            'start_time' => 'required',
+            'end_time' => 'required',
+            'date' => 'required|date',
+            'course_id' => 'required',
+            'professor_id' => 'required',
+            'cohort_id' => 'required',
+            'note' => 'max:225',
+        ]);
+
+        $course = Seance::findOrFail($request->id);
+        $course->course_id = $request->course_id;
+        $course->professor_id = $request->professor_id;
+        $course->cohort_id = $request->cohort_id;
+        $course->note = $request->note;
+        $course->date = $request->date;
+        $course->start_time = $request->start_time;
+        $course->end_time = $request->end_time;
+        $course->save();
+
+        toastr()->success('Séance de cours modifié avec succès !');
+        return back();
+    }
 }

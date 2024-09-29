@@ -48,8 +48,8 @@
                                         <td>{{ $item->course->title }}</td>
                                         <td>{{ $item->professor->user->firstname.' '.$item->professor->user->lastname }}</td>
                                         <td>{{ $item->cohort->name }}</td>
-                                        <td><a href=""><i class="zmdi zmdi-edit"></i></a></td>
-                                        <td><a href="" class="text-danger"><i class="zmdi zmdi-delete"></i></a></td>
+                                        <td><a href="{{ route('seance.edit', ['id' => $item->id]) }}"><i class="zmdi zmdi-edit"></i></a></td>
+                                        <td><a href="#" wire:click.prevent="confirmDeletion" class="text-danger"><i class="zmdi zmdi-delete"></i></a></td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -14,28 +14,8 @@
         </div>
         <!-- Basic Examples -->
         <div class="row clearfix col-lg-12">
-            <div style="width: 100%" id="calendar"></div>
+            @livewire('partials.appointment')
         </div>
         <!-- #END# Basic Examples -->
     </div>
 </section>
-
-@push('scripts')
-    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.css' rel='stylesheet' />
-    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid/main.css" rel="stylesheet" />
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.js'></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'timeGridWeek',
-                slotMinTime: '8:00:00',
-                slotMaxTime: '22:00:00',
-                events: @json($events),
-            });
-            calendar.render();
-        });
-    </script>
-@endpush
