@@ -8,6 +8,7 @@
         </div>
         <div>
             <a href="{{ route('admin.list') }}" class="btn btn-raised btn-primary">Liste des admins</a>
+            <a href="{{ route('admin.add') }}" class="btn btn-raised btn-success">Ajouter admin</a>
         </div>
         <form action="{{ route('admin.update', ['id' => $admin->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
