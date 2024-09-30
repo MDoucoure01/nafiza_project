@@ -22,6 +22,14 @@
                         <hr>
                         <strong>Matricule</strong>
                         <address>{{ $student->matricule }}</address>
+
+                        @if ($student->code_qr)
+                            <div class="text-center">
+                                <img style="height: 100px" class="profile-user-img img-fluid img-rounded"
+                                    src="{{ asset('storage') }}/{{ $student->code_qr }}" alt="">
+                            </div>
+                            <br>
+                        @endif
                     </div>
                 </div>
             </div>

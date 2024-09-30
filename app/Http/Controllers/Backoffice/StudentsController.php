@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backoffice;
 
 use App\Http\Controllers\Controller;
 use App\Models\Subscription;
+use App\Traits\QrTrait;
 use App\Traits\UserTrait;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 class StudentsController extends Controller
 {
     use UserTrait;
+    use QrTrait;
 
     public function create(Request $request)
     {
@@ -45,6 +47,8 @@ class StudentsController extends Controller
             if($student){
                 // Passer la valeur de fee_paid à l'Observer
                 $student->fee_paid = $request->fee_paid;
+
+                $studentQR = $this->createQR($request, $student);
             }
         }
 
