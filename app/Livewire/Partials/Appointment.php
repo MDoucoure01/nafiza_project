@@ -19,7 +19,7 @@ class Appointment extends Component
                 'title' => $appointment->course->title. ' - ' .$appointment->cohort->name,
                 'start' => $appointment->date.' '.$appointment->start_time,
                 'end' => $appointment->date.' '.$appointment->end_time,
-                'url' => route(name: 'seance.show', parameters: ['id' => $appointment->id]), // Lien vers les détails de la séance
+                'url' => route(name: 'seance.edit', parameters: ['id' => $appointment->id]), // Lien vers les détails de la séance
             ];
         }
     }

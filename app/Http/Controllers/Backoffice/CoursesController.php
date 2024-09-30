@@ -91,7 +91,7 @@ class CoursesController extends Controller
         $course->end_time = $request->end_time;
         $course->save();
 
-        toastr()->success('Séance de cours ajouté avec succès !');
+        toastr()->success('Séance de cours ajoutée avec succès !');
         return back();
     }
     public function updateSeance(Request $request){
@@ -115,7 +115,7 @@ class CoursesController extends Controller
         $seance->end_time = $request->end_time;
         $seance->save();
 
-        toastr()->success('Séance de cours modifié avec succès !');
+        toastr()->success('Séance de cours modifiée avec succès !');
         return back();
     }
 

@@ -48,6 +48,11 @@
                                         <td>{{ $item->course->title }}</td>
                                         <td>{{ $item->professor->user->firstname.' '.$item->professor->user->lastname }}</td>
                                         <td>{{ $item->cohort->name }}</td>
+                                        <td>
+                                            @if ($item->note)
+                                                <i class="material-icons" title="{{ $item->note }}">info</i>
+                                            @endif
+                                        </td>
                                         <td><a href="{{ route('seance.edit', ['id' => $item->id]) }}"><i class="zmdi zmdi-edit"></i></a></td>
                                         <td>
                                             <form action="{{ route('seance.delete', ['id' => $item->id]) }}" method="POST">
