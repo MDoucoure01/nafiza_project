@@ -105,17 +105,26 @@ class CoursesController extends Controller
             'note' => 'max:225',
         ]);
 
-        $course = Seance::findOrFail($request->id);
-        $course->course_id = $request->course_id;
-        $course->professor_id = $request->professor_id;
-        $course->cohort_id = $request->cohort_id;
-        $course->note = $request->note;
-        $course->date = $request->date;
-        $course->start_time = $request->start_time;
-        $course->end_time = $request->end_time;
-        $course->save();
+        $seance = Seance::findOrFail($request->id);
+        $seance->course_id = $request->course_id;
+        $seance->professor_id = $request->professor_id;
+        $seance->cohort_id = $request->cohort_id;
+        $seance->note = $request->note;
+        $seance->date = $request->date;
+        $seance->start_time = $request->start_time;
+        $seance->end_time = $request->end_time;
+        $seance->save();
 
         toastr()->success('Séance de cours modifié avec succès !');
+        return back();
+    }
+
+    public function deleteSeance(Request $request)
+    {
+        $seance = Seance::findOrFail($request->id);
+        $seance->delete();
+
+        toastr()->error('Séance de cours supprimée avec succès !');
         return back();
     }
 }

@@ -49,7 +49,13 @@
                                         <td>{{ $item->professor->user->firstname.' '.$item->professor->user->lastname }}</td>
                                         <td>{{ $item->cohort->name }}</td>
                                         <td><a href="{{ route('seance.edit', ['id' => $item->id]) }}"><i class="zmdi zmdi-edit"></i></a></td>
-                                        <td><a href="#" wire:click.prevent="confirmDeletion" class="text-danger"><i class="zmdi zmdi-delete"></i></a></td>
+                                        <td>
+                                            <form action="{{ route('seance.delete', ['id' => $item->id]) }}" method="POST">
+                                                @method('PUT')
+                                                @csrf
+                                                <button type="submit" onclick="if(!confirm('Vous êtes sur le point de supprimer cette séance. Voulez-vous continuer ?')) { event.preventDefault(); return false; }"><i class="zmdi zmdi-delete text-danger"></i></button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

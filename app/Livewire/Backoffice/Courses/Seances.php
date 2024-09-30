@@ -14,6 +14,11 @@ class Seances extends Component
         $this->seances = Seance::all();
     }
 
+    public function delete(): void
+    {
+        dd('ok');
+    }
+
     public function render()
     {
         return view(view: 'livewire.backoffice.courses.seances')->layout('layouts.app');
