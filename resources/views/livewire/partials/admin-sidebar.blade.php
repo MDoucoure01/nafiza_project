@@ -60,7 +60,7 @@
                 <li><a href="{{ route('cohorts.list') }}"><i class="zmdi zmdi-city-alt"></i><span>Cohortes</span> </a></li>
                 <li><a href="{{ route('groupes.td') }}"><i class="zmdi zmdi-chart-donut"></i><span>Groupes TD</span> </a></li>
                 <li><a href="{{ route('sessions.list') }}"><i class="zmdi zmdi-pages"></i><span>Sessions</span> </a></li>
-                <li><a href="{{ route('sessions.list') }}"><i class="zmdi zmdi-accounts"></i><span>Utilisateurs</span> </a></li>
+                <li><a href="{{ route('admin.list') }}"><i class="zmdi zmdi-accounts"></i><span>Utilisateurs</span> </a></li>
             </ul>
         </div>
     </aside>

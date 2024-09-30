@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backoffice\AdminsController;
 use App\Http\Controllers\Backoffice\CohortsController;
 use App\Http\Controllers\Backoffice\CoursesController;
 use App\Http\Controllers\Backoffice\GroupsController;
@@ -35,6 +36,9 @@ use App\Livewire\Backoffice\Students\ListStudent;
 use App\Livewire\Backoffice\Schoolsessions\ListSessions;
 use App\Livewire\Backoffice\Students\StudentPending;
 use App\Livewire\Backoffice\Students\StudentProfile;
+use App\Livewire\Backoffice\Users\AddAdmin;
+use App\Livewire\Backoffice\Users\EditAdmin;
+use App\Livewire\Backoffice\Users\ListAdmin;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -127,4 +131,11 @@ Route::middleware([
     Route::put('/create-seance', [CoursesController::class, 'createSeance'])->name('seance.create');
     Route::put('/update-seance', [CoursesController::class, 'updateSeance'])->name('seance.update');
     Route::put('/delete-seance', [CoursesController::class, 'deleteSeance'])->name('seance.delete');
+
+    Route::get('/administrateurs', ListAdmin::class)->name('admin.list');
+    Route::get('/administrateur/ajouter', AddAdmin::class)->name('admin.add');
+    Route::get('/administrateur/modifier/{id}', EditAdmin::class)->name('admin.edit');
+    Route::put('/create-admin', [AdminsController::class, 'create'])->name('admin.create');
+    Route::put('/update-admin', [AdminsController::class, 'update'])->name('admin.update');
+    Route::put('/delete-admin', [AdminsController::class, 'delete'])->name('admin.delete');
 });
