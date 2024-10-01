@@ -12,7 +12,7 @@ trait QrTrait
     public function createQR($request, $student): void
     {
         // Générer le QR Code
-        $qrUrl = env('APP_URL').'/pensionnaire/pointage?id='.$student->id;
+        $qrUrl = env('APP_URL').'/pensionnaire/pointage?student_id='.$student->id;
         $qrCode = QrCode::encoding("UTF-8")
                         ->color(28, 30, 33)
                         ->backgroundColor(250, 183, 53)

@@ -34,6 +34,7 @@ use App\Livewire\Backoffice\Students\AddStudentsToCohort;
 use App\Livewire\Backoffice\Students\AddStudentsToGroup;
 use App\Livewire\Backoffice\Students\ListStudent;
 use App\Livewire\Backoffice\Schoolsessions\ListSessions;
+use App\Livewire\Backoffice\Students\Pointing;
 use App\Livewire\Backoffice\Students\StudentPending;
 use App\Livewire\Backoffice\Students\StudentProfile;
 use App\Livewire\Backoffice\Users\AddAdmin;
@@ -51,6 +52,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/pensionnaire/pointage', Pointing::class)->name('pointing');
 
 Route::middleware([
     'auth:sanctum',
@@ -87,6 +90,9 @@ Route::middleware([
 
     Route::get('/cours/seances', Seances::class)->name('seances.list');
     Route::get('/cours/calendrier', Calendar::class)->name('calendar');
+
+    Route::put('/point-student', [StudentsController::class, 'studentAttendance'])->name('student.point');
+
 });
 
 
