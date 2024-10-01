@@ -10,6 +10,7 @@ use App\Http\Controllers\Backoffice\SchoolsessionController;
 use App\Http\Controllers\Backoffice\StudentsController;
 use App\Livewire\Backoffice\Courses\AddCourse;
 use App\Livewire\Backoffice\Courses\AddSeance;
+use App\Livewire\Backoffice\Courses\AttendanceSheet;
 use App\Livewire\Backoffice\Courses\Calendar;
 use App\Livewire\Backoffice\Courses\EditSeance;
 use App\Livewire\Backoffice\Courses\ListCourses;
@@ -91,6 +92,7 @@ Route::middleware([
     Route::get('/cours/seances', Seances::class)->name('seances.list');
     Route::get('/cours/calendrier', Calendar::class)->name('calendar');
 
+    Route::get('/presence/seance/{id}', AttendanceSheet::class)->name('attendance.sheet');
     Route::put('/point-student', [StudentsController::class, 'studentAttendance'])->name('student.point');
 
 });
