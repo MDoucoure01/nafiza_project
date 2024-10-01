@@ -29,7 +29,7 @@
         <div class="menu">
             <ul class="list">
                 <li class="header">MENU DE NAVIGATION</li>
-                <li class="active open"><a href="index.html"><i class="zmdi zmdi-home"></i><span>Tableau de bord</span></a></li>
+                <li class="active open"><a href="{{ route('home') }}"><i class="zmdi zmdi-home"></i><span>Tableau de bord</span></a></li>
                 <li><a href="{{ route('calendar') }}"><i class="zmdi zmdi-calendar-check"></i><span>Emploi du temps</span> </a></li>
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-account"></i><span>Professeurs</span> </a>
                     <ul class="ml-menu">
