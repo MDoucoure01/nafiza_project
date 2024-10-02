@@ -125,7 +125,7 @@
                             <h5>Femme</h5>
                             <b class="col-black">{{ round($nbrStudentsFem * 100 / $nbrStudentsActif) }}%</b></div>
                         </div>
-                        <div class="sparkline-pie text-center">20,4</div>
+                        <div class="sparkline-pie text-center">{{ $nbrStudentsActif - $nbrStudentsFem }},{{ $nbrStudentsFem }}</div>
                     </div>
                 </div>
             </div>
