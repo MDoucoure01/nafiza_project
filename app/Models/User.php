@@ -92,4 +92,13 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public function courseItems():HasMany
+    {
+        return $this->hasMany(CourseItems::class);
+    }
+
+    public function comments():HasMany
+    {
+        return $this->hasMany(Comments::class);
+    }
 }

@@ -12,12 +12,17 @@ class Course extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public function courseType():BelongsTo
+    protected $guarded = [
+        "id"
+    ];
+
+    public function courseItems():HasMany
     {
-        return $this->belongsTo(CourseType::class);
+        return $this->hasMany(CourseItems::class);
     }
 
-    public function module():BelongsTo
+
+    public function module(): BelongsTo
     {
         return $this->belongsTo(Module::class);
     }
@@ -25,5 +30,10 @@ class Course extends Model
     public function seances():HasMany
     {
         return $this->hasMany(Seance::class);
+    }
+
+    public function courseType(): BelongsTo
+    {
+        return $this->belongsTo(CourseType::class);
     }
 }

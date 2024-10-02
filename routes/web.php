@@ -42,6 +42,7 @@ use App\Livewire\Backoffice\Users\AddAdmin;
 use App\Livewire\Backoffice\Users\EditAdmin;
 use App\Livewire\Backoffice\Users\ListAdmin;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\QrCodeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,6 +98,8 @@ Route::middleware([
 
 });
 
+
+Route::get('/generate-qr-code', [QrCodeController::class, 'generate']);
 
 Route::middleware([
     'auth:sanctum',

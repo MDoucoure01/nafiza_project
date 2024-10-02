@@ -15,4 +15,10 @@ class CourseType extends Model
     {
         return $this->hasMany(Course::class);
     }
+
+
+    public function modules():HasMany
+    {
+        return $this->hasMany(Module::class);
+    }
 }
