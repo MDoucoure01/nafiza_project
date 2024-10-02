@@ -14,57 +14,58 @@
             </div>
         </div>
 
-        <div class="row clearfix top-report row-deck">
-            <div class="col-lg-3 col-sm-6 col-md-6">
-                <div class="card">
-                    <div class="body">
-                        <h3>1,100</h3>
-                        <p class="text-muted">New Admission</p>
-                        <div class="progressbar-xs progress-rounded progress-striped progress ng-isolate-scope">
-                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" style="width: 68%;"></div>
-                        </div>
-                        <span class="text-small">10% higher than last month</span> </div>
+        <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="info-box-3 bg-green">
+                    <div class="icon">
+                        <i class="zmdi zmdi-accounts-outline"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text">Total Pensionnaires</div>
+                        <div class="number">{{ $nbrStudentsActif }}</div>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6 col-md-6">
-                <div class="card">
-                    <div class="body">
-                        <h3>60,800</h3>
-                        <p class="text-muted">Total Students</p>
-                        <div class="progressbar-xs progress-rounded progress-striped progress ng-isolate-scope">
-                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" style="width: 68%;"></div>
-                        </div>
-                        <span class="text-small">4% higher than last month</span> </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="info-box-3 bg-blush">
+                    <div class="icon">
+                        <i class="zmdi zmdi-account"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text">Total Professeurs</div>
+                        <div class="number">{{ request()->appActuSession->professors->count() }}</div>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6 col-md-6">
-                <div class="card">
-                    <div class="body">
-                        <h3>12,521</h3>
-                        <p class="text-muted">Master</p>
-                        <div class="progressbar-xs progress-rounded progress-striped progress ng-isolate-scope">
-                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" style="width: 68%;"></div>
-                        </div>
-                        <span class="text-small">4% higher than last month</span> </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="info-box-3 bg-blue">
+                    <div class="icon">
+                        <i class="zmdi zmdi-graduation-cap"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text">Total cours</div>
+                        <div class="number">{{ $nbrCourses }}</div>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6 col-md-6">
-                <div class="card">
-                    <div class="body">
-                        <h3>$ 24,500</h3>
-                        <p class="text-muted">Total Earnings(Years)</p>
-                        <div class="progressbar-xs progress-rounded progress-striped progress ng-isolate-scope">
-                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" style="width: 68%;"></div>
-                        </div>
-                        <span class="text-small">15% higher than last month</span> </div>
+            <div class="col-lg-3 col-md-3 col-sm-6">
+                <div class="info-box-3 bg-blue-grey">
+                    <div class="icon">
+                        <i class="zmdi zmdi-accounts"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text">Inscrits en attente</div>
+                        <div class="number">{{ request()->appActuSession->students->count() - $nbrStudentsActif }}</div>
+                    </div>
                 </div>
             </div>
         </div>
+
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
                     <div class="header">
-                        <h2>University Earnings</h2>
+                        <h2>Courbes des présences mensuelles par cohorte</h2>
                     </div>
                     <div class="body">
                         <canvas id="line_chart" height="100"></canvas>
@@ -72,67 +73,59 @@
                 </div>
             </div>
         </div>
+
         <div class="row clearfix">
             <div class="col-sm-12 col-md-4 col-lg-4">
                 <div class="card">
                     <div class="header">
-                        <h2>Income Analysis <small>18% High then last month</small></h2>
+                        <h2>Rapport Inscrits / En attente <small>Diagramme du nombre d'inscrits validés et en attente</small></h2>
                     </div>
                     <div class="body">
                         <div class="stats-report">
                           <div class="stat-item">
-                            <h5>Overall</h5>
-                            <b class="col-black">80%</b></div>
+                            <h5>Valide</h5>
+                            <b class="col-black">{{ round($nbrStudentsActif * 100 / request()->appActuSession->students->count()) }}%</b></div>
                           <div class="stat-item">
-                            <h5>Montly</h5>
-                            <b class="col-black">15%</b></div>
+                            <h5>En attente</h5>
+                            <b class="col-black">{{ round((request()->appActuSession->students->count() - $nbrStudentsActif) * 100 / request()->appActuSession->students->count()) }}%</b></div>
+                        </div>
+                        <div class="sparkline-pie text-center">{{ request()->appActuSession->students->count() - $nbrStudentsActif }},{{ $nbrStudentsActif }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-4">
+                <div class="card">
+                    <div class="header">
+                        <h2>Rapport Présentiel / en ligne <small>Diagramme du nombre de pensionnaires en ligne et hors ligne</small></h2>
+                    </div>
+                    <div class="body">
+                        <div class="stats-report">
                           <div class="stat-item">
-                            <h5>Day</h5>
-                            <b class="col-black">5%</b></div>
+                            <h5>Présentiel</h5>
+                            <b class="col-black">{{ round(($nbrStudentsActif - $nbrStudentsOnLine) * 100 / $nbrStudentsActif) }}%</b></div>
+                          <div class="stat-item">
+                            <h5>En ligne</h5>
+                            <b class="col-black">{{ round($nbrStudentsOnLine * 100 / $nbrStudentsActif) }}%</b></div>
+                        </div>
+                        <div class="sparkline-pie text-center">{{ $nbrStudentsOnLine }},{{ $nbrStudentsActif - $nbrStudentsOnLine }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-4">
+                <div class="card">
+                    <div class="header">
+                        <h2>Rapport hommes / femmes <small>Diagramme du nombre de pensionnaires hommes et femmes</small></h2>
+                    </div>
+                    <div class="body">
+                        <div class="stats-report">
+                          <div class="stat-item">
+                            <h5>Homme</h5>
+                            <b class="col-black">{{ round(($nbrStudentsActif - $nbrStudentsFem) * 100 / $nbrStudentsActif) }}%</b></div>
+                          <div class="stat-item">
+                            <h5>Femme</h5>
+                            <b class="col-black">{{ round($nbrStudentsFem * 100 / $nbrStudentsActif) }}%</b></div>
                         </div>
                         <div class="sparkline-pie text-center">20,4</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-4 col-lg-4">
-                <div class="card">
-                    <div class="header">
-                        <h2>Income Analysis <small>18% High then last month</small></h2>
-                    </div>
-                    <div class="body">
-                        <div class="stats-report">
-                          <div class="stat-item">
-                            <h5>Overall</h5>
-                            <b class="col-black">80%</b></div>
-                          <div class="stat-item">
-                            <h5>Montly</h5>
-                            <b class="col-black">15%</b></div>
-                          <div class="stat-item">
-                            <h5>Day</h5>
-                            <b class="col-black">5%</b></div>
-                        </div>
-                        <div class="sparkline-pie text-center">13,45</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-4 col-lg-4">
-                <div class="card">
-                    <div class="header">
-                        <h2>Income Analysis <small>18% High then last month</small></h2>
-                    </div>
-                    <div class="body">
-                        <div class="stats-report">
-                          <div class="stat-item">
-                            <h5>Overall</h5>
-                            <b class="col-black">80%</b></div>
-                          <div class="stat-item">
-                            <h5>Montly</h5>
-                            <b class="col-black">15%</b></div>
-                          <div class="stat-item">
-                            <h5>Day</h5>
-                            <b class="col-black">5%</b></div>
-                        </div>
-                        <div class="sparkline-pie text-center">47,40</div>
                     </div>
                 </div>
             </div>

@@ -3,18 +3,41 @@
 namespace App\Livewire\Backoffice;
 
 use App\Models\Attendance;
+use App\Models\Course;
+use App\Models\Student;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Livewire\Component;
 
 class HomeComponent extends Component
 {
+    public $nbrStudentsActif;
+    public $nbrStudentsOnLine;
+    public $nbrStudentsFem;
+    public $nbrCourses;
     public $months = [];
     public $attendancesByMonthA = [];
     public $attendancesByMonthB = [];
 
     public function mount()
     {
+        $sessionId = request()->appActuSession->id;
+        $this->nbrStudentsActif = Student::whereHas('schoolsessions', function($query) use ($sessionId) {
+            $query->where('school_session_id', $sessionId)
+                  ->where('is_active', 1);
+        })->count();
+
+        $this->nbrStudentsOnLine = Student::whereHas('schoolsessions', function($query) use ($sessionId) {
+            $query->where('school_session_id', $sessionId)
+                  ->where('online', 1);
+        })->count();
+
+        // Récupérer le nombre d'étudiantes de sexe féminin
+        $this->nbrStudentsFem = Student::whereHas('user', function ($query) {
+            $query->where('sex', 'F');
+        })->count();
+
+        $this->nbrCourses = Course::count();
 
         // Exemple d'utilisation
         $startDate = request()->appActuSession->start_date;
