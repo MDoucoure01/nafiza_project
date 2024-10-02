@@ -15,6 +15,16 @@ class ShowGroup extends Component
         $this->otherGroups = request()->appActuSession->groups->where('id', '!=', $this->group->id);
     }
 
+    public function detachStudent($studentId)
+    {
+        // Détacher l'étudiant de la cohorte
+        $this->group->subscriptions()->detach($studentId);
+
+        // Optionnel : ajouter un message de succès
+        toastr()->error('Pensionnaire enlevé du groupe avec succès !');
+        return redirect()->route('group.show', ['slug' => $this->group->slug ]);
+    }
+
 
     public function render()
     {

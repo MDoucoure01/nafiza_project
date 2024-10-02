@@ -26,7 +26,6 @@ class AppServiceProvider extends ServiceProvider
     {
         User::observe(UserObserver::class);
         Student::observe(StudentObserve::class);
-
     }
 
 }

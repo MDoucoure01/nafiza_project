@@ -11,12 +11,16 @@ class ListStudent extends Component
     public $students;
 
     public function mount(){
-        // $this->students = request()->appActuSession->students;
         $sessionId = request()->appActuSession->id;
-        $this->students = Student::whereHas('schoolsessions', function($query) use ($sessionId) {
+
+        $this->students = Student::whereHas('subscriptions', function($query) use ($sessionId) {
             $query->where('school_session_id', $sessionId)
-                  ->where('is_active', 1);
-        })->get();
+                ->where('is_active', 1);
+        })->with(['subscriptions' => function($query) {
+            $query->whereHas('cohort', function($query) {
+                $query->where('is_actual', 1); // Récupérer la cohorte actuelle
+            });
+        }])->get();
     }
 
     public function removeStudent($studentId)

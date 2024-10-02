@@ -45,4 +45,11 @@ class Subscription extends Model
         return $this->cohorts()->where('is_actual', true)->first();
     }
 
+    public function cohort()
+    {
+        return $this->belongsToMany(Cohort::class, 'cohort_subscriptions')
+                    ->withPivot('is_actual')
+                    ->wherePivot('is_actual', 1); // On récupère uniquement la cohorte actuelle
+    }
+
 }
