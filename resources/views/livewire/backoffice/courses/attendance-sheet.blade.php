@@ -32,7 +32,7 @@
                             <tbody>
                                 @foreach ($seance->attendances->where('status', 'arrived') as $item)
                                     <tr>
-                                        <td>{{ $item->student->user->firstname.' '.$item->student->user->lastname }}</td>
+                                        <td><a href="{{ route('student.profile', ['id' => $item->student->id]) }}">{{ $item->student->user->firstname.' '.$item->student->user->lastname }}</a></td>
                                         <td>{{ $item->attendance_time }}</td>
                                         <td><a href="{{ route('seance.edit', ['id' => $item->id]) }}"><i class="zmdi zmdi-edit"></i></a></td>
                                         <td>

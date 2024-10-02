@@ -95,6 +95,7 @@ class StudentsController extends Controller
 
         $studentAttendance = Attendance::where('student_id', request()->student_id)
                                         ->where('seance_id', $request->seance_id)
+                                        ->where('status', $request->status)
                                         ->first();
 
         if($studentAttendance){
