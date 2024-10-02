@@ -39,7 +39,7 @@
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#report">A propos</a></li>
-                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#timeline">Activitiés</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#timeline">Présences</a></li>
                             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#payment">Paiements</a></li>
                             <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#update">Mettre à jour</a></li>
                         </ul>
@@ -101,54 +101,14 @@
                             <div role="tabpanel" class="tab-pane" id="timeline">
                                 <div class="timeline-body">
                                     <div class="timeline m-border">
-                                        <div class="timeline-item">
-                                            <div class="item-content">
-                                                <div class="text-small">Just now</div>
-                                                <p>It is a long established.</p>
+                                        @foreach ($student->attendances->sortByDesc('id')->take('12') as $item)
+                                            <div class="timeline-item {{ $item->status == 'arrived' ? 'border-info' : 'border-danger' }}">
+                                                <div class="item-content">
+                                                    <div class="text-small">{{ \Carbon\Carbon::parse($item->attendance_date)->translatedFormat('l d F Y') }} à {{ $item->attendance_time }}</div>
+                                                    <p>{{ $item->status == 'arrived' ? 'est arrivé(e) au' : 'à quitter le' }} cours de "{{ $item->seance->course->title }}"</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="timeline-item border-info">
-                                            <div class="item-content">
-                                                <div class="text-small">11:30</div>
-                                                <p>There are many variations</p>
-                                            </div>
-                                        </div>
-                                        <div class="timeline-item border-warning border-l">
-                                            <div class="item-content">
-                                                <div class="text-small">10:30</div>
-                                                <p>Contrary to popular belief </p>
-                                            </div>
-                                        </div>
-                                        <div class="timeline-item border-warning">
-                                            <div class="item-content">
-                                                <div class="text-small">3 days ago</div>
-                                                <p>vacation</p>
-                                            </div>
-                                        </div>
-                                        <div class="timeline-item border-danger">
-                                            <div class="item-content">
-                                                <div class="text--muted">Thu, 10 Mar</div>
-                                                <p>Contrary to popular belief</p>
-                                            </div>
-                                        </div>
-                                        <div class="timeline-item border-info">
-                                            <div class="item-content">
-                                                <div class="text-small">Sat, 5 Mar</div>
-                                                <p>Routine Checkup</p>
-                                            </div>
-                                        </div>
-                                        <div class="timeline-item border-danger">
-                                            <div class="item-content">
-                                                <div class="text-small">Sun, 11 Feb</div>
-                                                <p>Blood checkup test</p>
-                                            </div>
-                                        </div>
-                                        <div class="timeline-item border-info">
-                                            <div class="item-content">
-                                                <div class="text-small">Thu, 17 Jan</div>
-                                                <p>Admission</p>
-                                            </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -418,7 +378,7 @@
                                                     </div>
                                                     <div class="row clearfix">
                                                         <div class="col-lg-12">
-                                                            <input name="fee_paid" value="1" @if($subscription->is_active == 1) checked @endif type="checkbox" id="remember_me"
+                                                            <input name="fee_paid" value="1" {{ $subscription && $subscription->is_active == 1 ? 'checked' : '' }} type="checkbox" id="remember_me"
                                                                 class="filled-in">
                                                             <label for="remember_me">Frais d'inscription payés </label>
                                                         </div>
