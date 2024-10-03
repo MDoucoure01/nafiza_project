@@ -26,7 +26,7 @@ class UserService
         $userExist = $this->user;
         try {
             return DB::transaction( function () use ($userExist, $request){
-                
+
                 if (!$userExist) {
                     return $this->responseData("Oops utilisateur n'existe pas", false, Response::HTTP_NOT_FOUND, null);
                 }
