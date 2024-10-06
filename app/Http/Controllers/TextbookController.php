@@ -74,9 +74,8 @@ class TextbookController extends Controller
             ->map(function($textbook) {
                 return [
                     'date' => $textbook->created_at->format('Y-m-d'),
-                    'module_id' => $textbook->seance->course->module->id,
-                    'course_id' => $textbook->seance->course->id,
-                    'user_id' => $textbook->professor->id,
+                    'module' => $textbook->seance->course->module->name,
+                    'course' => $textbook->seance->course->title,
                     'content' => $textbook->content
                 ];
             });
