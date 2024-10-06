@@ -20,8 +20,11 @@ return new class extends Migration
             $table->foreignIdFor(Cohort::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Professor::class)->constrained()->cascadeOnDelete();
             $table->string('replay')->nullable();
-            $table->dateTime('start_date')->nullable();
-            $table->dateTime('end_date')->nullable();
+            $table->string('note')->nullable();
+            $table->date('date')->nullable();
+            $table->time('start_time')->nullable();
+            $table->time('end_time')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
