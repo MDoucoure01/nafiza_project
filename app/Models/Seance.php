@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Seance extends Model
 {
+
     use HasFactory, SoftDeletes;
 
     public function professor():BelongsTo
