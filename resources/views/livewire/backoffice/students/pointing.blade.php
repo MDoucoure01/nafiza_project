@@ -19,7 +19,6 @@
                 <div class="input-group"> <span class="input-group-addon"> <i class="zmdi zmdi-calendar"></i> </span>
                     <div class="form-line">
                         <select name="seance_id" class="form-control" required>
-                            <option value="">__ Sélectionner la séance __</option>
                             @foreach ($seances as $item)
                                 <option value="{{ $item->id }}">{{ $item->course->title.' - '.\Carbon\Carbon::parse($item->date)->translatedFormat('l d F Y') }}</option>
                             @endforeach
@@ -28,11 +27,16 @@
                 </div>
                 <div class="input-group"> <span class="input-group-addon"> <i class="zmdi zmdi-calendar"></i> </span>
                     <div class="form-line">
-                        <select name="status" class="form-control" required>
-                            <option value="">__ Type de Pointage __</option>
-                            <option value="arrived">Pointage d'arrivé</option>
-                            <option value="leaving">Pointage de sortie</option>
-                        </select>
+                        @if ($student->attendances->last()->status == 'arrived' OR $student->attendances->last()->status == 'late')
+                            <select name="status" class="form-control" required>
+                                <option value="leaving">Sortie</option>
+                            </select>
+                        @else
+                            <select name="status" class="form-control" required>
+                                <option value="arrived">Arrivé</option>
+                                <option value="late">Retard</option>
+                            </select>
+                        @endif
                     </div>
                 </div>
                 <div class="row">

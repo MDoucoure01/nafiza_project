@@ -102,10 +102,10 @@
                                 <div class="timeline-body">
                                     <div class="timeline m-border">
                                         @foreach ($student->attendances->sortByDesc('id')->take('12') as $item)
-                                            <div class="timeline-item {{ $item->status == 'arrived' ? 'border-info' : 'border-danger' }}">
+                                            <div class="timeline-item {{ $item->status == 'arrived' ? 'border-info' : '' }} {{ $item->status == 'leaving' ? 'border-danger' : '' }} {{ $item->status == 'late' ? 'border-warning' : '' }}">
                                                 <div class="item-content">
                                                     <div class="text-small">{{ \Carbon\Carbon::parse($item->attendance_date)->translatedFormat('l d F Y') }} à {{ $item->attendance_time }}</div>
-                                                    <p>{{ $item->status == 'arrived' ? 'est arrivé(e) au' : 'à quitter le' }} cours de "{{ $item->seance->course->title }}"</p>
+                                                    <p>{{ $item->status == 'arrived' ? 'est arrivé(e) au' : '' }} {{ $item->status == 'leaving' ? 'à quitter le' : '' }} {{ $item->status == 'late' ? 'est arrivé(e) en retard au' : '' }} cours de {{ $item->seance->course->title }} "{{ $item->seance->course->title }}"</p>
                                                 </div>
                                             </div>
                                         @endforeach
