@@ -30,21 +30,11 @@ class Cohort extends Model
 
     public function subscriptions(): BelongsToMany
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        return $this->belongsToMany(Subscription::class, 'cohort_subscriptions')
-                    ->withPivot('is_actual');
-=======
-        return $this->belongsToMany(Subscription::class,"cohort_subscriptions")->withPivot(["is_actual"]);
->>>>>>> 21c7d2d9a87d9e0aa1264f299d7fe43999113720
-=======
-        return $this->belongsToMany(Subscription::class, 'cohort_subscriptions')
-                    ->withPivot('is_actual');
+        return $this->belongsToMany(Subscription::class, "cohort_subscriptions")->withPivot(["is_actual"]);
     }
 
-    public function seances():HasMany
+    public function seances(): HasMany
     {
         return $this->hasMany(Seance::class);
->>>>>>> b253387658d9b91a5c10661875931c3e35b2d00f
     }
 }
