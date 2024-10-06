@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Textbook;
@@ -22,8 +23,7 @@ class TextbookController extends Controller
         $validated = $request->validate([
             'professor_id' => 'required|exists:professors,id',
             'seance_id' => 'required|exists:seances,id',
-            'title' => 'required|string|max:255',
-            'description' => 'required|string|max:1000',
+            'content' => 'required|string|max:1000',
             'start_date' => 'required|date|before_or_equal:' . $currentDate,
             'end_date' => 'required|date|after_or_equal:' . $currentDate,
         ]);
@@ -46,18 +46,47 @@ class TextbookController extends Controller
                 $textBook = Textbook::create([
                     "professor_id" => $validated['professor_id'],
                     "seance_id" => $validated['seance_id'],
-                    "title" => $validated['title'],
-                    "description" => $validated['description'],
+                    "content" => $validated['content'],
                     "start_date" => $validated['start_date'],
                     "end_date" => $validated['end_date'],
                 ]);
 
-                return $this->responseData("Cahier de texte créé avec succès", true, Response::HTTP_OK, $textBook);
+                return $this->responseData("Merci, Cahier de texte créé avec succès", true, Response::HTTP_OK, $textBook);
             });
         } catch (\Throwable $th) {
             return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST);
         }
     }
 
-   
+    public function index()
+{
+    try {
+        // Get the current month and year
+        $currentMonth = now()->month;
+        $currentYear = now()->year;
+
+        // Retrieve the textbooks for the current month and year, with necessary relationships
+        $textbooks = Textbook::with(['professor', 'seance.course.module'])
+            ->whereMonth('created_at', $currentMonth)
+            ->whereYear('created_at', $currentYear)
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function($textbook) {
+                return [
+                    'date' => $textbook->created_at->format('Y-m-d'),
+                    'module_id' => $textbook->seance->course->module->id,
+                    'course_id' => $textbook->seance->course->id,
+                    'user_id' => $textbook->professor->id,
+                    'content' => $textbook->content
+                ];
+            });
+
+        return $this->responseData("Liste des cahiers de textes récupérés avec succès", true, Response::HTTP_OK, $textbooks);
+
+    } catch (\Throwable $th) {
+        return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST);
+    }
+}
+
+
 }

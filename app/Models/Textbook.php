@@ -10,13 +10,23 @@ class Textbook extends Model
     use HasFactory;
     protected $fillable = ['seance_id', 'professor_id', 'content'];
 
+    // public function seance()
+    // {
+    //     return $this->belongsTo(Seance::class);
+    // }
+
+    // public function professor()
+    // {
+    //     return $this->belongsTo(Professor::class);
+    // }
+
     public function seance()
     {
-        return $this->belongsTo(Seance::class);
+        return $this->belongsTo(Seance::class, 'seance_id');
     }
 
     public function professor()
     {
-        return $this->belongsTo(Professor::class);
+        return $this->belongsTo(Professor::class, 'professor_id');
     }
 }

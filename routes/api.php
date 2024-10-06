@@ -39,6 +39,8 @@ Route::get('send-reset-password', [UserController::class, 'sendPasswordResetMail
 Route::post("user/subscription", [UserController::class, "store"]);
 
 Route::post('textbooks', [TextbookController::class, 'store']);
+Route::get('/textbooks', [TextbookController::class, 'index']);
+
 
 // Route::post('user/login', [AuthController::class, 'login']);
 
