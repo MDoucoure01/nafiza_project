@@ -181,7 +181,8 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <textarea rows="4" class="form-control no-resize" placeholder="Présentation"></textarea>
+                                            <label for="">Présentation</label>
+                                            <textarea rows="4" id="ckeditor" class="form-control" placeholder="Présentation"></textarea>
                                         </div>
 
                                     </div>

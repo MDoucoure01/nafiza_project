@@ -6,11 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Professor;
 use App\Models\SessionProfessor;
 use Illuminate\Http\Request;
-use App\Traits\UserCreationTrait;
+use App\Traits\UserTrait;
 
 class ProfessorsController extends Controller
 {
-    use UserCreationTrait;
+    use UserTrait;
 
     public function create(Request $request)
     {
@@ -41,7 +41,6 @@ class ProfessorsController extends Controller
                 $sessionProfessor = new SessionProfessor();
                 $sessionProfessor->professor_id = $professor->id;
                 $sessionProfessor->school_session_id = $request->appActuSession->id;
-                $sessionProfessor->is_active = 1;
                 $sessionProfessor->save();
             }
         }

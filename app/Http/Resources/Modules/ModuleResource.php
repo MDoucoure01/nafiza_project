@@ -22,7 +22,7 @@ class ModuleResource extends JsonResource
             "start_date" => $this->start_date,
             "end_date" => $this->end_date,
             "school_session_id" => $this->school_session_id,
-            "course" => courseResource::collection($this->courses)
+            // "course" => courseResource::collection($this->courses)
         ];
     }
 }

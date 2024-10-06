@@ -8,10 +8,13 @@ use App\Models\Language;
 use App\Models\Profession;
 use App\Models\Student;
 use App\Models\Subscription;
+use App\Traits\QrTrait;
 use Livewire\Component;
 
 class StudentProfile extends Component
 {
+    use QrTrait;
+
     public $student;
     public $currentCohort;
     public $comites;
@@ -32,6 +35,11 @@ class StudentProfile extends Component
         if ($this->subscription) {
             $this->currentCohort = $this->subscription->activeCohort();
         }
+
+        // if (!$this->student->code_qr) {
+        //     $request = $this->student;
+        //     $studentQR = $this->createQR($request);
+        // }
     }
 
     public function render()

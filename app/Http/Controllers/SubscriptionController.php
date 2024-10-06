@@ -26,10 +26,9 @@ class SubscriptionController extends Controller
                 }
                 $subscriptions = Subscription::where('school_session_id',$actifAnnee->id)->where('is_active', true)->get();
                 return $this->responseData("Tous les Utilisateurs", true, Response::HTTP_OK, SubscriptionWithoutCohortResource::collection($subscriptions));
-
             });
         } catch (\Throwable $th) {
-
+            return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST);
         }
     }
 

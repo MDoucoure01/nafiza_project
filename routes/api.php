@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CohortController;
+use App\Http\Controllers\ComiteController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CourseItemsController;
 use App\Http\Controllers\SubscriptionController;
@@ -48,6 +50,7 @@ Route::get('/textbooks', [TextbookController::class, 'index']);
 // Route::apiResource("promo",PromoController::class);
 // Route::post("update/user/{user}",[UserController::class,"updateUser"]);
 Route::get("test",[StudentController::class,"test"]);
+Route::apiResource("cohort",CohortController::class);
 
 Route::post('auth/login', [AuthController::class, 'login']);
 Route::group(['middleware' => 'auth:sanctum'], function () {
@@ -68,3 +71,6 @@ Route::get("get/course/{id}/items",[CourseItemsController::class, "getCourseItem
 ROute::apiResource("comment", CommentController::class);
 Route::get("course/items/{id}/comment", [CourseItemsController::class, "getCommentToCourseItems"]);
 Route::get("modules/sessions",[CourseItemsController::class,"getModulesSession"]);
+Route::get("modules/courses/elements",[CourseItemsController::class,"getModulesCourseItemsElements"]);
+Route::apiResource("comite",ComiteController::class);
+Route::get("test/test",[ComiteController::class,"testMail"]);

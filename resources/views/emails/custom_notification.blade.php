@@ -1,52 +1,76 @@
-
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        .email-body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f8fa;
-            padding: 20px;
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F0F0F0; /* Fond gris pour tout le mail */
+            font-size: 16px;
         }
-        .email-header, .email-footer {
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            text-align: center;
+        .email-body {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            padding-bottom: 150px; /* Espacement entre le contenu et le pied de page */
+        }
+        .email-header {
+            background-color: #F9B71A; /* Nouveau jaune */
+            height: 250px;
+            width: 100%;
         }
         .email-content {
             background-color: white;
-            padding: 20px;
-            border-radius: 10px;
+            padding: 50px; /* Augmenté de 20px à 30px */
+            margin: -80px auto 0; /* Suppression de la marge inférieure */
+            width: 80%;
+            border-radius: 8px;
+            /* Shadow supprimé */
         }
-        .email-button {
-            background-color: #007bff;
+        .email-footer {
+            background-color: #F9B71A; /* Nouveau jaune */
             color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
+            text-align: center;
+            font-size: 8px; /* Réduit de 12px à 10px */
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
         }
-        .email-image {
-    width: 50%; /* Ajuster la taille de l'image ici */
-    max-width: 600px;
-    margin: 20px auto; /* Centrer horizontalement */
-    display: block; /* Nécessaire pour utiliser margin auto */
-}
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 120px;
+        }
+        .email-text {
+            color: black;
+            font-size: 16px;
+        }
+        h4 {
+            color: #F9B71A;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <div class="email-body">
         <div class="email-header">
-            <h1>Inscription à Naafiza</h1>
+            <!-- Header jaune -->
         </div>
- <!-- Ajout de l'image après l'en-tête -->
         <div class="email-content">
- <img src="{{ asset('images/mailImage.png') }}" alt="Image de bienvenue" class="email-image">
+            <img src="{{ asset('images/Frame 642.png') }}" alt="Logo" class="logo">
+            <div class="email-text">
+                <h4>{{ $title }}</h4>
+                <p>{{ $content }}</p>
+                <a href="{{ $actionUrl }}" class="email-button">{{ $actionText }}</a>
 
-            <p>{{ $content }}</p> <!-- Contenu dynamique -->
-            <a href="{{ $actionUrl }}" class="email-button">{{ $actionText }}</a> <!-- Bouton dynamique -->
+                <!-- Autres éléments de contenu -->
+            </div>
         </div>
-        
         <div class="email-footer">
             <p>&copy; {{ date('Y') }} Naafiza. Tous droits réservés.</p>
         </div>

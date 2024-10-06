@@ -38,7 +38,12 @@
                                 <address class="m-t-10 m-b-0">
                                     Comité: {{ $item->conseil->comite->name }}<br>
                                     Conseil: {{ $item->conseil->name }}<br>
-                                    Cohorte: {{ $item->id }}<br>
+                                    @if($item->subscriptions->isNotEmpty() && $item->subscriptions->first()->cohort->isNotEmpty())
+                                        {{ $item->subscriptions->first()->cohort->first()->name }}
+                                    @else
+                                        Pas de cohorte
+                                    @endif
+                                    <br>
                                     <abbr title="Phone">Tel:</abbr> {{ $item->user->phone }}
                                 </address>
                             </div>

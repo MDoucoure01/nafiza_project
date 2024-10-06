@@ -16,12 +16,20 @@
                         <strong>Prénoms & Nom</strong>
                         <p>{{ $student->user->firstname.' '.$student->user->lastname }}</p>
                         <strong>Cohorte</strong>
-                        <p>{{ $currentCohort->name }}</p>
+                        <p>{{ $currentCohort->name ?? '' }}</p>
                         <strong>Groupe TD</strong>
                         {{-- <p>{{ $currentCohort }}</p> --}}
                         <hr>
                         <strong>Matricule</strong>
                         <address>{{ $student->matricule }}</address>
+
+                        @if ($student->code_qr)
+                            <div class="text-center">
+                                <img style="height: 100px" class="profile-user-img img-fluid img-rounded"
+                                    src="{{ asset('storage') }}/{{ $student->code_qr }}" alt="">
+                            </div>
+                            <br>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -46,7 +54,6 @@
                                             <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </p>
                                         </div>
                                         {{-- <hr>
-
                                         <div class="post-box">
                                             <h4>Skill Set</h4>
                                             <div class="body p-l-0 p-r-0">
@@ -88,7 +95,6 @@
                                         <p>{{ $student->user->phone }}</p>
                                         <strong>Adresse</strong>
                                         <p>{{ $student->user->address }}</p>
-
                                     </div>
                                 </div>
                             </div>
@@ -326,7 +332,8 @@
                                                         <div class="col-sm-12">
                                                             <div class="form-group">
                                                                 <div class="form-line">
-                                                                    <textarea name="presentation" rows="4" class="form-control no-resize" placeholder="Présentation">{{ $student->user->presentation }}</textarea>
+                                                                    <label for="">Présentation</label>
+                                                                    <textarea name="presentation" id="ckeditor" rows="4" class="form-control no-resize" placeholder="Présentation">{{ $student->user->presentation }}</textarea>
                                                                 </div>
                                                             </div>
                                                         </div>

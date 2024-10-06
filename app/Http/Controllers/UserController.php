@@ -16,9 +16,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\PasswordResetMail;
 use App\Notifications\PasswordResetSuccessNotification;
-use App\Notifications\CreateUserNotification;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Password;
 
 class UserController extends Controller
 {
@@ -81,14 +80,11 @@ class UserController extends Controller
                     "password" => $request->password ?? "N@Fiz@2024",
                     "sexe" => $request->sexe
                 ]);
-                if($user->save()){
-                    $noHashUserpassword = $request->password ?? "N@Fiz@2024";
-                    $user->notify(new CreateUserNotification($noHashUserpassword, $user));
-                }
+
                 $thisUser = User::findOrfail($user->id);
                 $thisUser->assignRole('student');
                 $insertStudent = new UserService($user->id);
-               
+
                 $studentExist = $insertStudent->InsertUserStudent($request);
                 if ($studentExist) {
                     return $this->responseData("student enregistré", true, Response::HTTP_OK, UserResource::make($user));
@@ -175,7 +171,7 @@ class UserController extends Controller
      */
     public function destroy(User $user) {}
 
-    /** 
+    /**
      * Reset password
      */
 
@@ -193,7 +189,7 @@ class UserController extends Controller
              'data' => $findUser,
              'message' => 'Mail envoyé avec succès.',
          ];
- 
+
          return response()->json($response, 200);
      }
 
@@ -202,9 +198,7 @@ class UserController extends Controller
         // dd($userToken);
          $userInfos = User::where('remember_token', $userToken)->first();
          $user = User::findOrFail($userInfos->id);
- 
-         $user->password = ($request->password);
- 
+         $user->password = $request->password;
          if ($user->save()) {
              $response = [
                  'success' => true,
@@ -213,14 +207,14 @@ class UserController extends Controller
              ];
              $user->noHashingPassword = $request->password;
              $user->notify(new PasswordResetSuccessNotification($user));
- 
+
              return response()->json($response, 200);
          } else {
              $response = [
                  'success' => false,
                  'message' => 'Mot de passe non modifié.',
              ];
- 
+
              return response()->json($response, 400);
          }
      }
