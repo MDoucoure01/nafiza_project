@@ -16,16 +16,19 @@ class Course extends Model
         "id"
     ];
 
-    public function courseItems():HasMany
+
+
+    public function courseItems(): HasMany
+
     {
         return $this->hasMany(CourseItems::class);
     }
 
 
-    public function module(): BelongsTo
-    {
-        return $this->belongsTo(Module::class);
-    }
+    // public function module(): BelongsTo
+    // {
+    //     return $this->belongsTo(Module::class);
+    // }
 
     public function seances():HasMany
     {
@@ -35,5 +38,10 @@ class Course extends Model
     public function courseType(): BelongsTo
     {
         return $this->belongsTo(CourseType::class);
+    }
+
+    public function module()
+    {
+        return $this->belongsTo(Module::class, 'module_id');
     }
 }

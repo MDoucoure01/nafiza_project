@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Textbook;
@@ -50,12 +51,42 @@ class TextbookController extends Controller
                     "end_date" => $validated['end_date'],
                 ]);
 
-                return $this->responseData("Cahier de texte créé avec succès", true, Response::HTTP_OK, $textBook);
+                return $this->responseData("Merci, Cahier de texte créé avec succès", true, Response::HTTP_OK, $textBook);
             });
         } catch (\Throwable $th) {
             return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST);
         }
     }
+
+    public function index()
+{
+    try {
+        // Get the current month and year
+        $currentMonth = now()->month;
+        $currentYear = now()->year;
+
+        // Retrieve the textbooks for the current month and year, with necessary relationships
+        $textbooks = Textbook::with(['professor', 'seance.course.module'])
+            ->whereMonth('created_at', $currentMonth)
+            ->whereYear('created_at', $currentYear)
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function($textbook) {
+                return [
+                    'date' => $textbook->created_at->format('Y-m-d'),
+                    'module_id' => $textbook->seance->course->module->id,
+                    'course_id' => $textbook->seance->course->id,
+                    'user_id' => $textbook->professor->id,
+                    'content' => $textbook->content
+                ];
+            });
+
+        return $this->responseData("Liste des cahiers de textes récupérés avec succès", true, Response::HTTP_OK, $textbooks);
+
+    } catch (\Throwable $th) {
+        return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST);
+    }
+}
 
 
 }
