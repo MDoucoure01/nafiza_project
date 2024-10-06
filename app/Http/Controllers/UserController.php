@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Password;
 class UserController extends Controller
 {
     use ResponseTrait;
+
     /**
      * Display a listing of the resource.
      */
@@ -80,7 +81,6 @@ class UserController extends Controller
                     "password" => $request->password ?? "N@Fiz@2024",
                     "sexe" => $request->sexe
                 ]);
-
                 $thisUser = User::findOrfail($user->id);
                 $thisUser->assignRole('student');
                 $insertStudent = new UserService($user->id);
@@ -169,57 +169,60 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user) {}
+    public function destroy(User $user)
+    {
+    }
 
     /**
      * Reset password
      */
 
-     public function sendPasswordResetMail(Request $request)
-     {
+    public function sendPasswordResetMail(Request $request)
+    {
         // print_r('ok');
-         $userEmail = $request->email;
+        $userEmail = $request->email;
         //  dd($userEmail);
-         $user = User::where('email', $userEmail)->first();
+        $user = User::where('email', $userEmail)->first();
         //  dd($user);
-         $findUser = User::findOrFail($user->id);
-         $findUser->notify(new PasswordResetMail($user));
-         $response = [
-             'success' => true,
-             'data' => $findUser,
-             'message' => 'Mail envoyé avec succès.',
-         ];
+        $findUser = User::findOrFail($user->id);
+        $findUser->notify(new PasswordResetMail($user));
+        $response = [
+            'success' => true,
+            'data' => $findUser,
+            'message' => 'Mail envoyé avec succès.',
+        ];
 
-         return response()->json($response, 200);
-     }
+        return response()->json($response, 200);
+    }
 
-     public function updateUserPassword($userToken, Request $request)
-     {
+    public function updateUserPassword($userToken, Request $request)
+    {
         // dd($userToken);
-         $userInfos = User::where('remember_token', $userToken)->first();
-         $user = User::findOrFail($userInfos->id);
-         $user->password = $request->password;
-         if ($user->save()) {
-             $response = [
-                 'success' => true,
-                 'data' => $user,
-                 'message' => 'Mot de passe modifié avec succès.',
-             ];
-             $user->noHashingPassword = $request->password;
-             $user->notify(new PasswordResetSuccessNotification($user));
+        $userInfos = User::where('remember_token', $userToken)->first();
+        $user = User::findOrFail($userInfos->id);
+        $user->password = $request->password;
+        if ($user->save()) {
+            $response = [
+                'success' => true,
+                'data' => $user,
+                'message' => 'Mot de passe modifié avec succès.',
+            ];
+            $user->noHashingPassword = $request->password;
+            $user->notify(new PasswordResetSuccessNotification($user));
 
-             return response()->json($response, 200);
-         } else {
-             $response = [
-                 'success' => false,
-                 'message' => 'Mot de passe non modifié.',
-             ];
+            return response()->json($response, 200);
+        } else {
+            $response = [
+                'success' => false,
+                'message' => 'Mot de passe non modifié.',
+            ];
 
-             return response()->json($response, 400);
-         }
-     }
+            return response()->json($response, 400);
+        }
+    }
 
-     public function changePassword(Request $request){
+    public function changePassword(Request $request)
+    {
         $request->validate([
             'current_password' => 'required|string',
             'new_password' => [
@@ -227,29 +230,27 @@ class UserController extends Controller
                 'max:150',
                 'confirmed',
                 Password::min(8)
-                ->letters()
-                ->mixedCase()
-                ->numbers()
-                ->symbols()
-                ->uncompromised()
+                    ->letters()
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols()
+                    ->uncompromised()
             ],
         ]);
         $user = $request->user();
 
-        if (!Hash::check($request->current_password, $user->password)){
+        if (!Hash::check($request->current_password, $user->password)) {
             return response()->json([
                 'message' => 'Désolé, aucune modification effectuer',
             ], 401);
         }
 
         $user->password = bcrypt($request->new_password);
-        if ($user->save()){
+        if ($user->save()) {
             return response()->json([
                 'message' => 'Mot de passe modifé avec succès',
-            ],200);
-        }
-
-        else{
+            ], 200);
+        } else {
             return response()->json([
                 'message' => 'Erreur rencontrer dans notre server',
             ], 500);

@@ -17,6 +17,7 @@ use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CourseItemsController extends Controller
 {
@@ -65,12 +66,15 @@ class CourseItemsController extends Controller
                     $file = $this->loadFile($request);
                 }
 
+                $content = $request->input('content');
+                Log::error("item content $content");
+
                 $courseItems = CourseItems::create([
                     "course_id" => $request->course_id,
                     "user_id" => $request->user_id,
                     "content" => $request->content,
-                    "file" => $file,
-                    "image" => $image,
+                    "file" => $file ?? null,
+                    "image" => $image ?? null ,
                     "link" => $request->link
                 ]);
 
