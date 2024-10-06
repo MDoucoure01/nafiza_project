@@ -3,9 +3,7 @@
 namespace App\Livewire\Backoffice\Students;
 
 use App\Models\Cohort;
-use App\Models\Session_Cohort;
 use App\Models\Student;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class AddStudentsToCohort extends Component
@@ -28,17 +26,7 @@ class AddStudentsToCohort extends Component
         $this->cohort = Cohort::where('slug', request()->slug)->first();
     }
 
-    public function attachSelectedStudents()
-    {
-        // Récupérer l'ID de session_cohorts correspondant à la cohorte et à la session actuelle
-        $sessionCohort = Session_Cohort::where('cohort_id', $this->cohort->id)
-            ->where('school_session_id', request()->appActuSession->id)
-            ->first();
-
-        if (!$sessionCohort) {
-            toastr()->error('La cohorte ou session est invalide.');
-            return;
-        }
+    public function attachSelectedStudents(){
 
         foreach ($this->selectedStudents as $studentId) {
             // Récupérer l'inscription active de chaque étudiant
@@ -46,30 +34,22 @@ class AddStudentsToCohort extends Component
             $activeSubscription = $student->activeSubscription();
 
             if ($activeSubscription) {
-                // Vérifier si l'étudiant est déjà dans cette session/cohorte
-                $existingCohort = DB::table('cohort_subscriptions')
-                    ->where('subscription_id', $activeSubscription->id)
-                    ->where('session_cohort_id', $sessionCohort->id)
+                // Vérifier si l'étudiant est déjà dans cette cohorte
+                $existingCohort = $this->cohort->subscriptions()
+                    ->wherePivot('subscription_id', $activeSubscription->id)
                     ->first();
 
                 if (!$existingCohort) {
-                    // Ajouter la relation dans cohort_subscriptions en utilisant session_cohort_id
-                    DB::table('cohort_subscriptions')->insert([
-                        'subscription_id' => $activeSubscription->id,
-                        'session_cohort_id' => $sessionCohort->id,
-                        'is_actual' => 1,
-                        'created_at' => now(),
-                        'updated_at' => now()
-                    ]);
+                    // Ajouter la relation dans cohort_subscriptions
+                    $this->cohort->subscriptions()->attach($activeSubscription->id, ['is_actual' => 1]);
                 }
             }
         }
 
         // Optionnel : ajouter un message de succès
-        toastr()->success('Pensionnaires ajoutés dans la cohorte de la session avec succès !');
-        return redirect()->route('cohort.show', ['slug' => $this->cohort->slug]);
+        toastr()->success('Pensionnaires ajoutés dans '.$this->cohort->name.' avec succès !');
+        return redirect()->route('cohort.show', ['slug' => $this->cohort->slug ]);
     }
-
 
     public function render()
     {
