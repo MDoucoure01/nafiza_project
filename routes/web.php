@@ -1,10 +1,23 @@
 <?php
 
+use App\Http\Controllers\Backoffice\AdminsController;
 use App\Http\Controllers\Backoffice\CohortsController;
+use App\Http\Controllers\Backoffice\CoursesController;
 use App\Http\Controllers\Backoffice\GroupsController;
+use App\Http\Controllers\Backoffice\ModulesController;
 use App\Http\Controllers\Backoffice\ProfessorsController;
 use App\Http\Controllers\Backoffice\SchoolsessionController;
 use App\Http\Controllers\Backoffice\StudentsController;
+use App\Livewire\Backoffice\Courses\AddCourse;
+use App\Livewire\Backoffice\Courses\AddSeance;
+use App\Livewire\Backoffice\Courses\AttendanceSheet;
+use App\Livewire\Backoffice\Courses\Calendar;
+use App\Livewire\Backoffice\Courses\EditSeance;
+use App\Livewire\Backoffice\Courses\ListCourses;
+use App\Livewire\Backoffice\Courses\Modules;
+use App\Livewire\Backoffice\Courses\Seances;
+use App\Livewire\Backoffice\Courses\ShowCourse;
+use App\Livewire\Backoffice\Courses\ShowModule;
 use App\Livewire\Backoffice\HomeComponent;
 use App\Livewire\Backoffice\Professors\AddProfessor;
 use App\Livewire\Backoffice\Professors\ListProfessors;
@@ -22,8 +35,12 @@ use App\Livewire\Backoffice\Students\AddStudentsToCohort;
 use App\Livewire\Backoffice\Students\AddStudentsToGroup;
 use App\Livewire\Backoffice\Students\ListStudent;
 use App\Livewire\Backoffice\Schoolsessions\ListSessions;
+use App\Livewire\Backoffice\Students\Pointing;
 use App\Livewire\Backoffice\Students\StudentPending;
 use App\Livewire\Backoffice\Students\StudentProfile;
+use App\Livewire\Backoffice\Users\AddAdmin;
+use App\Livewire\Backoffice\Users\EditAdmin;
+use App\Livewire\Backoffice\Users\ListAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QrCodeController;
 
@@ -38,12 +55,14 @@ use App\Http\Controllers\QrCodeController;
 |
 */
 
+Route::get('/pensionnaire/pointage', Pointing::class)->name('pointing');
+
 Route::middleware([
     'auth:sanctum',
-    config('jetstream.auth_session'),
+    config(key: 'jetstream.auth_session'),
     'verified',
     'role:root|admin|secretary'
-])->group(function () {
+])->group(function (): void {
     Route::get('/', HomeComponent::class)->name('home');
 
     Route::get('/pensionnaire/nouveau', AddStudent::class)->name('student.add');
@@ -66,6 +85,17 @@ Route::middleware([
     Route::get('/groupe/{slug}/nouveaux-pensionnaire', AddStudentsToGroup::class)->name('group.new.students');
     Route::get('/groupe/{slug}', ShowGroup::class)->name('group.show');
     Route::get('/groupes-td', GroupeTD::class)->name('groupes.td');
+
+    Route::get('/module/{id}', ShowModule::class)->name('module.show');
+    Route::get('/cours/liste', ListCourses::class)->name('courses.list');
+    Route::get('/cours/details/{id}', ShowCourse::class)->name('course.show');
+
+    Route::get('/cours/seances', Seances::class)->name('seances.list');
+    Route::get('/cours/calendrier', Calendar::class)->name('calendar');
+
+    Route::get('/presence/seance/{id}', AttendanceSheet::class)->name('attendance.sheet');
+    Route::put('/point-student', [StudentsController::class, 'studentAttendance'])->name('student.point');
+
 });
 
 
@@ -73,10 +103,10 @@ Route::get('/generate-qr-code', [QrCodeController::class, 'generate']);
 
 Route::middleware([
     'auth:sanctum',
-    config('jetstream.auth_session'),
+    config(key: 'jetstream.auth_session'),
     'verified',
     'role:root|admin'
-])->group(function () {
+])->group(function (): void {
     Route::get('/session/edit/{id}', EditSession::class)->name('session.edit');
     Route::put('/create-session', [SchoolsessionController::class, 'create'])->name('session.create');
     Route::put('/sessions/update', [SchoolsessionController::class, 'update'])->name('session.update');
@@ -96,4 +126,27 @@ Route::middleware([
 
     Route::get('/professeur/nouveau', AddProfessor::class)->name('professor.add');
     Route::put('/create-professor', [ProfessorsController::class, 'create'])->name('professor.create');
+
+    Route::get('/cours/modules', Modules::class)->name('courses.modules');
+    Route::put('/create-module', [ModulesController::class, 'create'])->name('module.create');
+    Route::put('/update-module', [ModulesController::class, 'update'])->name('module.update');
+    Route::put('/delete-module', [ModulesController::class, 'delete'])->name('module.delete');
+
+    Route::get('/cours/ajouter', AddCourse::class)->name('course.add');
+    Route::put('/create-course', [CoursesController::class, 'create'])->name('course.create');
+    Route::put('/update-course', [CoursesController::class, 'update'])->name('course.update');
+    Route::put('/delete-course', [CoursesController::class, 'delete'])->name('course.delete');
+
+    Route::get('/cours/seance/ajouter', AddSeance::class)->name('seance.add');
+    Route::get('/cours/seance/edit/{id}', EditSeance::class)->name('seance.edit');
+    Route::put('/create-seance', [CoursesController::class, 'createSeance'])->name('seance.create');
+    Route::put('/update-seance', [CoursesController::class, 'updateSeance'])->name('seance.update');
+    Route::put('/delete-seance', [CoursesController::class, 'deleteSeance'])->name('seance.delete');
+
+    Route::get('/administrateurs', ListAdmin::class)->name('admin.list');
+    Route::get('/administrateur/ajouter', AddAdmin::class)->name('admin.add');
+    Route::get('/administrateur/modifier/{id}', EditAdmin::class)->name('admin.edit');
+    Route::put('/create-admin', [AdminsController::class, 'create'])->name('admin.create');
+    Route::put('/update-admin', [AdminsController::class, 'update'])->name('admin.update');
+    Route::put('/delete-admin', [AdminsController::class, 'delete'])->name('admin.delete');
 });

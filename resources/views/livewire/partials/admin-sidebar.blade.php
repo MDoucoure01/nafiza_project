@@ -29,8 +29,8 @@
         <div class="menu">
             <ul class="list">
                 <li class="header">MENU DE NAVIGATION</li>
-                <li class="active open"><a href="index.html"><i class="zmdi zmdi-home"></i><span>Tableau de bord</span></a></li>
-                <li><a href="events.html"><i class="zmdi zmdi-calendar-check"></i><span>Emploi du temps</span> </a></li>
+                <li class="active open"><a href="{{ route('home') }}"><i class="zmdi zmdi-home"></i><span>Tableau de bord</span></a></li>
+                <li><a href="{{ route('calendar') }}"><i class="zmdi zmdi-calendar-check"></i><span>Emploi du temps</span> </a></li>
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-account"></i><span>Professeurs</span> </a>
                     <ul class="ml-menu">
                         <li><a href="{{ route('professor.add') }}">Ajouter professeur</a></li>
@@ -46,20 +46,21 @@
                 </li>
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-graduation-cap"></i><span>Cours</span> </a>
                     <ul class="ml-menu">
-                        <li><a href="add-courses.html">Ajouter cours</a></li>
-                        <li><a href="courses.html">Lite des cours</a></li>
+                        <li><a href="{{ route('course.add') }}">Ajouter cours</a></li>
+                        <li><a href="{{ route('courses.list') }}">Liste des cours</a></li>
+                        <li><a href="{{ route('courses.modules') }}">Gestion modules</a></li>
                     </ul>
                 </li>
-                <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-book"></i><span>Bibliothèques</span> </a>
+                <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-assignment"></i><span>Séances de cours</span> </a>
                     <ul class="ml-menu">
-                        <li><a href="library.html">Ajouter oeuvre</a></li>
-                        <li><a href="add-library.html">Liste des oeuvres</a></li>
+                        <li><a href="{{ route('seance.add') }}">Ajouter séance</a></li>
+                        <li><a href="{{ route('seances.list') }}">Liste des séances</a></li>
                     </ul>
                 </li>
                 <li><a href="{{ route('cohorts.list') }}"><i class="zmdi zmdi-city-alt"></i><span>Cohortes</span> </a></li>
                 <li><a href="{{ route('groupes.td') }}"><i class="zmdi zmdi-chart-donut"></i><span>Groupes TD</span> </a></li>
                 <li><a href="{{ route('sessions.list') }}"><i class="zmdi zmdi-pages"></i><span>Sessions</span> </a></li>
-                <li><a href="{{ route('sessions.list') }}"><i class="zmdi zmdi-accounts"></i><span>Utilisateurs</span> </a></li>
+                <li><a href="{{ route('admin.list') }}"><i class="zmdi zmdi-accounts"></i><span>Utilisateurs</span> </a></li>
             </ul>
         </div>
     </aside>

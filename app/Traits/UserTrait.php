@@ -32,7 +32,6 @@ trait UserTrait
         $request->validate([
             'firstname' => 'required|string|max:100',
             'lastname' => 'required|string|max:100',
-            'sex' => 'required',
             'address' => 'nullable|string|max:500',
             // 'phone' => 'required|string|unique:users,phone,' . $user->id,
             // 'email' => 'required|email|unique:users,email,' . $user->id,
@@ -47,6 +46,14 @@ trait UserTrait
         $user->status = $request->status ?? null;
         $user->specific_skills = $request->specific_skills ?? null;
         $user->save();
+
+        return $user;
+    }
+
+    public function deleteUser($request)
+    {
+        $user = User::findOrFail($request->id);
+        $user->delete();
 
         return $user;
     }

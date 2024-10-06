@@ -22,6 +22,14 @@
                         <hr>
                         <strong>Matricule</strong>
                         <address>{{ $student->matricule }}</address>
+
+                        @if ($student->code_qr)
+                            <div class="text-center">
+                                <img style="height: 100px" class="profile-user-img img-fluid img-rounded"
+                                    src="{{ asset('storage') }}/{{ $student->code_qr }}" alt="">
+                            </div>
+                            <br>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -324,7 +332,8 @@
                                                         <div class="col-sm-12">
                                                             <div class="form-group">
                                                                 <div class="form-line">
-                                                                    <textarea name="presentation" rows="4" class="form-control no-resize" placeholder="Présentation">{{ $student->user->presentation }}</textarea>
+                                                                    <label for="">Présentation</label>
+                                                                    <textarea name="presentation" id="ckeditor" rows="4" class="form-control no-resize" placeholder="Présentation">{{ $student->user->presentation }}</textarea>
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -2,12 +2,20 @@
 
 namespace App\Livewire\Backoffice\Courses;
 
+use App\Models\Course;
 use Livewire\Component;
 
 class ListCourses extends Component
 {
-    public function render()
+    public $courses;
+
+    public function mount(): void
     {
-        return view('livewire.backoffice.courses.list-courses');
+        $this->courses = Course::all();
+    }
+
+    public function render(): mixed
+    {
+        return view(view: 'livewire.backoffice.courses.list-courses')->layout('layouts.app');
     }
 }

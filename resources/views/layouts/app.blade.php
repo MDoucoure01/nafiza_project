@@ -271,5 +271,8 @@
 <!-- Jquery Core Js -->
 
 <script src="{{ asset('backoffice/assets/js/pages/ui/modals.js') }}"></script>
+
+@stack('scripts')
+
 </body>
 </html>
