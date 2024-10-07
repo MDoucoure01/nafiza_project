@@ -34,7 +34,7 @@ class HomeComponent extends Component
 
         // Récupérer le nombre d'étudiantes de sexe féminin
         $this->nbrStudentsFem = Student::whereHas('user', function ($query) {
-            $query->where('sex', 'F');
+            $query->where('sexe', 'F');
         })->count();
 
         $this->nbrCourses = Course::count();

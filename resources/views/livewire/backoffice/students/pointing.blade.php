@@ -27,14 +27,21 @@
                 </div>
                 <div class="input-group"> <span class="input-group-addon"> <i class="zmdi zmdi-calendar"></i> </span>
                     <div class="form-line">
-                        @if ($student->attendances->last()->status == 'arrived' OR $student->attendances->last()->status == 'late')
-                            <select name="status" class="form-control" required>
-                                <option value="leaving">Sortie</option>
-                            </select>
+                        @if ($student->attendances->count() > 0)
+                            @if ($student->attendances->last()->status == 'arrived' OR $student->attendances->last()->status == 'late')
+                                <select name="status" class="form-control" required>
+                                    <option value="leaving">Sortie</option>
+                                </select>
+                            @else
+                                <select name="status" class="form-control" required>
+                                    <option value="arrived">Arrivé</option>
+                                    <option value="late">Retard</option>
+                                </select>
+                            @endif
                         @else
                             <select name="status" class="form-control" required>
                                 <option value="arrived">Arrivé</option>
-                                <option value="late">Retard</option>
+                                <option value="leaving">Sortie</option>
                             </select>
                         @endif
                     </div>

@@ -64,6 +64,7 @@ Route::middleware([
     'role:root|admin|secretary'
 ])->group(function (): void {
     Route::get('/', HomeComponent::class)->name('home');
+    Route::get('/dashboard', HomeComponent::class)->name('home');
 
     Route::get('/pensionnaire/nouveau', AddStudent::class)->name('student.add');
     Route::get('/pensionnaires', ListStudent::class)->name('students.list');

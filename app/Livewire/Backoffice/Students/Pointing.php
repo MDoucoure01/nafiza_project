@@ -19,15 +19,15 @@ class Pointing extends Component
             // Vérifie si l'utilisateur connecté n'a pas le rôle admin ou secretary
             if (!Auth::user()->hasRole(['admin', 'secretary'])) {
                 // Redirige vers une autre page (par exemple, la page d'accueil ou une page spécifique)
-                return redirect()->to('https://example.com'); // Remplace le lien par celui de ton choix
+                return redirect()->to('https://nafiza.groupeema.com/compte/a-propos'); // Remplace le lien par celui de ton choix
             }
         }
         else{
-            return redirect()->to('https://example.com'); // Remplace le lien par celui de ton choix
+            return redirect()->to('https://nafiza.groupeema.com/compte/a-propos'); // Remplace le lien par celui de ton choix
         }
 
         $this->student = Student::findOrFail(request()->student_id);
-
+        // dd($this->student->attendances()->count());
         $now = Carbon::now();
         // Récupérer les séances d'aujourd'hui
         $todaySeances = Seance::whereDate('date', Carbon::today())->get();

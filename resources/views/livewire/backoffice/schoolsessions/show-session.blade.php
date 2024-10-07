@@ -85,10 +85,10 @@
                                             </a>
                                         </th>
                                         <td>{{ $item->matricule }}</td>
-                                        <td>{{ $item->user->firstname.' '.$item->user->lastname }}</td>
+                                        {{-- <td>{{ $item->user->firstname.' '.$item->user->lastname }}</td> --}}
                                         <td>{{ $item->subscription->activeCohort->name ?? '' }}</td>
                                         <td>{{ $item->conseil->comite->name }}</td>
-                                        <td>{{ $item->user->phone }}</td>
+                                        {{-- <td>{{ $item->user->phone }}</td> --}}
                                         <td>
                                             @if ($item->online == 1)
                                                 <span class="label bg-blue">en ligne</span>
