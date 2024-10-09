@@ -19,6 +19,8 @@ use App\Livewire\Backoffice\Courses\Seances;
 use App\Livewire\Backoffice\Courses\ShowCourse;
 use App\Livewire\Backoffice\Courses\ShowModule;
 use App\Livewire\Backoffice\HomeComponent;
+use App\Livewire\Backoffice\Messagerie\MessagesList;
+use App\Livewire\Backoffice\Messagerie\SendMessageForm;
 use App\Livewire\Backoffice\Professors\AddProfessor;
 use App\Livewire\Backoffice\Professors\ListProfessors;
 use App\Livewire\Backoffice\Professors\ProfessorProfile;
@@ -96,6 +98,8 @@ Route::middleware([
 
     Route::get('/presence/seance/{id}', AttendanceSheet::class)->name('attendance.sheet');
     Route::put('/point-student', [StudentsController::class, 'studentAttendance'])->name('student.point');
+
+    Route::get('/messagerie', MessagesList::class)->name('messages');
 
 });
 

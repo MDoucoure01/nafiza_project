@@ -9,9 +9,8 @@
             <div class="admin-action-info"> <span>Bienvenue</span>
                 <h3 style="font-size: 0.8em">{{ Auth::user()->firstname }}</h3>
                 <ul>
-                    <li><a data-placement="bottom" title="Go to Inbox" href="mail-inbox.html"><i class="zmdi zmdi-email"></i></a></li>
-                    <li><a data-placement="bottom" title="Go to Profile" href="{{ route('home') }}"><i class="zmdi zmdi-account"></i></a></li>
-                    <li><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="zmdi zmdi-settings"></i></a></li>
+                    <li><a data-placement="bottom" title="Boîte de messagerie" href="{{ route('messages') }}"><i class="zmdi zmdi-email"></i></a></li>
+                    <li><a data-placement="bottom" title="Voir mon profil" href="{{ route('home') }}"><i class="zmdi zmdi-account"></i></a></li>
                     <li>
                         <a href="{{ route('logout') }}" onclick="event.preventDefault();
                            document.getElementById('logout-form').submit();">
