@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Textbook extends Model
 {
     use HasFactory;
-    protected $fillable = ['seance_id', 'professor_id', 'content'];
+    protected $fillable = ['course_id', 'professor_id', 'content'];
 
-    public function seance()
+    public function course()
     {
-        return $this->belongsTo(Seance::class);
+        return $this->belongsTo(Course::class);
     }
 
     public function professor()

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Textbook;
 use App\Models\Professor;
-use App\Models\Seance;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +23,7 @@ class TextbookController extends Controller
         // Valider les données de la requête, y compris les dates
         $validated = $request->validate([
             'professor_id' => 'required|exists:professors,id',
-            'seance_id' => 'required|exists:seances,id',
+            'course_id' => 'required|exists:courses,id',
             'content' => 'required|string|max:1000',
             'start_date' => 'required|date|before_or_equal:' . $currentDate,
             'end_date' => 'required|date|after_or_equal:' . $currentDate,
@@ -38,21 +38,21 @@ class TextbookController extends Controller
                 }
 
                 // Vérifier si la séance existe
-                $seanceExist = Seance::find($validated['seance_id']);
+                $seanceExist = Course::find($validated['course_id']);
                 if (!$seanceExist) {
-                    return $this->responseData("Oops, séance non trouvée", false, Response::HTTP_NOT_FOUND);
+                    return $this->responseData("Oops, cours non trouvé", false, Response::HTTP_NOT_FOUND);
                 }
 
                 // Créer le cahier de texte avec les dates
                 $textBook = Textbook::create([
                     "professor_id" => $validated['professor_id'],
-                    "seance_id" => $validated['seance_id'],
+                    "course_id" => $validated['course_id'],
                     "content" => $validated['content'],
                     "start_date" => $validated['start_date'],
                     "end_date" => $validated['end_date'],
                 ]);
 
-                return $this->responseData("Merci, Cahier de texte créé avec succès", true, Response::HTTP_OK, $textBook);
+                return $this->responseData("Merci, émargement enregistré avec succès", true, Response::HTTP_OK, $textBook);
             });
         } catch (\Throwable $th) {
             return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST);
@@ -67,7 +67,7 @@ class TextbookController extends Controller
             $currentYear = now()->year;
 
             // Retrieve the textbooks for the current month and year, with necessary relationships
-            $textbooks = Textbook::with(['professor', 'seance.course.module'])
+            $textbooks = Textbook::with(['professor', 'course.module'])
                 ->whereMonth('created_at', $currentMonth)
                 ->whereYear('created_at', $currentYear)
                 ->orderBy('created_at', 'desc')
@@ -75,8 +75,8 @@ class TextbookController extends Controller
                 ->map(function ($textbook) {
                     return [
                         'date' => $textbook->created_at->format('Y-m-d'),
-                        'module' => $textbook->seance->course->module->name,
-                        'course' => $textbook->seance->course->title,
+                        'module' => $textbook->course->module->name,
+                        'course' => $textbook->course->title,
                         'content' => $textbook->content
                     ];
                 });
