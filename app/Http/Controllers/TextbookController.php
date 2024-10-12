@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Textbook\TextBookResource;
 use App\Models\Course;
 use App\Models\Textbook;
 use App\Models\Professor;
@@ -51,8 +52,11 @@ class TextbookController extends Controller
                     "start_date" => $validated['start_date'],
                     "end_date" => $validated['end_date'],
                 ]);
-
-                return $this->responseData("Merci, émargement enregistré avec succès", true, Response::HTTP_OK, $textBook);
+                return $this->responseData(
+                    "Merci, émargement enregistré avec succès",
+                    true, Response::HTTP_OK,
+                    TextBookResource::make($textBook)
+                );
             });
         } catch (\Throwable $th) {
             return $this->responseData($th->getMessage(), false, Response::HTTP_BAD_REQUEST);
@@ -63,13 +67,13 @@ class TextbookController extends Controller
     {
         try {
             // Get the current month and year
-            $currentMonth = now()->month;
-            $currentYear = now()->year;
+//            $currentMonth = now()->month;
+//            $currentYear = now()->year;
 
             // Retrieve the textbooks for the current month and year, with necessary relationships
             $textbooks = Textbook::with(['professor', 'course.module'])
-                ->whereMonth('created_at', $currentMonth)
-                ->whereYear('created_at', $currentYear)
+//                ->whereMonth('created_at', $currentMonth)
+//                ->whereYear('created_at', $currentYear)
                 ->orderBy('created_at', 'desc')
                 ->get()
                 ->map(function ($textbook) {
