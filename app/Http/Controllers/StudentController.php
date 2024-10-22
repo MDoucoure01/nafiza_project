@@ -35,7 +35,7 @@ class StudentController extends Controller
      */
     public function showProfile()
     {
-        // Récupère le professeur connecté
+        // TODO Récupère le pensionnaire connecté
         $student = User::find(1);
         return $this->responseData("Utilisateur connecté", true, Response::HTTP_OK, UserResource::make($student));
     }
@@ -56,6 +56,7 @@ class StudentController extends Controller
             'allergies' => 'nullable|string|max:20',
         ]);
 
+        // TODO Récupère le pensionnaire connecté
         $student = User::find(1);
         $student->update($request->only([
             'email',
