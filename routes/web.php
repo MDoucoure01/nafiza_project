@@ -6,6 +6,7 @@ use App\Http\Controllers\Backoffice\CoursesController;
 use App\Http\Controllers\Backoffice\GroupsController;
 use App\Http\Controllers\Backoffice\MessagerieController;
 use App\Http\Controllers\Backoffice\ModulesController;
+use App\Http\Controllers\Backoffice\PaymentController;
 use App\Http\Controllers\Backoffice\ProfessorsController;
 use App\Http\Controllers\Backoffice\SchoolsessionController;
 use App\Http\Controllers\Backoffice\StudentsController;
@@ -57,6 +58,10 @@ use App\Http\Controllers\QrCodeController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/pensionnaire/payment', [PaymentController::class, 'initiatePayment'])->name('payment');
+Route::get('/pensionnaire/payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
+Route::get('/pensionnaire/payment/cancel', [PaymentController::class, 'paymentCancel'])->name('payment.cancel');
 
 Route::get('/pensionnaire/pointage', Pointing::class)->name('pointing');
 
