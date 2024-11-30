@@ -62,8 +62,8 @@ class CreateUserNotification extends Notification
     //                 ->subject('[NAAFIZA] - Création de votre compte')
     //                 ->view('emails.custom_notification', [
     //                     'title' => 'Inscription à Naafiza',
-    //                     'content' => 'Bienvenue à Naafiza, nous avons bien reçu votre insciption. 
-    //                     Votre compte est en cours de la validation sous paiement de vos droit d\'inscription qui s\'éléve au montant de : 200000 fr 
+    //                     'content' => 'Bienvenue à Naafiza, nous avons bien reçu votre insciption.
+    //                     Votre compte est en cours de la validation sous paiement de vos droit d\'inscription qui s\'éléve au montant de : 200000 fr
     //                     Vous pouvez clique sur le bouton suivant pour payer',
     //                     'actionUrl' => url('https://pay.wave.com/m/M_QIKlqn4fuMS7/c/sn/?amount=25000'), // Lien du bouton d'action
     //                     'actionText' => 'Payer ici'
@@ -80,8 +80,8 @@ class CreateUserNotification extends Notification
                 ->subject('[NAAFIZA] - Création de votre compte')
                 ->view('emails.custom_notification', [
                     'title' => 'Inscription à Naafiza',
-                    'content' => 'Bienvenue à Naafiza, nous avons bien reçu votre inscription. 
-                    Votre compte est en cours de validation sous paiement de vos droits d\'inscription qui s\'élèvent au montant de : 200000 fr. 
+                    'content' => 'Bienvenue à Naafiza, nous avons bien reçu votre inscription.
+                    Votre compte est en cours de validation sous paiement de vos droits d\'inscription qui s\'élèvent au montant de : 200000 fr.
                     Vous pouvez payer avec un scan de ce qr code.',
                     'actionUrl' => $qrCodeUrl, // Lien du bouton d'action
                     'actionText' => 'Payer ici',

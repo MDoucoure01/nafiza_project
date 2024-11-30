@@ -4,6 +4,7 @@ use App\Http\Controllers\Backoffice\AdminsController;
 use App\Http\Controllers\Backoffice\CohortsController;
 use App\Http\Controllers\Backoffice\CoursesController;
 use App\Http\Controllers\Backoffice\GroupsController;
+use App\Http\Controllers\Backoffice\MessagerieController;
 use App\Http\Controllers\Backoffice\ModulesController;
 use App\Http\Controllers\Backoffice\ProfessorsController;
 use App\Http\Controllers\Backoffice\SchoolsessionController;
@@ -100,6 +101,7 @@ Route::middleware([
     Route::put('/point-student', [StudentsController::class, 'studentAttendance'])->name('student.point');
 
     Route::get('/messagerie', MessagesList::class)->name('messages');
+    Route::put('/send-message', [MessagerieController::class, 'sendMessage'])->name('message.send');
 
 });
 

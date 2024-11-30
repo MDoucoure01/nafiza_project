@@ -19,7 +19,7 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane in active" id="send">
-                                <form action="" method="post" enctype="multipart/form-data">
+                                <form action="{{ route('message.send') }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="row clearfix">
@@ -29,10 +29,8 @@
                                                 <select style="border: 2px solid #ccc; border-radius: 5px" name="destinataires" required class="form-control pl-2">
                                                     <option value="">__ Choisir une liste __</option>
                                                     <option value="all_students">Tous les pensionnaires</option>
-                                                    <option value="cohortA">Cohorte A</option>
-                                                    <option value="cohortB">Cohorte B</option>
                                                     <option value="prof">Professeurs et animateurs</option>
-                                                    <option value="all">Tous le monde</option>
+                                                    {{-- <option value="all">Tous le monde</option> --}}
                                                 </select>
                                                 @error('destinataires')
                                                     <span class="text-danger" role="alert">
@@ -52,13 +50,13 @@
 
                                             <div class="form-group">
                                                 <p>Canaux de diffusion</p>
-                                                <input name="msg_app" value="1" type="checkbox" id="app"
+                                                <input name="is_communique" value="1" type="checkbox" id="app"
                                                     class="filled-in">
                                                 <label for="app" class="mr-3">Via l'application</label>
-                                                <input name="msg_mail" value="1" type="checkbox" id="email"
+                                                <input name="is_mail" value="1" type="checkbox" id="email"
                                                     class="filled-in">
                                                 <label for="email" class="mr-3">Via email</label>
-                                                <input name="msg_sms" value="1" type="checkbox" id="sms"
+                                                <input name="is_sms" value="1" type="checkbox" id="sms"
                                                     class="filled-in">
                                                 <label for="sms">Via sms</label>
                                             </div>
@@ -68,14 +66,17 @@
                                             <div class="form-group">
                                                 <p for="">Contenu du message</p>
                                                 <div class="form-line">
-                                                    <textarea id="ckeditor" name="content">{{ old('content') }}</textarea>
+                                                    <textarea id="ckeditor" name="contenu_message">{{ old('contenu_message') }}</textarea>
                                                 </div>
-                                                @error('content')
+                                                @error('contenu_message')
                                                     <span class="text-danger" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
                                             </div>
+                                        </div>
+                                        <div class="col-sm-12 text-right">
+                                            <button type="submit" class="btn btn-raised btn-success ">Envoyer messages</button>
                                         </div>
                                     </div>
                                 </form>

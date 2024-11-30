@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backoffice;
 
 use App\Http\Controllers\Controller;
+use App\Mail\NotifMessage;
 use App\Models\Messagerie;
 use App\Models\Notification;
 use App\Models\Professor;
@@ -20,6 +21,8 @@ class MessagerieController extends Controller
     {
         set_time_limit(300);
 
+        $sessionId = $request->appActuSession->id;
+
         $message = new Messagerie();
         $message->user_id = Auth::id();
         $message->subject = $request->subject;
@@ -29,17 +32,25 @@ class MessagerieController extends Controller
         $message->is_communique = $request->is_communique;
         $message->save();
 
-        if($request->destinataire){
-            $destinataires = Student::where('isDeleted', '0')->where('terrain_id', $request->destinataire)->get();
-        }else{
-            $destinataires = Professor::where('isDeleted', '0')->get();
+        if($request->destinataires == "all_students"){
+            $destinataires = Student::whereHas('subscriptions', function($query) use ($sessionId) {
+                $query->where('school_session_id', $sessionId)
+                    ->where('is_active', 1);
+            })->with(['subscriptions' => function($query) {
+                $query->whereHas('cohort', function($query) {
+                    $query->where('is_actual', 1); // Récupérer la cohorte actuelle
+                });
+            }])->get();
+        }
+        else{
+            $destinataires = Professor::all();
         }
 
         if ($request->is_communique) {
             foreach ($destinataires as $value) {
                 $notif = new Notification();
-                $notif->personnel_id = $value->personnel->id;
-                $notif->message_id = $message->id;
+                $notif->user_id = $value->user->id;
+                $notif->messagerie_id = $message->id;
                 $notif->save();
             }
         }
@@ -52,7 +63,7 @@ class MessagerieController extends Controller
 
             foreach ($destinataires as $phone) {
 
-                $phoneNumber = '+221' . $phone->personnel->phone;
+                $phoneNumber = '+221' . $phone->user->phone;
 
                 $response = $sms->to($phoneNumber)
                         ->from('+221776623520', env('APP_NAME'))
@@ -65,18 +76,19 @@ class MessagerieController extends Controller
             foreach ($destinataires as $value) {
 
                 $validator = Validator::make(
-                    ['email' => $value->personnel->email],
+                    ['email' => $value->user->email],
                     ['email' => 'required|email']
                 );
 
                 if (!$validator->fails()) {
                     // La validation est bonne
-                    Mail::to($value->personnel->email)->send(new PaymentMessage($request->contenu_message));
+                    Mail::to($value->user->email)->send(new NotifMessage($request->contenu_message));
                 }
             }
         }
 
         toastr()->success('Message envoyé avec succes.');
+        return back();
     }
 
 }
