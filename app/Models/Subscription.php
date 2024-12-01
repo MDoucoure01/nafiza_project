@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Subscription extends Model
@@ -50,6 +51,11 @@ class Subscription extends Model
         return $this->belongsToMany(Cohort::class, 'cohort_subscriptions')
                     ->withPivot('is_actual')
                     ->wherePivot('is_actual', 1); // On récupère uniquement la cohorte actuelle
+    }
+
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
     }
 
 }

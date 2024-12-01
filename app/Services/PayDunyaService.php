@@ -1,8 +1,11 @@
 <?php
 namespace App\Services;
 
+use App\Models\Subscription;
+use App\Models\Transaction;
 use Paydunya\Setup;
 use Paydunya\Checkout\CheckoutInvoice;
+use Illuminate\Http\Request;
 
 class PayDunyaService
 {
@@ -41,18 +44,52 @@ class PayDunyaService
 
         // dd($invoice->create());
         if ($invoice->create()) {
+            // Récupérer le token de transaction PayDunya
+            $transactionToken = $invoice->token;
+
+            // Enregistrer la transaction dans la base de données avec le token
+            $transaction = Transaction::create([
+                'subscription_id' => 2,
+                'transaction_token' => $transactionToken,
+                'amount' => $amount,
+                'date' => date('Y-m-d'),
+                'status' => 'pending',
+                'type' => 'subscription',
+            ]);
+
             return $invoice->getInvoiceUrl(); // URL vers la page de paiement
         } else {
-            dd($invoice->response_text.' - '.$invoice->response_code);
+            // dd($invoice->response_text.' - '.$invoice->response_code);
+            return false;
         }
     }
 
     public function confirmPayment($token)
     {
+        // dd($token);
         // Vérification du paiement après le retour de PayDunya
         $invoice = new CheckoutInvoice();
         if ($invoice->confirm($token)) {
-            return $invoice->getStatus(); // Statut du paiement
+            // Récupérer la transaction correspondante à partir du token
+            $transaction = Transaction::where('transaction_token', $token)->first();
+
+            if ($transaction) {
+                // Mettre à jour le statut de la transaction
+                $transaction->update([
+                    'status' => 'completed',
+                ]);
+
+                $subscription = Subscription::where('id', $transaction->subscription_id)->update([
+                    'is_active' => 1,
+                ]);
+
+                // Activer l'inscription de l'étudiant ou faire les actions nécessaires
+                // Ex: $student = Student::find($transaction->user_id);
+                // $student->activate();
+
+                return redirect()->route('home')->with('success', 'Paiement réussi et inscription activée.');
+                // return $invoice->getStatus(); // Statut du paiement
+            }
         }
 
         return false;

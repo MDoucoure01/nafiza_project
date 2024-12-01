@@ -18,7 +18,7 @@ class PaymentController extends Controller
     public function initiatePayment()
     {
         // Montant de l'inscription
-        $amount = 10000; // Exemple, à personnaliser
+        $amount = 20000; // Exemple, à personnaliser
         $orderDescription = "Paiement pour l'inscription scolaire";
 
         // Créer la transaction de paiement
@@ -41,7 +41,7 @@ class PaymentController extends Controller
 
         if ($status === "completed") {
             // Le paiement a réussi
-            return redirect()->route('home')->with('success', 'Paiement réussi');
+            return redirect()->route('payment.success')->with('success', 'Paiement réussi');
         } else {
             // Paiement échoué ou en attente
             return redirect()->route('home')->with('error', 'Paiement non validé');

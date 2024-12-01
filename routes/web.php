@@ -23,6 +23,7 @@ use App\Livewire\Backoffice\Courses\ShowModule;
 use App\Livewire\Backoffice\HomeComponent;
 use App\Livewire\Backoffice\Messagerie\MessagesList;
 use App\Livewire\Backoffice\Messagerie\SendMessageForm;
+use App\Livewire\Backoffice\Payment\PaymentInitial;
 use App\Livewire\Backoffice\Professors\AddProfessor;
 use App\Livewire\Backoffice\Professors\ListProfessors;
 use App\Livewire\Backoffice\Professors\ProfessorProfile;
@@ -59,8 +60,9 @@ use App\Http\Controllers\QrCodeController;
 |
 */
 
-Route::get('/pensionnaire/payment', [PaymentController::class, 'initiatePayment'])->name('payment');
-Route::get('/pensionnaire/payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
+// Route::get('/pensionnaire/payment', PaymentInitial::class)->name('payment');
+Route::get('/pensionnaire/paiement', [PaymentController::class, 'initiatePayment'])->name('payment.initial');
+Route::get('/pensionnaire/payment/success/{token?}', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
 Route::get('/pensionnaire/payment/cancel', [PaymentController::class, 'paymentCancel'])->name('payment.cancel');
 
 Route::get('/pensionnaire/pointage', Pointing::class)->name('pointing');

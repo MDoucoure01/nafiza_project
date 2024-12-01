@@ -71,23 +71,23 @@ class CreateUserNotification extends Notification
     // }
 
     public function toMail($notifiable)
+    {
+        // L'URL à encoder dans le QR code
+        $qrCodeUrl = 'https://pay.wave.com/m/M_QIKlqn4fuMS7/c/sn/?amount=25000';
+        $paymentRedirectUrl = url('/pensionnaires/payment');
 
-{
-    // L'URL à encoder dans le QR code
-    $qrCodeUrl = 'https://pay.wave.com/m/M_QIKlqn4fuMS7/c/sn/?amount=25000';
-
-    return (new MailMessage)
-                ->subject('[NAAFIZA] - Création de votre compte')
-                ->view('emails.custom_notification', [
-                    'title' => 'Inscription à Naafiza',
-                    'content' => 'Bienvenue à Naafiza, nous avons bien reçu votre inscription.
-                    Votre compte est en cours de validation sous paiement de vos droits d\'inscription qui s\'élèvent au montant de : 200000 fr.
-                    Vous pouvez payer avec un scan de ce qr code.',
-                    'actionUrl' => $qrCodeUrl, // Lien du bouton d'action
-                    'actionText' => 'Payer ici',
-                    'qrCodeUrl' => $qrCodeUrl // URL pour le QR code
-                ]);
-}
+        return (new MailMessage)
+                    ->subject('[NAAFIZA] - Création de votre compte')
+                    ->view('emails.custom_notification', [
+                        'title' => 'Inscription à Naafiza',
+                        'content' => 'Bienvenue à Naafiza, nous avons bien reçu votre inscription.
+                        Votre compte est en cours de validation sous paiement de vos droits d\'inscription qui s\'élèvent au montant de : 20000 fr.
+                        Vous pouvez payer en ligne en cliquant sur le lien ci-dessous.',
+                        'actionUrl' => $paymentRedirectUrl, // Lien du bouton d'action
+                        'actionText' => 'Effectuer  ici',
+                        'paymentRedirectUrl' => $paymentRedirectUrl // URL pour le QR code
+                    ]);
+    }
 
 
 
