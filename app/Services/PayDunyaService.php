@@ -1,14 +1,18 @@
 <?php
 namespace App\Services;
 
+use App\Models\Student;
 use App\Models\Subscription;
 use App\Models\Transaction;
 use Paydunya\Setup;
+use App\Traits\QrTrait;
 use Paydunya\Checkout\CheckoutInvoice;
 use Illuminate\Http\Request;
 
 class PayDunyaService
 {
+    use QrTrait;
+
     public function __construct()
     {
         // Initialisation des informations de l'entreprise et des clés
@@ -82,6 +86,9 @@ class PayDunyaService
                 $subscription = Subscription::where('id', $transaction->subscription_id)->update([
                     'is_active' => 1,
                 ]);
+
+                $student = Student::where('id', 2)->first();
+                $studentQR = $this->createQR(request(), $student);
 
                 // Activer l'inscription de l'étudiant ou faire les actions nécessaires
                 // Ex: $student = Student::find($transaction->user_id);
