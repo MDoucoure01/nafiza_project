@@ -21,9 +21,10 @@ class PaymentController extends Controller
 //        $amount = 20000; // Exemple, à personnaliser
         $amount = 200; // Exemple, à personnaliser
         $orderDescription = "Paiement pour l'inscription scolaire";
+        $userID = request()->user_id;
 
         // Créer la transaction de paiement
-        $paymentUrl = $this->payDunyaService->createPayment($orderDescription, $amount);
+        $paymentUrl = $this->payDunyaService->createPayment($orderDescription, $amount, $userID);
 
         if ($paymentUrl) {
             // Redirection vers la page de paiement
