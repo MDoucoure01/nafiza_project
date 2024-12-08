@@ -4,7 +4,9 @@ use App\Http\Controllers\Backoffice\AdminsController;
 use App\Http\Controllers\Backoffice\CohortsController;
 use App\Http\Controllers\Backoffice\CoursesController;
 use App\Http\Controllers\Backoffice\GroupsController;
+use App\Http\Controllers\Backoffice\MessagerieController;
 use App\Http\Controllers\Backoffice\ModulesController;
+use App\Http\Controllers\Backoffice\PaymentController;
 use App\Http\Controllers\Backoffice\ProfessorsController;
 use App\Http\Controllers\Backoffice\SchoolsessionController;
 use App\Http\Controllers\Backoffice\StudentsController;
@@ -19,6 +21,12 @@ use App\Livewire\Backoffice\Courses\Seances;
 use App\Livewire\Backoffice\Courses\ShowCourse;
 use App\Livewire\Backoffice\Courses\ShowModule;
 use App\Livewire\Backoffice\HomeComponent;
+use App\Livewire\Backoffice\Messagerie\MessagesList;
+use App\Livewire\Backoffice\Messagerie\SendMessageForm;
+use App\Livewire\Backoffice\Payment\MonthlyPayment;
+use App\Livewire\Backoffice\Payment\MonthlyPaymentRegister;
+use App\Livewire\Backoffice\Payment\PaymentInitial;
+use App\Livewire\Backoffice\Payment\SubscriptionPayment;
 use App\Livewire\Backoffice\Professors\AddProfessor;
 use App\Livewire\Backoffice\Professors\ListProfessors;
 use App\Livewire\Backoffice\Professors\ProfessorProfile;
@@ -55,6 +63,11 @@ use App\Http\Controllers\QrCodeController;
 |
 */
 
+// Route::get('/pensionnaire/payment', PaymentInitial::class)->name('payment');
+Route::get('/pensionnaire/paiement', [PaymentController::class, 'initiatePayment'])->name('payment.initial');
+Route::get('/pensionnaire/payment/success/{token?}', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
+Route::get('/pensionnaire/payment/cancel', [PaymentController::class, 'paymentCancel'])->name('payment.cancel');
+
 Route::get('/pensionnaire/pointage', Pointing::class)->name('pointing');
 
 Route::middleware([
@@ -64,6 +77,7 @@ Route::middleware([
     'role:root|admin|secretary'
 ])->group(function (): void {
     Route::get('/', HomeComponent::class)->name('home');
+    Route::get('/dashboard', HomeComponent::class)->name('home');
 
     Route::get('/pensionnaire/nouveau', AddStudent::class)->name('student.add');
     Route::get('/pensionnaires', ListStudent::class)->name('students.list');
@@ -96,6 +110,12 @@ Route::middleware([
     Route::get('/presence/seance/{id}', AttendanceSheet::class)->name('attendance.sheet');
     Route::put('/point-student', [StudentsController::class, 'studentAttendance'])->name('student.point');
 
+    Route::get('/messagerie', MessagesList::class)->name('messages');
+    Route::put('/send-message', [MessagerieController::class, 'sendMessage'])->name('message.send');
+
+    Route::get('/paiement/inscription', SubscriptionPayment::class)->name('payment.subscription');
+    Route::get('/paiement/mensualite', MonthlyPayment::class)->name('payment.monthly');
+    Route::get('/paiement/ajouter', MonthlyPaymentRegister::class)->name('payment.add');
 });
 
 

@@ -21,7 +21,7 @@ trait QrTrait
                         ->generate($qrUrl);
 
         // Enregistrer le QR Code en tant qu'image
-        $qrpath = 'qrcodes/' . Str::slug($request->firstname.' '.$request->lastname.' '.rand(min: 0, max: 99999)) . '.png';
+        $qrpath = 'qrcodes/' . Str::slug($request->firstname.' '.$request->lastname.' '.rand(min: 0, max: 9999999)) . '.png';
         \Storage::disk('public')->put($qrpath, $qrCode);
 
         $student = Student::findOrFail($student->id);

@@ -4,19 +4,29 @@ namespace App\Livewire\Backoffice\Students;
 
 use App\Models\Student;
 use App\Models\Subscription;
+use App\Traits\QrTrait;
 use Livewire\Component;
 
 class StudentPending extends Component
 {
+    use QrTrait;
+
     public $students;
 
     public function mount(){
         // $this->students = request()->appActuSession->students;
         $sessionId = request()->appActuSession->id;
-        $this->students = Student::whereHas('schoolsessions', function($query) use ($sessionId) {
+
+        $this->students = Student::whereHas('subscriptions', function($query) use ($sessionId) {
             $query->where('school_session_id', $sessionId)
-                  ->where('is_active', 0);
-        })->get();
+                ->where('is_active', 0);
+        })->with(['subscriptions' => function($query) {
+            $query->whereHas('cohort', function($query) {
+                $query->where('is_actual', 1); // Récupérer la cohorte actuelle
+            });
+        }])->get();
+
+        // dd($this->students->user->firstname);
     }
 
     public function removeStudent($studentId)
@@ -37,6 +47,13 @@ class StudentPending extends Component
         $subscription = Subscription::where('student_id', $studentId)->where('school_session_id', request()->appActuSession->id)->first();
         $subscription->is_active = 1;
         $subscription->save();
+
+        if ($subscription) {
+            $student = Student::findOrFail($studentId);
+            $request = $student->user;
+            
+            $this->createQR($request, $student);
+        }
 
         session()->flash('disable_msg', 'Vous venez de réactiver ce pensionnaire.');
 

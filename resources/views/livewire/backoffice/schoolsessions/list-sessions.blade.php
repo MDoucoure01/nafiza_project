@@ -92,7 +92,7 @@
                             </div>
                             <div class="row clearfix">
                                 <div class="offset-lg-2 col-lg-10">
-                                    <input name="status" value="1" checked type="checkbox" id="remember_me"
+                                    <input name="status" value="1" type="checkbox" id="remember_me"
                                         class="filled-in">
                                     <label for="remember_me">Définir comme session active</label>
                                 </div>
