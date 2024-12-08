@@ -23,7 +23,10 @@ use App\Livewire\Backoffice\Courses\ShowModule;
 use App\Livewire\Backoffice\HomeComponent;
 use App\Livewire\Backoffice\Messagerie\MessagesList;
 use App\Livewire\Backoffice\Messagerie\SendMessageForm;
+use App\Livewire\Backoffice\Payment\MonthlyPayment;
+use App\Livewire\Backoffice\Payment\MonthlyPaymentRegister;
 use App\Livewire\Backoffice\Payment\PaymentInitial;
+use App\Livewire\Backoffice\Payment\SubscriptionPayment;
 use App\Livewire\Backoffice\Professors\AddProfessor;
 use App\Livewire\Backoffice\Professors\ListProfessors;
 use App\Livewire\Backoffice\Professors\ProfessorProfile;
@@ -110,6 +113,9 @@ Route::middleware([
     Route::get('/messagerie', MessagesList::class)->name('messages');
     Route::put('/send-message', [MessagerieController::class, 'sendMessage'])->name('message.send');
 
+    Route::get('/paiement/inscription', SubscriptionPayment::class)->name('payment.subscription');
+    Route::get('/paiement/mensualite', MonthlyPayment::class)->name('payment.monthly');
+    Route::get('/paiement/ajouter', MonthlyPaymentRegister::class)->name('payment.add');
 });
 
 

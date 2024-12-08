@@ -29,8 +29,20 @@
             <ul class="list">
                 <li class="header">MENU DE NAVIGATION</li>
                 <li class="{{ Route::currentRouteName() == 'home' ? 'active' : '' }}"><a href="{{ route('home') }}"><i class="zmdi zmdi-home"></i><span>Tableau de bord</span></a></li>
-                <li class="{{ Route::currentRouteName() == 'calendar' ? 'active' : '' }}"><a href="{{ route('calendar') }}"><i class="zmdi zmdi-money"></i><span>Paiements</span> </a></li>
                 <li class="{{ Route::currentRouteName() == 'calendar' ? 'active' : '' }}"><a href="{{ route('calendar') }}"><i class="zmdi zmdi-calendar-check"></i><span>Emploi du temps</span> </a></li>
+
+                @php
+                    $paymentRoutes = ['payment.subscription', 'payment.monthly', 'payment.add'];
+                    $isActivePayment = in_array(Route::currentRouteName(), $paymentRoutes) ? 'active open' : '';
+                @endphp
+                <li class="{{ $isActivePayment }}"><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-money"></i><span>Paiements</span> </a>
+                    <ul class="ml-menu">
+                        <li class="{{ Route::currentRouteName() == 'payment.add' ? 'active' : '' }}"><a href="{{ route('payment.add') }}">Ajouter paiement</a></li>
+                        <li class="{{ Route::currentRouteName() == 'payment.subscription' ? 'active' : '' }}"><a href="{{ route('payment.subscription') }}">Inscriptions</a></li>
+                        <li class="{{ Route::currentRouteName() == 'payment.monthly' ? 'active' : '' }}"><a href="{{ route('payment.monthly') }}">Mensualités</a></li>
+
+                    </ul>
+                </li>
 
                 @php
                     $professorRoutes = ['professor.add', 'professors.list', 'professor.profile'];
