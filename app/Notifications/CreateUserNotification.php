@@ -74,7 +74,7 @@ class CreateUserNotification extends Notification
     {
         // L'URL à encoder dans le QR code
         $qrCodeUrl = 'https://pay.wave.com/m/M_QIKlqn4fuMS7/c/sn/?amount=25000';
-        $paymentRedirectUrl = url('/pensionnaires/payment');
+        $paymentRedirectUrl = url('/pensionnaire/paiement');
 
         return (new MailMessage)
                     ->subject('[NAAFIZA] - Création de votre compte')
@@ -84,7 +84,7 @@ class CreateUserNotification extends Notification
                         Votre compte est en cours de validation sous paiement de vos droits d\'inscription qui s\'élèvent au montant de : 20000 fr.
                         Vous pouvez payer en ligne en cliquant sur le lien ci-dessous.',
                         'actionUrl' => $paymentRedirectUrl, // Lien du bouton d'action
-                        'actionText' => 'Effectuer  ici',
+                        'actionText' => 'Effectuer votre paiement ici',
                         'paymentRedirectUrl' => $paymentRedirectUrl // URL pour le QR code
                     ]);
     }

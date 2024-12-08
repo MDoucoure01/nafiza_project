@@ -88,7 +88,7 @@ class PayDunyaService
                 ]);
 
                 $student = Student::where('id', 2)->first();
-                $studentQR = $this->createQR(request(), $student);
+//                $studentQR = $this->createQR(request(), $student);
 
                 // Activer l'inscription de l'étudiant ou faire les actions nécessaires
                 // Ex: $student = Student::find($transaction->user_id);

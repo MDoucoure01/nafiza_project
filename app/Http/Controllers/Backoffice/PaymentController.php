@@ -18,7 +18,8 @@ class PaymentController extends Controller
     public function initiatePayment()
     {
         // Montant de l'inscription
-        $amount = 20000; // Exemple, à personnaliser
+//        $amount = 20000; // Exemple, à personnaliser
+        $amount = 200; // Exemple, à personnaliser
         $orderDescription = "Paiement pour l'inscription scolaire";
 
         // Créer la transaction de paiement

@@ -62,7 +62,7 @@
             <!-- Header jaune -->
         </div>
         <div class="email-content">
-            <img src="{{ asset('images/Frame 642.png') }}" alt="Logo" class="logo">
+            <img src="{{ asset('backoffice/assets/images/logo-bw.png') }}" alt="Logo" class="logo">
             <div class="email-text">
                 <h4>{{ $title }}</h4>
                 <p>{{ $content }}</p>
