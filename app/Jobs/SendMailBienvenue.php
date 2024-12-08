@@ -28,10 +28,6 @@ class SendMailBienvenue implements ShouldQueue
      */
     public function handle(): void
     {
-<<<<<<< HEAD
-         $this->user->notify(new CreateUserNotification($this->user));
-=======
         $this->user->notify(new CreateUserNotification($this->user));
->>>>>>> 96f978c841ca6110f6bf14dfeebf4dd005bd405b
     }
 }

@@ -41,17 +41,17 @@ class PaymentController extends Controller
 
         $status = $this->payDunyaService->confirmPayment($token);
 
-        if ($status === "completed") {
+        if ($status == "completed") {
             // Le paiement a réussi
-            return redirect()->route('payment.success')->with('success', 'Paiement réussi');
+            return redirect()->away(env('PAYMENT_SUCCESS_REDIRECTION_URL'));
         } else {
             // Paiement échoué ou en attente
-            return redirect()->route('home')->with('error', 'Paiement non validé');
+            return redirect()->away(env('PAYMENT_FAILED_REDIRECTION_URL'));
         }
     }
 
     public function paymentCancel()
     {
-        return redirect()->route('home')->with('error', 'Le paiement a été annulé.');
+        return redirect()->away(env('PAYMENT_FAILED_REDIRECTION_URL'));
     }
 }
