@@ -74,7 +74,7 @@ class CreateUserNotification extends Notification
     {
         // L'URL à encoder dans le QR code
         $qrCodeUrl = 'https://pay.wave.com/m/M_QIKlqn4fuMS7/c/sn/?amount=25000';
-        $paymentRedirectUrl = url('/pensionnaires/payment');
+        $paymentRedirectUrl = url('/pensionnaire/paiement?user_id='.$this->user->id);
 
         return (new MailMessage)
                     ->subject('[NAAFIZA] - Création de votre compte')
