@@ -23,7 +23,7 @@
                                 </div>
 
                                 <div class="m-t-20">
-                                    <h4 class="m-b-0">{{ $item->user->firstname.' '.$item->user->lastname }}</h4>
+                                    <h5 class="m-b-0">{{ $item->user->firstname.' '.$item->user->lastname }}</h5>
                                     <p class="text-muted">
                                         <i class="zmdi zmdi-phone"></i> {{ $item->user->phone }}
                                         <span><a href="mailto: {{ $item->user->email }}" class="text-pink"><i class="zmdi zmdi-email"></i> {{ $item->user->email }}</a> </span>

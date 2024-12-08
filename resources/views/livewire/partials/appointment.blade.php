@@ -12,17 +12,22 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.js'></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
+            var calendarEl = document.getElementById('calendar');// Détecter la taille de l'écran
+            var isSmallScreen = window.innerWidth < 768;
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'timeGridWeek',
                 slotMinTime: '8:00:00',
                 slotMaxTime: '22:00:00',
                 firstDay: 1,
                 locale: 'fr',
-                headerToolbar: {
-                    left: 'prev,next today',  // Boutons de navigation (précédent, suivant, aujourd'hui)
-                    center: 'title',          // Titre centré
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay' // Boutons pour changer la vue (Mois, Semaine, Jour)
+                // Configurer headerToolbar en fonction de la taille de l'écran
+                headerToolbar: isSmallScreen ? {
+                    left: 'prev,next today',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                } : {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
                 buttonText: {
                     today:    'Aujourd\'hui',
@@ -31,6 +36,21 @@
                     day:      'Jour',
                     list:     'Liste'
                 },
+
+                // Si tu veux que le calendrier s'adapte également lorsqu'on redimensionne la fenêtre
+                windowResize: function(view) {
+                    var isSmallScreen = window.innerWidth < 768;
+
+                    calendar.setOption('headerToolbar', isSmallScreen ? {
+                        left: 'prev,next',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    } : {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    });
+                },
+
                 events: @json($events),
                 eventColor: '#bf9237', // Couleur jaune moutarde
                 eventClick: function(info) {
@@ -39,11 +59,6 @@
                         info.jsEvent.preventDefault(); // Empêche la navigation par défaut (si nécessaire)
                     }
                 },
-                windowResize: function(view) {
-                    if (window.innerWidth < 768) {
-                        calendar.changeView('timeGridDay'); // Changer la vue pour les petits écrans
-                    }
-                }
 
             });
             calendar.render();
@@ -55,6 +70,19 @@
         /* Style buttons inside calendar container */
         .calendar-container .fc .fc-button {
             color: white !important;
+        }
+
+        /* Par défaut, le calendrier occupe toute la largeur */
+        #calendar {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Pour les petits écrans, ajuste la taille */
+        @media (max-width: 768px) {
+            #calendar {
+                width: 100%;
+            }
         }
     </style>
 @endpush
