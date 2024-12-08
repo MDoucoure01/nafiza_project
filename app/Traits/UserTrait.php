@@ -15,7 +15,7 @@ trait UserTrait
         $user->email = $request->email;
         $user->phone = $request->phone ?? null;
         $user->address = $request->address;
-        $user->sex = $request->sex;
+        $user->sexe = $request->sex;
         $user->profile_photo_path = $request->profile_photo;
         $user->status = $request->status ?? null;
         $user->specific_skills = $request->specific_skills ?? null;
@@ -41,7 +41,7 @@ trait UserTrait
         $user->lastname = $request->lastname;
         $user->phone = $request->phone ?? null;
         $user->address = $request->address;
-        $user->sex = $request->sex;
+        $user->sexe = $request->sex;
         $user->profile_photo_path = $request->profile_photo;
         $user->status = $request->status ?? null;
         $user->specific_skills = $request->specific_skills ?? null;

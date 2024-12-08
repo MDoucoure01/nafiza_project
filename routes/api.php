@@ -4,7 +4,9 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ProfessionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProfessorController;
+use App\Http\Controllers\SeanceController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -64,6 +66,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::put('/student/profile', [StudentController::class, 'updateProfile']);
     Route::put('auth/edit-profile', [UserController::class, 'edit']);
     Route::get("user/{id}/comrade", [StudentController::class, 'comradeUser']);
+    Route::get("transaction/user/{id}",[TransactionController::class,"getTransactionByUser"]);
+    Route::get("seances/user/{id}",[SeanceController::class,"getCalendarUser"]);
 
 });
 Route::apiResource("course/items",CourseItemsController::class);

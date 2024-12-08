@@ -19,7 +19,7 @@ class SubscriptionWithoutCohortResource extends JsonResource
         // return parent::toArray($request);
         return [
             "id" => $this->id,
-            "student_id" => StudentResource::make($this->student),
+            "info" => StudentResource::make($this->student),
             "is_active" => $this->is_active,
             "school_session" => SchoolSessionResource::make($this->school_session)
         ];

@@ -13,17 +13,17 @@ class ProfessorController extends Controller
 {
     use ResponseTrait;
     /**
-     * 
+     *
      * Affiche les informations du professeur connecté.
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function showProfile()
     {
-        // Récupère le professeur connecté
+        // TODO Récupère le professeur connecté
         $professor = User::find(1);
-        return $this->responseData("Utilisateur connecté", true, Response::HTTP_OK, UserResource::make($professor));       
-       
+        return $this->responseData("Utilisateur connecté", true, Response::HTTP_OK, UserResource::make($professor));
+
     }
 
     /**
@@ -41,6 +41,7 @@ class ProfessorController extends Controller
             'emergency_number' => 'nullable|string|max:20',
         ]);
 
+        // TODO Récupère le professeur connecté
         $professor = User::find(1);
         $professor->update($request->only([
             'email',

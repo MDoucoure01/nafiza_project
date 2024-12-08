@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\Student;
@@ -52,17 +53,25 @@ class PayDunyaService
             $transactionToken = $invoice->token;
 
             $student = Student::where('user_id', $userID)->first();
-            $subsription = Subscription::where('student_id', $student->id)->first();
+            $subscription = Subscription::where('student_id', $student->id)->first();
+            $transaction = Transaction::where('subscription_id', $subscription->id)->where('type', 'subscription')->first();
 
-            // Enregistrer la transaction dans la base de données avec le token
-            $transaction = Transaction::create([
-                'subscription_id' => $subsription->id,
-                'transaction_token' => $transactionToken,
-                'amount' => $amount,
-                'date' => date('Y-m-d'),
-                'status' => 'pending',
-                'type' => 'subscription',
-            ]);
+            if ($transaction) {
+                $transaction->update([
+                    'transaction_token' => $transactionToken
+                ]);
+            } else {
+                // Enregistrer la transaction dans la base de données avec le token
+                Transaction::create([
+                    'subscription_id' => $subscription->id,
+                    'transaction_token' => $transactionToken,
+                    'amount' => $amount,
+                    'date' => date('Y-m-d'),
+                    'status' => 'pending',
+                    'type' => 'subscription',
+                ]);
+            }
+
 
             return $invoice->getInvoiceUrl(); // URL vers la page de paiement
         } else {
@@ -77,30 +86,32 @@ class PayDunyaService
         // Vérification du paiement après le retour de PayDunya
         $invoice = new CheckoutInvoice();
         if ($invoice->confirm($token)) {
+
             // Récupérer la transaction correspondante à partir du token
             $transaction = Transaction::where('transaction_token', $token)->first();
-
             if ($transaction) {
                 // Mettre à jour le statut de la transaction
                 $transaction->update([
-                    'status' => 'completed',
+                    'status' => $invoice->getStatus(),
                 ]);
+                if ($invoice->getStatus() == "completed") {
+                    $subscription = Subscription::where('id', $transaction->subscription_id)->first();
+                    $subscription->update([
+                        'is_active' => 1,
+                    ]);
 
-                $subscription = Subscription::where('id', $transaction->subscription_id)->first();
-                $subscription->update([
-                    'is_active' => 1,
-                ]);
+                    $student = Student::where('id', $subscription->student->id)->first();
+//                $studentQR = $this->createQR(request(), $student);
 
-                $student = Student::where('id', $subscription->student->id)->first();
-                $studentQR = $this->createQR(request(), $student);
+                    // Activer l'inscription de l'étudiant ou faire les actions nécessaires
+                    // Ex: $student = Student::find($transaction->user_id);
+                    // $student->activate();
 
-                // Activer l'inscription de l'étudiant ou faire les actions nécessaires
-                // Ex: $student = Student::find($transaction->user_id);
-                // $student->activate();
-
-                return redirect()->route('home')->with('success', 'Paiement réussi et inscription activée.');
-                // return $invoice->getStatus(); // Statut du paiement
+//                return redirect()->route('home')->with('success', 'Paiement réussi et inscription activée.');
+                    return true; // payment success
+                }
             }
+            return $invoice->getStatus();
         }
 
         return false;

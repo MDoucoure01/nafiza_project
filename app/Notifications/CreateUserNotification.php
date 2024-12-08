@@ -84,7 +84,7 @@ class CreateUserNotification extends Notification
                         Votre compte est en cours de validation sous paiement de vos droits d\'inscription qui s\'élèvent au montant de : 20000 fr.
                         Vous pouvez payer en ligne en cliquant sur le lien ci-dessous.',
                         'actionUrl' => $paymentRedirectUrl, // Lien du bouton d'action
-                        'actionText' => 'Effectuer  ici',
+                        'actionText' => 'Effectuer votre paiement ici',
                         'paymentRedirectUrl' => $paymentRedirectUrl // URL pour le QR code
                     ]);
     }

@@ -78,7 +78,7 @@ class UserController extends Controller
                     "address" => $request->address,
                     "status" => $request->status ?? null,
                     "specific_skills" => $request->specific_skills ?? null,
-                    "password" => $request->password ?? "N@Fiz@2024",
+                    "password" => $request->password ?? "Nafiza2024",
                     "sexe" => $request->sexe
                 ]);
                 $thisUser = User::findOrfail($user->id);

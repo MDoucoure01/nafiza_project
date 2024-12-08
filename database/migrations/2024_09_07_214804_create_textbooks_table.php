@@ -1,7 +1,7 @@
     <?php
 
     use App\Models\Professor;
-    use App\Models\Seance;
+    use App\Models\Course;
     use Illuminate\Database\Migrations\Migration;
     use Illuminate\Database\Schema\Blueprint;
     use Illuminate\Support\Facades\Schema;
@@ -16,7 +16,7 @@
             Schema::create('textbooks', function (Blueprint $table) {
                 $table->id();
                 $table->foreignIdFor(Professor::class)->constrained()->cascadeOnDelete();
-                $table->foreignIdFor(Seance::class)->constrained()->cascadeOnDelete();
+                $table->foreignIdFor(Course::class)->constrained()->cascadeOnDelete();
                 $table->text('content');
                 $table->date('start_date')->nullable();
                 $table->date('end_date')->nullable();

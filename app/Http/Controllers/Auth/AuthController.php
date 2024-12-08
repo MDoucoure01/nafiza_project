@@ -89,7 +89,7 @@ class AuthController extends Controller
                     $userSubscription = Subscription::where("student_id", $student->id)
                         ->where("school_session_id", $request->appActuSession->id)->first();
                     if (!($userSubscription && $userSubscription->is_active)) {
-                        return $this->responseData("Oops inscription non valide", false, Response::HTTP_NOT_FOUND, null);
+                        return $this->responseData("Oops inscription pas encore validée", false, Response::HTTP_NOT_FOUND, null);
                     }
                     $token = $user->createToken('token')->plainTextToken;
                     return $this->responseData('Connection réussie ...', true, Response::HTTP_OK,
